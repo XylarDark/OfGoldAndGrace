@@ -219,10 +219,21 @@ class QuickView {
   }
 
   showCartNotification() {
-    // Simple notification - could be enhanced
+    // Get product quantity from form
+    const quantityInput = this.form.querySelector('input[name="quantity"]');
+    const quantity = quantityInput ? parseInt(quantityInput.value) || 1 : 1;
+
+    // Announce to screen readers
+    if (window.announcements) {
+      window.announcements.productAddedToCart(this.product.title, quantity);
+    }
+
+    // Visual notification
     const notification = document.createElement('div');
     notification.className = 'cart-notification';
-    notification.textContent = 'Item added to cart!';
+    notification.textContent = quantity === 1
+      ? `${this.product.title} added to cart!`
+      : `${quantity} × ${this.product.title} added to cart!`;
     notification.style.cssText = `
       position: fixed;
       top: 20px;

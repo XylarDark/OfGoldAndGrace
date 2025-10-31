@@ -58,6 +58,9 @@
 
   {% section 'header' %}
 
+  <!-- Screen reader announcements -->
+  <div aria-live="polite" aria-atomic="true" class="sr-only" id="announcements"></div>
+
   <main id="MainContent" class="content-for-layout focus-none" role="main" tabindex="-1">
     {{ content_for_layout }}
   </main>
@@ -91,6 +94,7 @@
   <script defer src="{{ 'focus-trap.js' | asset_url }}"></script>
   <script defer src="{{ 'lazyload.js' | asset_url }}"></script>
   <script defer src="{{ 'reviews.js' | asset_url }}"></script>
+  <script defer src="{{ 'announcements.js' | asset_url }}"></script>
   <script defer src="{{ 'collection-filters.js' | asset_url }}"></script>
   <script defer src="{{ 'quick-view.js' | asset_url }}"></script>
   <script defer src="{{ 'wishlist.js' | asset_url }}"></script>

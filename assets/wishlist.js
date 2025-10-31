@@ -46,6 +46,13 @@ class WishlistManager {
       this.wishlist.push(handle);
       this.saveWishlist();
       this.dispatchUpdate('add', handle);
+
+      // Announce to screen readers
+      const productTitle = this.getProductTitle(handle);
+      if (window.announcements && productTitle) {
+        window.announcements.productAddedToWishlist(productTitle);
+      }
+
       return true;
     }
     return false;
@@ -54,12 +61,37 @@ class WishlistManager {
   removeFromWishlist(handle) {
     const index = this.wishlist.indexOf(handle);
     if (index > -1) {
+      // Announce before removing (so we still have access to the product title)
+      const productTitle = this.getProductTitle(handle);
+      if (window.announcements && productTitle) {
+        window.announcements.productRemovedFromWishlist(productTitle);
+      }
+
       this.wishlist.splice(index, 1);
       this.saveWishlist();
       this.dispatchUpdate('remove', handle);
       return true;
     }
     return false;
+  }
+
+  getProductTitle(handle) {
+    // Try to find the product title from buttons on the page
+    const buttons = document.querySelectorAll(`[data-wishlist-toggle][data-product-handle="${handle}"]`);
+    for (const button of buttons) {
+      const title = button.dataset.productTitle;
+      if (title) return title;
+    }
+
+    // Fallback: try to find from product cards
+    const productCard = document.querySelector(`[data-product-handle="${handle}"]`);
+    if (productCard) {
+      const titleEl = productCard.querySelector('.product-card__title, .product__title, h1, h2');
+      if (titleEl) return titleEl.textContent.trim();
+    }
+
+    // Last resort: return the handle formatted as title
+    return handle.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
   }
 
   toggleWishlist(handle) {

@@ -162,6 +162,19 @@
     "server_error": "Server Error",
     "server_error_message": "Something went wrong. Please try again later."
   },
+  "announcements": {
+    "product_added_to_cart": "{{ product }} added to cart",
+    "products_added_to_cart": "{{ count }} × {{ product }} added to cart",
+    "product_added_to_wishlist": "{{ product }} added to wishlist",
+    "product_removed_from_wishlist": "{{ product }} removed from wishlist",
+    "cart_updated": "Cart updated",
+    "filter_applied_singular": "{{ filter }} filter applied",
+    "filters_applied": "{{ count }} filters applied",
+    "search_result_found": "1 result found for {{ query }}",
+    "search_results_found": "{{ count }} results found for {{ query }}",
+    "loading": "Loading...",
+    "error": "An error occurred"
+  },
   "accessibility": {
     "skip_to_content": "Skip to main content",
     "skip_to_navigation": "Skip to navigation",
