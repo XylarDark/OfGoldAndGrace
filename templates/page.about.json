@@ -1,0 +1,18 @@
+{
+  "sections": {
+    "hero": {
+      "type": "page-hero",
+      "settings": {
+        "title": "About Of Gold And Grace",
+        "subtitle": "Crafting timeless jewellery with passion and precision",
+        "background_image": "",
+        "text_color": "dark"
+      }
+    },
+    "main": {
+      "type": "about-content",
+      "settings": {}
+    }
+  },
+  "order": ["hero", "main"]
+}

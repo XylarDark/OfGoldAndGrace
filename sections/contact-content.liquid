@@ -1,0 +1,319 @@
+{{ 'section-contact-content.css' | asset_url | stylesheet_tag }}
+
+<div class="page-width">
+  <div class="contact-content">
+    <div class="contact-content__info">
+      <div class="contact-content__section">
+        <h2>Get In Touch</h2>
+        <p>We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+
+        <div class="contact-content__details">
+          <div class="contact-content__detail">
+            <div class="contact-content__detail-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6.62 10.79C8.06 13.62 10.38 15.94 13.21 17.38L15.41 15.18C15.69 14.9 16.08 14.82 16.43 14.93C17.55 15.3 18.75 15.5 20 15.5C20.55 15.5 21 15.95 21 16.5V20C21 20.55 20.55 21 20 21C10.61 21 3 13.39 3 4C3 3.45 3.45 3 4 3H7.5C8.05 3 8.5 3.45 8.5 4C8.5 5.25 8.7 6.45 9.07 7.57C9.18 7.92 9.1 8.31 8.82 8.59L6.62 10.79Z" fill="currentColor"/>
+              </svg>
+            </div>
+            <div class="contact-content__detail-content">
+              <h3>Phone</h3>
+              <p>+1 (555) 123-4567</p>
+              <p>Mon-Fri 9am-6pm EST</p>
+            </div>
+          </div>
+
+          <div class="contact-content__detail">
+            <div class="contact-content__detail-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 4H4C2.9 4 2.01 4.9 2.01 6L2 18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6C22 4.9 21.1 4 20 4ZM20 8L12 13L4 8V6L12 11L20 6V8Z" fill="currentColor"/>
+              </svg>
+            </div>
+            <div class="contact-content__detail-content">
+              <h3>Email</h3>
+              <p>hello@ofgoldandgrace.com</p>
+              <p>We respond within 24 hours</p>
+            </div>
+          </div>
+
+          <div class="contact-content__detail">
+            <div class="contact-content__detail-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2C8.13 2 5 5.13 5 9C5 14.25 12 22 12 22C12 22 19 14.25 19 9C19 5.13 15.87 2 12 2ZM12 11.5C10.62 11.5 9.5 10.38 9.5 9C9.5 7.62 10.62 6.5 12 6.5C13.38 6.5 14.5 7.62 14.5 9C14.5 10.38 13.38 11.5 12 11.5Z" fill="currentColor"/>
+              </svg>
+            </div>
+            <div class="contact-content__detail-content">
+              <h3>Address</h3>
+              <p>123 Jewellery Street</p>
+              <p>New York, NY 10001</p>
+              <p>United States</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-content__section">
+        <h2>Visit Our Showroom</h2>
+        <p>Experience our collection in person at our flagship showroom. Our expert staff will be happy to assist you with ring sizing, styling advice, and custom orders.</p>
+
+        <div class="contact-content__hours">
+          <h3>Showroom Hours</h3>
+          <div class="contact-content__hours-list">
+            <div class="contact-content__hour">
+              <span>Monday - Friday</span>
+              <span>10:00 AM - 7:00 PM</span>
+            </div>
+            <div class="contact-content__hour">
+              <span>Saturday</span>
+              <span>10:00 AM - 6:00 PM</span>
+            </div>
+            <div class="contact-content__hour">
+              <span>Sunday</span>
+              <span>12:00 PM - 5:00 PM</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-content__form">
+      <div class="contact-content__form-container">
+        <h2>Send us a Message</h2>
+
+        {%- form 'contact', id: 'ContactForm' -%}
+          {%- if form.posted_successfully? -%}
+            <div class="contact-content__success">
+              <p>Thank you for your message! We'll get back to you within 24 hours.</p>
+            </div>
+          {%- endif -%}
+
+          <div class="contact-content__form-fields">
+            <div class="contact-content__field-group">
+              <div class="field">
+                <input
+                  type="text"
+                  name="contact[name]"
+                  placeholder="Your Name *"
+                  required
+                  aria-label="Name"
+                >
+              </div>
+
+              <div class="field">
+                <input
+                  type="email"
+                  name="contact[email]"
+                  placeholder="Your Email *"
+                  required
+                  aria-label="Email"
+                >
+              </div>
+            </div>
+
+            <div class="field">
+              <input
+                type="text"
+                name="contact[phone]"
+                placeholder="Phone Number"
+                aria-label="Phone"
+              >
+            </div>
+
+            <div class="field">
+              <select name="contact[subject]" aria-label="Subject">
+                <option value="">Select Subject</option>
+                <option value="general">General Inquiry</option>
+                <option value="custom">Custom Order</option>
+                <option value="repair">Repair Service</option>
+                <option value="sizing">Ring Sizing</option>
+                <option value="returns">Returns & Exchanges</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <textarea
+                name="contact[body]"
+                placeholder="Your Message *"
+                rows="6"
+                required
+                aria-label="Message"
+              ></textarea>
+            </div>
+
+            <button type="submit" class="button button--primary">
+              Send Message
+            </button>
+          </div>
+        {%- endform -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.contact-content {
+  padding: 4rem 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+}
+
+@media (max-width: 1024px) {
+  .contact-content {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+}
+
+.contact-content__section {
+  margin-bottom: 3rem;
+}
+
+.contact-content__section h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: var(--color-base-text);
+}
+
+.contact-content__section p {
+  color: var(--color-base-text-muted);
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.contact-content__details {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.contact-content__detail {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.contact-content__detail-icon {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  color: var(--color-base-accent-1);
+  margin-top: 0.25rem;
+}
+
+.contact-content__detail-content h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--color-base-text);
+}
+
+.contact-content__detail-content p {
+  margin: 0;
+  color: var(--color-base-text-muted);
+  line-height: 1.5;
+}
+
+.contact-content__hours h3 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: var(--color-base-text);
+}
+
+.contact-content__hours-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.contact-content__hour {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem;
+  background: var(--color-background-2);
+  border-radius: 0.25rem;
+}
+
+.contact-content__form-container {
+  background: var(--color-background-2);
+  padding: 3rem;
+  border-radius: 0.5rem;
+}
+
+.contact-content__form-container h2 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  color: var(--color-base-text);
+}
+
+.contact-content__success {
+  background: var(--color-base-success);
+  color: white;
+  padding: 1rem;
+  border-radius: 0.25rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.contact-content__form-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.contact-content__field-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .contact-content__field-group {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-content__form-container {
+    padding: 2rem;
+  }
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.25rem;
+  font-size: 1rem;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--color-base-accent-1);
+  box-shadow: 0 0 0 3px rgba(var(--color-base-accent-1-rgb), 0.1);
+}
+
+.field textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.button--primary {
+  background: var(--color-base-accent-1);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  align-self: flex-start;
+}
+
+.button--primary:hover {
+  background: var(--color-base-accent-2);
+}
+</style>

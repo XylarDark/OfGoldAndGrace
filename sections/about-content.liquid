@@ -1,0 +1,197 @@
+{{ 'section-about-content.css' | asset_url | stylesheet_tag }}
+
+<div class="page-width">
+  <div class="about-content">
+    <div class="about-content__story">
+      <div class="about-content__text">
+        <h2>Our Story</h2>
+        <p>Of Gold And Grace was founded with a simple mission: to create beautiful, meaningful jewellery that celebrates life's precious moments. Each piece in our collection tells a story of craftsmanship, elegance, and timeless beauty.</p>
+
+        <p>We believe that jewellery should be more than just an accessory—it's a reflection of your personal journey, values, and the connections that matter most to you.</p>
+      </div>
+
+      <div class="about-content__image">
+        <img src="{{ 'about-story.jpg' | asset_url }}" alt="Jewellery craftsmanship" loading="lazy">
+      </div>
+    </div>
+
+    <div class="about-content__values">
+      <h2>Our Values</h2>
+      <div class="about-content__values-grid">
+        <div class="about-content__value">
+          <div class="about-content__value-icon">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2L13.09 8.26L20 9L13.09 9.74L12 16L10.91 9.74L4 9L10.91 8.26L12 2Z" fill="currentColor"/>
+            </svg>
+          </div>
+          <h3>Quality</h3>
+          <p>We use only the finest materials and traditional craftsmanship techniques to ensure every piece meets our exacting standards.</p>
+        </div>
+
+        <div class="about-content__value">
+          <div class="about-content__value-icon">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13 17H11V15H13V17ZM13 13H11V7H13V13Z" fill="currentColor"/>
+            </svg>
+          </div>
+          <h3>Ethics</h3>
+          <p>We're committed to ethical sourcing, fair labor practices, and environmental responsibility throughout our supply chain.</p>
+        </div>
+
+        <div class="about-content__value">
+          <div class="about-content__value-icon">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2C8.13 2 5 5.13 5 9C5 14.25 12 22 12 22C12 22 19 14.25 19 9C19 5.13 15.87 2 12 2ZM12 11.5C10.62 11.5 9.5 10.38 9.5 9C9.5 7.62 10.62 6.5 12 6.5C13.38 6.5 14.5 7.62 14.5 9C14.5 10.38 13.38 11.5 12 11.5Z" fill="currentColor"/>
+            </svg>
+          </div>
+          <h3>Individuality</h3>
+          <p>Every customer is unique, and we take pride in helping you find or create pieces that perfectly express your personal style.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="about-content__craftsmanship">
+      <div class="about-content__image">
+        <img src="{{ 'about-craftsmanship.jpg' | asset_url }}" alt="Artisan at work" loading="lazy">
+      </div>
+
+      <div class="about-content__text">
+        <h2>Our Craftsmanship</h2>
+        <p>Each piece of Of Gold And Grace jewellery is handcrafted by skilled artisans who have spent years perfecting their techniques. From initial design to final polishing, every step is performed with meticulous attention to detail.</p>
+
+        <p>We combine traditional jewelling techniques with modern innovation to create pieces that are both timeless and contemporary.</p>
+
+        <div class="about-content__stats">
+          <div class="about-content__stat">
+            <span class="about-content__stat-number">10+</span>
+            <span class="about-content__stat-label">Years Experience</span>
+          </div>
+          <div class="about-content__stat">
+            <span class="about-content__stat-number">500+</span>
+            <span class="about-content__stat-label">Happy Customers</span>
+          </div>
+          <div class="about-content__stat">
+            <span class="about-content__stat-number">1000+</span>
+            <span class="about-content__stat-label">Pieces Created</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.about-content {
+  padding: 4rem 0;
+}
+
+.about-content__story,
+.about-content__craftsmanship {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  margin-bottom: 6rem;
+}
+
+@media (max-width: 768px) {
+  .about-content__story,
+  .about-content__craftsmanship {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-bottom: 4rem;
+  }
+}
+
+.about-content__text h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--color-base-text);
+}
+
+.about-content__text p {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+  color: var(--color-base-text);
+}
+
+.about-content__image img {
+  width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.about-content__values {
+  margin-bottom: 6rem;
+}
+
+.about-content__values h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+}
+
+.about-content__values-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.about-content__value {
+  text-align: center;
+  padding: 2rem;
+  background: var(--color-background-2);
+  border-radius: 0.5rem;
+}
+
+.about-content__value-icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 1.5rem auto;
+  color: var(--color-base-accent-1);
+}
+
+.about-content__value h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.about-content__value p {
+  color: var(--color-base-text-muted);
+  line-height: 1.6;
+}
+
+.about-content__stats {
+  display: flex;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+@media (max-width: 768px) {
+  .about-content__stats {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+}
+
+.about-content__stat {
+  text-align: center;
+}
+
+.about-content__stat-number {
+  display: block;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--color-base-accent-1);
+  margin-bottom: 0.5rem;
+}
+
+.about-content__stat-label {
+  color: var(--color-base-text-muted);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+</style>

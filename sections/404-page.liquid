@@ -1,0 +1,160 @@
+{{ 'section-404-page.css' | asset_url | stylesheet_tag }}
+
+<div class="page-width">
+  <div class="error-page">
+    <div class="error-page__content">
+      <div class="error-page__hero">
+        <h1 class="error-page__title">{{ 'errors.page_not_found' | t }}</h1>
+        <p class="error-page__message">{{ 'errors.page_not_found_message' | t }}</p>
+      </div>
+
+      <div class="error-page__actions">
+        <a href="{{ routes.root_url }}" class="button button--primary">
+          {{ 'errors.go_home' | t }}
+        </a>
+        <button onclick="history.back()" class="button button--secondary">
+          {{ 'general.back' | t }}
+        </button>
+      </div>
+
+      <div class="error-page__search">
+        <form action="{{ routes.search_url }}" method="get" role="search">
+          <div class="field">
+            <input
+              type="search"
+              name="q"
+              placeholder="{{ 'header.search.placeholder' | t }}"
+              aria-label="{{ 'header.search.placeholder' | t }}"
+              required
+            >
+            <button type="submit" aria-label="{{ 'general.search' | t }}">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14.1401 13.1133L17.4268 16.4L16.4001 17.4267L13.1134 14.14C11.9368 15.0417 10.4668 15.5833 8.91675 15.5833C5.16675 15.5833 2.08341 12.5 2.08341 8.75C2.08341 5 5.16675 1.91667 8.91675 1.91667C12.6668 1.91667 15.7501 5 15.7501 8.75C15.7501 10.3 15.2084 11.77 14.3068 12.9467L14.1401 13.1133ZM12.9168 8.75C12.9168 6.43333 11.2334 4.75 8.91675 4.75C6.60008 4.75 4.91675 6.43333 4.91675 8.75C4.91675 11.0667 6.60008 12.75 8.91675 12.75C11.2334 12.75 12.9168 11.0667 12.9168 8.75Z" fill="currentColor"/>
+              </svg>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div class="error-page__suggestions">
+        <h2>{{ 'general.popular' | t }} {{ 'header.navigation.collections' | t | downcase }}</h2>
+        <div class="error-page__collections">
+          {%- for collection in collections -%}
+            {%- if collection.products_count > 0 -%}
+              <a href="{{ collection.url }}" class="error-page__collection-link">
+                {{ collection.title }}
+                <span class="error-page__count">({{ collection.products_count }})</span>
+              </a>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.error-page {
+  padding: 6rem 0;
+  text-align: center;
+}
+
+.error-page__title {
+  font-size: 8rem;
+  font-weight: 700;
+  color: var(--color-base-text);
+  margin: 0 0 2rem 0;
+  line-height: 1;
+}
+
+@media (max-width: 768px) {
+  .error-page__title {
+    font-size: 6rem;
+  }
+}
+
+.error-page__message {
+  font-size: 1.5rem;
+  color: var(--color-base-text);
+  margin: 0 0 3rem 0;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.error-page__actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 480px) {
+  .error-page__actions {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.error-page__search {
+  max-width: 400px;
+  margin: 0 auto 4rem auto;
+}
+
+.error-page__search .field {
+  position: relative;
+}
+
+.error-page__search input {
+  width: 100%;
+  padding: 1rem 3rem 1rem 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+  font-size: 1rem;
+}
+
+.error-page__search button {
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--color-base-text);
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.error-page__suggestions h2 {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.error-page__collections {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.error-page__collection-link {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+  text-decoration: none;
+  color: var(--color-base-text);
+  transition: all 0.2s ease;
+}
+
+.error-page__collection-link:hover {
+  border-color: var(--color-base-accent-1);
+  color: var(--color-base-accent-1);
+}
+
+.error-page__count {
+  color: var(--color-base-text-muted);
+  font-size: 0.9em;
+}
+</style>

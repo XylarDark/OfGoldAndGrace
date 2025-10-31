@@ -1,0 +1,18 @@
+{
+  "sections": {
+    "hero": {
+      "type": "page-hero",
+      "settings": {
+        "title": "Contact Us",
+        "subtitle": "We're here to help with any questions about our jewellery",
+        "background_image": "",
+        "text_color": "dark"
+      }
+    },
+    "main": {
+      "type": "contact-content",
+      "settings": {}
+    }
+  },
+  "order": ["hero", "main"]
+}
