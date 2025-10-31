@@ -1,0 +1,153 @@
+<div class="newsletter-signup">
+  <div class="newsletter-signup__content">
+    <div class="newsletter-signup__text">
+      <h3 class="newsletter-signup__title">{{ 'footer.newsletter.title' | t }}</h3>
+      <p class="newsletter-signup__description">{{ 'footer.newsletter.description' | t }}</p>
+    </div>
+
+    {%- form 'customer', id: 'NewsletterForm' -%}
+      <div class="newsletter-signup__form">
+        <div class="field">
+          <input
+            type="email"
+            name="contact[email]"
+            placeholder="{{ 'footer.newsletter.placeholder' | t }}"
+            required
+            aria-label="{{ 'footer.newsletter.placeholder' | t }}"
+            autocomplete="email"
+          >
+        </div>
+
+        <button type="submit" class="button button--primary" name="commit">
+          {{ 'footer.newsletter.subscribe' | t }}
+        </button>
+      </div>
+
+      {%- if form.errors -%}
+        <div class="newsletter-signup__error" role="alert">
+          {%- for error in form.errors -%}
+            {{ error.message }}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      {%- if form.posted_successfully? -%}
+        <div class="newsletter-signup__success" role="status">
+          {{ 'footer.newsletter.success' | t }}
+        </div>
+      {%- endif -%}
+    {%- endform -%}
+  </div>
+</div>
+
+<style>
+.newsletter-signup {
+  background: var(--color-background-2);
+  padding: 3rem 2rem;
+  border-radius: 0.5rem;
+  margin: 2rem 0;
+}
+
+.newsletter-signup__content {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.newsletter-signup__title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--color-base-text);
+}
+
+.newsletter-signup__description {
+  color: var(--color-base-text-muted);
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.newsletter-signup__form {
+  display: flex;
+  gap: 1rem;
+  max-width: 500px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .newsletter-signup__form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .newsletter-signup {
+    padding: 2rem 1.5rem;
+  }
+}
+
+.newsletter-signup__form .field {
+  flex: 1;
+  min-width: 250px;
+}
+
+.newsletter-signup__form input {
+  width: 100%;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  background: var(--color-background);
+  color: var(--color-base-text);
+}
+
+.newsletter-signup__form input:focus {
+  outline: none;
+  border-color: var(--color-base-accent-1);
+  box-shadow: 0 0 0 3px rgba(var(--color-base-accent-1-rgb), 0.1);
+}
+
+.newsletter-signup__form input::placeholder {
+  color: var(--color-base-text-muted);
+}
+
+.button--primary {
+  background: var(--color-base-accent-1);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  white-space: nowrap;
+}
+
+.button--primary:hover {
+  background: var(--color-base-accent-2);
+}
+
+.button--primary:focus {
+  outline: 2px solid var(--color-base-accent-1);
+  outline-offset: 2px;
+}
+
+.newsletter-signup__error {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: var(--color-base-error);
+  color: white;
+  border-radius: 0.25rem;
+  font-size: 0.9rem;
+}
+
+.newsletter-signup__success {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: var(--color-base-success);
+  color: white;
+  border-radius: 0.25rem;
+  font-size: 0.9rem;
+}
+</style>

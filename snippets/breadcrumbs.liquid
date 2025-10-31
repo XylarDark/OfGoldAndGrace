@@ -1,0 +1,112 @@
+<nav aria-label="Breadcrumb" class="breadcrumbs">
+  <ol class="breadcrumbs__list">
+    <li class="breadcrumbs__item">
+      <a href="{{ routes.root_url }}" class="breadcrumbs__link">{{ 'general.home' | t }}</a>
+    </li>
+
+    {%- if template.name == 'collection' -%}
+      {%- if collection.title -%}
+        <li class="breadcrumbs__item breadcrumbs__item--current" aria-current="page">
+          {{ collection.title }}
+        </li>
+      {%- endif -%}
+    {%- elsif template.name == 'product' -%}
+      {%- if product.collections.first -%}
+        <li class="breadcrumbs__item">
+          <a href="{{ product.collections.first.url }}" class="breadcrumbs__link">
+            {{ product.collections.first.title }}
+          </a>
+        </li>
+      {%- endif -%}
+      <li class="breadcrumbs__item breadcrumbs__item--current" aria-current="page">
+        {{ product.title }}
+      </li>
+    {%- elsif template.name == 'page' -%}
+      <li class="breadcrumbs__item breadcrumbs__item--current" aria-current="page">
+        {{ page.title }}
+      </li>
+    {%- elsif template.name == 'blog' -%}
+      <li class="breadcrumbs__item">
+        <a href="{{ routes.blog_url }}" class="breadcrumbs__link">{{ 'header.navigation.blog' | t }}</a>
+      </li>
+      {%- if current_tags -%}
+        {%- for tag in current_tags -%}
+          <li class="breadcrumbs__item">
+            <a href="{{ tag.url }}" class="breadcrumbs__link">{{ tag.title }}</a>
+          </li>
+        {%- endfor -%}
+      {%- endif -%}
+      {%- if blog.title -%}
+        <li class="breadcrumbs__item breadcrumbs__item--current" aria-current="page">
+          {{ blog.title }}
+        </li>
+      {%- endif -%}
+    {%- elsif template.name == 'article' -%}
+      <li class="breadcrumbs__item">
+        <a href="{{ routes.blog_url }}" class="breadcrumbs__link">{{ 'header.navigation.blog' | t }}</a>
+      </li>
+      {%- if article.blog -%}
+        <li class="breadcrumbs__item">
+          <a href="{{ article.blog.url }}" class="breadcrumbs__link">{{ article.blog.title }}</a>
+        </li>
+      {%- endif -%}
+      <li class="breadcrumbs__item breadcrumbs__item--current" aria-current="page">
+        {{ article.title }}
+      </li>
+    {%- endif -%}
+  </ol>
+</nav>
+
+<style>
+.breadcrumbs {
+  margin-bottom: 2rem;
+}
+
+.breadcrumbs__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 0.5rem;
+}
+
+.breadcrumbs__item {
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+  color: var(--color-base-text-muted);
+}
+
+.breadcrumbs__item:not(:last-child)::after {
+  content: '/';
+  margin-left: 0.5rem;
+  color: var(--color-base-text-muted);
+}
+
+.breadcrumbs__item--current {
+  color: var(--color-base-text);
+  font-weight: 500;
+}
+
+.breadcrumbs__link {
+  color: var(--color-base-text-muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.breadcrumbs__link:hover {
+  color: var(--color-base-accent-1);
+}
+
+@media (max-width: 768px) {
+  .breadcrumbs__list {
+    gap: 0.25rem;
+  }
+
+  .breadcrumbs__item {
+    font-size: 0.8rem;
+  }
+}
+</style>

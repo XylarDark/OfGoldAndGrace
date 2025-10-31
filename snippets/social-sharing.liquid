@@ -1,0 +1,140 @@
+<div class="social-sharing">
+  <h3 class="social-sharing__title">{{ 'product.details.share' | t }}</h3>
+  <div class="social-sharing__buttons">
+    {%- assign share_url = canonical_url | url_encode -%}
+    {%- assign share_title = page_title | url_encode -%}
+
+    <a
+      href="https://www.facebook.com/sharer/sharer.php?u={{ share_url }}"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="social-sharing__button social-sharing__button--facebook"
+      aria-label="Share on Facebook"
+    >
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.099 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.099 24 12.073z"/>
+      </svg>
+      <span class="social-sharing__button-text">Facebook</span>
+    </a>
+
+    <a
+      href="https://twitter.com/intent/tweet?url={{ share_url }}&text={{ share_title }}"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="social-sharing__button social-sharing__button--twitter"
+      aria-label="Share on Twitter"
+    >
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+      </svg>
+      <span class="social-sharing__button-text">Twitter</span>
+    </a>
+
+    <a
+      href="https://pinterest.com/pin/create/button/?url={{ share_url }}&description={{ share_title }}{%- if product.featured_image -%}&media={{ product.featured_image | img_url: '1200x' }}{%- endif -%}"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="social-sharing__button social-sharing__button--pinterest"
+      aria-label="Share on Pinterest"
+    >
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.75.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.746-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24.009 12.017 24c6.624 0 11.99-5.367 11.99-11.987C24.007 5.367 18.641.001.012.017z"/>
+      </svg>
+      <span class="social-sharing__button-text">Pinterest</span>
+    </a>
+
+    <button
+      class="social-sharing__button social-sharing__button--copy"
+      data-url="{{ canonical_url }}"
+      aria-label="Copy link"
+      onclick="navigator.clipboard.writeText('{{ canonical_url }}').then(() => { this.innerHTML = 'Copied!'; setTimeout(() => { this.innerHTML = 'Copy Link'; }, 2000); })"
+    >
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M16 1H4C2.9 1 2 1.9 2 3V17H4V3H16V1ZM19 5H8C6.9 5 6 5.9 6 7V21C6 22.1 6.9 23 8 23H19C20.1 23 21 22.1 21 21V7C21 5.9 20.1 5 19 5ZM19 21H8V7H19V21Z"/>
+      </svg>
+      <span class="social-sharing__button-text">Copy Link</span>
+    </button>
+  </div>
+</div>
+
+<style>
+.social-sharing {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.social-sharing__title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--color-base-text);
+}
+
+.social-sharing__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.social-sharing__button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.25rem;
+  background: var(--color-background);
+  color: var(--color-base-text);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.social-sharing__button:hover {
+  border-color: var(--color-base-accent-1);
+  color: var(--color-base-accent-1);
+  transform: translateY(-1px);
+}
+
+.social-sharing__button--facebook:hover {
+  border-color: #1877f2;
+  color: #1877f2;
+}
+
+.social-sharing__button--twitter:hover {
+  border-color: #1da1f2;
+  color: #1da1f2;
+}
+
+.social-sharing__button--pinterest:hover {
+  border-color: #e60023;
+  color: #e60023;
+}
+
+.social-sharing__button--copy:hover {
+  border-color: var(--color-base-success);
+  color: var(--color-base-success);
+}
+
+.social-sharing__button:focus {
+  outline: 2px solid var(--color-base-accent-1);
+  outline-offset: 2px;
+}
+
+.social-sharing__button svg {
+  flex-shrink: 0;
+}
+
+.social-sharing__button-text {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .social-sharing__button-text {
+    display: inline;
+  }
+}
+</style>
