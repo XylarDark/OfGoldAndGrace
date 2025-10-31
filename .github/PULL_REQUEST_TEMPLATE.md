@@ -44,6 +44,13 @@
 - [ ] **Budget delta**: Estimated size increase/decrease: `______`
 - [ ] **Over budget justification**: If >100KB total, explain mitigation plan:
 
+## Session Review
+<!-- Complete after each Plan→Agent cycle (see .cursorrules cycle_closeout) -->
+- [ ] **Changes this cycle**: Features added, tests written, CI/docs updated, bugs fixed
+- [ ] **Errors/workarounds**: Any platform/environment errors encountered and solutions
+- [ ] **Rules updated**: `.cursorrules` version bump if policies/guardrails changed
+- [ ] **Changelog entry**: Added dated entry to `docs/rules-changelog.md` with highlights/rationale
+
 ## Testing Completed
 <!-- Mark completed testing items -->
 - [ ] **Unit Tests**: `assets/__tests__/test-runner.html` passes
