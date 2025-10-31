@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function() {
       <div class="wishlist__product-image">
         <a href="${product.url}">
           ${product.featured_image ?
-            `<img src="${product.featured_image}" alt="${product.title}" loading="lazy">` :
+            `<img src="${product.featured_image}?width=300" alt="${product.title}" loading="lazy" srcset="${product.featured_image}?width=200 200w, ${product.featured_image}?width=300 300w, ${product.featured_image}?width=400 400w" sizes="(max-width: 480px) 200px, (max-width: 768px) 300px, 400px">` :
             `<div class="wishlist__product-placeholder">
               <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
                 <path d="M4 4h16v16H4V4zm2 2v12h12V6H6zm2 10l2-3 2 2 4-5 2 3H8v0z" fill="currentColor"/>
