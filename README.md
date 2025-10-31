@@ -7,14 +7,20 @@ A minimal-cost Shopify theme for an online-only jewellery store featuring consig
 - **Online-only sales**: No POS or physical store integration
 - **Jewellery-focused PDP**: Metal variant swatches, size guide modal, care instructions, gift wrapping
 - **Interactive Quick View**: Instant product preview without page navigation
-- **Persistent Wishlist**: localStorage-based favorites with heart toggle UI
+- **Persistent Wishlist**: localStorage-based favorites with heart toggle UI and dedicated page
+- **Product Reviews**: Static review scaffold with star ratings, filtering, and pagination (upgradeable to app)
 - **Consignment locations map**: Interactive Leaflet-powered map showing partner stores
 - **Free ChatGPT Shopping**: Via Shopify Shop channel (requires account setup)
+- **Advanced Collection Filters**: Tag-based multi-select filters with URL synchronization and bookmarkable state
+- **Responsive Images**: Optimized srcset/sizes for all product images to improve Core Web Vitals
+- **Structured Data (JSON-LD)**: Rich snippets for products, breadcrumbs, organization, and website schema
+- **Breadcrumb Navigation**: Semantic breadcrumbs on all product and collection pages
+- **Screen Reader Accessibility**: Global aria-live region with announcements for cart/wishlist actions
 - **Accessibility-first**: WCAG AA compliant with keyboard navigation, skip links, and ARIA labels
 - **Performance optimized**: Lazy loading images, deferred JS, Core Web Vitals monitoring
-- **Mobile responsive**: Optimized for all device sizes
-- **SEO ready**: Structured data, meta tags, and semantic HTML
-- **Comprehensive testing**: Built-in JavaScript test suite for development
+- **Mobile responsive**: Optimized for all device sizes with fluid typography and spacing
+- **SEO ready**: Structured data, meta tags, semantic HTML, and breadcrumb navigation
+- **Comprehensive testing**: Built-in JavaScript test suite covering all major components
 
 ## 🛠️ Development Guidelines
 
@@ -185,6 +191,129 @@ Comprehensive accessibility implementation.
 - Screen reader compatibility verification
 - Color contrast ratios meet WCAG AA standards
 
+## 🆕 New Features & Usage
+
+### Product Reviews
+
+The theme includes a static reviews scaffold that can be upgraded to use a reviews app later.
+
+**Current Implementation:**
+- Static review data in `assets/reviews.json`
+- Star ratings, filtering, and pagination
+- AggregateRating JSON-LD for SEO
+
+**Upgrading to Reviews App:**
+1. Install a Shopify reviews app (e.g., Judge.me, Loox, Yotpo)
+2. Replace the static data with dynamic app data
+3. Update `snippets/reviews.liquid` to use app-provided Liquid variables
+4. Remove the "Enable Reviews App" notice
+
+**Files:**
+- `snippets/reviews.liquid` - Reviews UI component
+- `assets/reviews.js` - Reviews functionality
+- `assets/reviews.json` - Static review data
+
+### Advanced Collection Filters
+
+Tag-based filtering with URL synchronization for bookmarkable search states.
+
+**Features:**
+- Multi-select tag filters
+- URL-based state management
+- Responsive filter UI
+- Clear/reset functionality
+
+**Usage:**
+- Filters automatically appear on collection pages
+- Selected filters persist in URL for sharing/bookmarking
+- Users can filter by product tags (e.g., "gold", "silver", "rings")
+
+**Files:**
+- `assets/collection-filters.js` - Filter functionality
+- `sections/main-collection.liquid` - Filter UI integration
+
+### Responsive Images
+
+Optimized image delivery using srcset and sizes attributes for better performance.
+
+**Implementation:**
+- Product cards use responsive images (200px-500px)
+- Quick View modal uses responsive images (400px-600px)
+- Automatic fallback for older browsers
+
+**Benefits:**
+- Reduced bandwidth usage
+- Improved Core Web Vitals (LCP, CLS)
+- Better mobile performance
+
+### Structured Data (JSON-LD)
+
+Rich snippets for improved SEO and search result appearance.
+
+**Schemas Included:**
+- Organization schema (store info)
+- Website schema (search functionality)
+- Product schema (individual products)
+- Collection schema (product listings)
+- Breadcrumb schema (navigation)
+
+**Benefits:**
+- Enhanced search result snippets
+- Rich cards in search results
+- Better crawling/indexing
+
+**Files:**
+- `snippets/structured-data.liquid` - Dynamic schema generation
+
+### Breadcrumb Navigation
+
+Semantic breadcrumb navigation for improved UX and SEO.
+
+**Features:**
+- Automatic breadcrumb generation
+- Schema.org structured data
+- Accessible navigation
+- Mobile responsive
+
+**Pages with Breadcrumbs:**
+- Product detail pages
+- Collection pages
+- Search results (when implemented)
+
+### Screen Reader Accessibility
+
+Global announcements for user actions to improve accessibility.
+
+**Features:**
+- aria-live region for announcements
+- Cart addition announcements
+- Wishlist updates
+- Error messages
+- Filter application feedback
+
+**Announced Actions:**
+- Product added to cart (with quantity)
+- Product added/removed from wishlist
+- Filter applications
+- Form errors
+
+**Files:**
+- `assets/announcements.js` - Announcement utility
+- Integrated into Quick View and Wishlist components
+
+### Dedicated Wishlist Page
+
+Standalone page for viewing saved items.
+
+**Setup:**
+1. Create a page in Shopify Admin with template "page.wishlist"
+2. URL will be `/pages/wishlist`
+3. Users can access saved items directly
+
+**Files:**
+- `templates/page.wishlist.json` - Page template
+- `sections/wishlist.liquid` - Wishlist UI
+
 ## 🚀 Deployment
 
 ### Via Shopify CLI (Recommended)
@@ -227,7 +356,7 @@ git commit -m "docs: update setup instructions"
 - **Formatting**: Prettier for consistent code style
 - **Accessibility**: Manual WCAG AA testing required
 - **Performance**: Lighthouse score target: 85+ performance, 90+ accessibility
-- **Testing**: Built-in JavaScript test suite for Quick View and Wishlist
+- **Testing**: Built-in JavaScript test suite covering all major components
 
 ### Testing
 
@@ -242,10 +371,13 @@ Run the test suite to verify JavaScript functionality:
 ```
 
 **Test Coverage:**
-- Wishlist functionality (add/remove/toggle/persistence)
-- Quick View modal (initialization, variants, quantity, forms)
-- Focus trap utility for accessibility
-- DOM interactions and event handling
+- **Quick View**: Modal behavior, form submission, image loading, accessibility
+- **Wishlist**: Add/remove/toggle/persistence, UI updates, error handling
+- **Lazy Loading**: IntersectionObserver, loading states, error handling, responsive images
+- **Reviews Widget**: Initialization, star rendering, filtering, pagination, date formatting
+- **Collection Filters**: URL synchronization, multi-select logic, UI state management
+- **Focus Management**: Modal focus traps, keyboard navigation
+- **Error Handling**: Network failures, invalid data, edge cases
 
 ## 🤖 ChatGPT Shopping Integration
 
