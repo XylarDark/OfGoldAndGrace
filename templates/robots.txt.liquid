@@ -56,8 +56,11 @@ Disallow: /api/
 # Crawl delay (optional - use sparingly as it may slow indexing)
 # Crawl-delay: 1
 
-# Sitemap location (uncomment and update if you have a sitemap)
-# Sitemap: {{ shop.url }}/sitemap.xml
+# Sitemap location - Shopify auto-generates this
+Sitemap: https://{{ shop.primary_domain.hostname }}/sitemap.xml
+
+# Supplemental sitemap (uncomment if needed for URLs not covered by Shopify's sitemap)
+# Sitemap: https://{{ shop.primary_domain.hostname }}/cdn/shop/t/1/assets/supplemental-sitemap.xml
 
 # Additional user agents can be specified below
 # User-agent: Googlebot
