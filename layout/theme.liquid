@@ -58,7 +58,13 @@
   <a href="#site-search" class="skip-link sr-only" data-skip-target="site-search">{{ 'accessibility.skip_to_search' | t }}</a>
   <a href="#site-footer" class="skip-link sr-only" data-skip-target="site-footer">{{ 'accessibility.skip_to_footer' | t }}</a>
 
-  {% section 'header' %}
+  <div id="site-nav">
+    {% section 'header' %}
+  </div>
+
+  <div id="site-search" style="display: none;">
+    <!-- Search functionality will be handled by the header section -->
+  </div>
 
   <!-- Screen reader announcements -->
   <div aria-live="polite" aria-atomic="true" class="sr-only" id="announcements"></div>
@@ -67,7 +73,9 @@
     {{ content_for_layout }}
   </main>
 
-  {% section 'footer' %}
+  <div id="site-footer">
+    {% section 'footer' %}
+  </div>
 
   <!-- Quick View Modal -->
   {% render 'quick-view-modal' %}
@@ -76,7 +84,7 @@
     // Basic theme JavaScript
     document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
 
-    // Accessibility: Show skip links only when target elements exist
+    // Accessibility: Show skip links only when target elements exist and add navigation announcements
     document.addEventListener('DOMContentLoaded', function() {
       const skipLinks = document.querySelectorAll('[data-skip-target]');
       skipLinks.forEach(link => {
@@ -84,6 +92,14 @@
         const targetElement = document.getElementById(targetId);
         if (targetElement) {
           link.classList.remove('sr-only');
+
+          // Add navigation announcement on click
+          link.addEventListener('click', () => {
+            const linkText = link.textContent.trim();
+            if (window.announcements) {
+              window.announcements.announce(`${linkText} navigation activated`);
+            }
+          });
         }
       });
     });
