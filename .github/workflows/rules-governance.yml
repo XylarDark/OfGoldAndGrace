@@ -1,0 +1,34 @@
+name: Rules Governance Check
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+
+jobs:
+  governance-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for git diff
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Check Rules Governance
+        run: node scripts/check-rules-governance.js
+        continue-on-error: true # Report-only governance check
+
+      - name: Upload governance summary
+        uses: actions/upload-artifact@v4
+        with:
+          name: governance-report-${{ github.run_id }}
+          path: |
+            **/*.log
+          retention-days: 7
+        if: always()
