@@ -1,0 +1,63 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Consignment Locations Schema",
+  "description": "Schema for consignment location data used in the static map",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["partner", "store", "address", "latitude", "longitude"],
+    "properties": {
+      "partner": {
+        "type": "string",
+        "description": "Name of the partner organization",
+        "minLength": 1,
+        "maxLength": 100
+      },
+      "store": {
+        "type": "string",
+        "description": "Name of the specific store location",
+        "minLength": 1,
+        "maxLength": 100
+      },
+      "address": {
+        "type": "string",
+        "description": "Full street address of the location",
+        "minLength": 1,
+        "maxLength": 200
+      },
+      "latitude": {
+        "type": "number",
+        "description": "Latitude coordinate",
+        "minimum": -90,
+        "maximum": 90
+      },
+      "longitude": {
+        "type": "number",
+        "description": "Longitude coordinate",
+        "minimum": -180,
+        "maximum": 180
+      },
+      "phone": {
+        "type": "string",
+        "description": "Phone number (optional)",
+        "pattern": "^\\+?[0-9\\s\\(\\)\\-\\+]+$",
+        "maxLength": 20
+      },
+      "hours": {
+        "type": "string",
+        "description": "Business hours (optional)",
+        "maxLength": 100
+      },
+      "website": {
+        "type": "string",
+        "description": "Website URL (optional)",
+        "format": "uri",
+        "pattern": "^https?://",
+        "maxLength": 200
+      }
+    },
+    "additionalProperties": false
+  },
+  "minItems": 0,
+  "maxItems": 100
+}
