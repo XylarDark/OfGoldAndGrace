@@ -244,22 +244,90 @@ class CollectionFilters {
   }
 
   applyFilters() {
-    // In a full implementation, this would:
-    // 1. Filter the product list client-side
-    // 2. Or make an AJAX request to get filtered results
-    // 3. Update the product grid
+    const productCards = document.querySelectorAll('[data-product-id]');
+    let visibleCount = 0;
 
-    // For now, we'll emit an event that other components can listen to
+    productCards.forEach(card => {
+      const isVisible = this.productMatchesFilters(card);
+      card.style.display = isVisible ? '' : 'none';
+      if (isVisible) visibleCount++;
+    });
+
+    // Update results count
+    this.updateResultsCount(visibleCount, productCards.length);
+
+    // Handle empty state
+    this.updateEmptyState(visibleCount);
+
+    // Emit event for other components
     const filterEvent = new CustomEvent('collection:filters-changed', {
       detail: {
         activeFilters: this.activeFilters,
-        filterCount: this.getActiveFilterCount()
+        filterCount: this.getActiveFilterCount(),
+        visibleCount: visibleCount
       }
     });
     document.dispatchEvent(filterEvent);
 
     // Update filter count display
     this.updateFilterCount();
+  }
+
+  productMatchesFilters(productCard) {
+    // Get product data from the card
+    const productHandle = productCard.getAttribute('data-product-handle') || productCard.getAttribute('data-product-id');
+    const productTags = productCard.getAttribute('data-product-tags')?.split(',') || [];
+    const productPrice = parseFloat(productCard.getAttribute('data-product-price')) || 0;
+    const productAvailable = productCard.getAttribute('data-product-available') === 'true';
+
+    // Check tag filters
+    if (this.activeFilters.tags.length > 0) {
+      const hasMatchingTag = this.activeFilters.tags.some(tag =>
+        productTags.some(productTag => productTag.toLowerCase().includes(tag.toLowerCase()))
+      );
+      if (!hasMatchingTag) return false;
+    }
+
+    // Check price filters
+    if (this.activeFilters.price_min && productPrice < parseFloat(this.activeFilters.price_min)) {
+      return false;
+    }
+    if (this.activeFilters.price_max && productPrice > parseFloat(this.activeFilters.price_max)) {
+      return false;
+    }
+
+    // Check availability filter
+    if (this.activeFilters.availability === 'in-stock' && !productAvailable) {
+      return false;
+    }
+
+    // Check metal filters (if any metal filters are specified, check if product has them)
+    if (this.activeFilters.metal.length > 0) {
+      const hasMatchingMetal = this.activeFilters.metal.some(metal =>
+        productTags.some(productTag => productTag.toLowerCase().includes(metal.toLowerCase()))
+      );
+      if (!hasMatchingMetal) return false;
+    }
+
+    return true;
+  }
+
+  updateResultsCount(visibleCount, totalCount) {
+    const resultsElement = document.querySelector('[data-results-count]');
+    if (resultsElement) {
+      if (visibleCount === totalCount) {
+        resultsElement.textContent = `${totalCount} products`;
+      } else {
+        resultsElement.textContent = `${visibleCount} of ${totalCount} products`;
+      }
+    }
+  }
+
+  updateEmptyState(visibleCount) {
+    const emptyState = document.querySelector('[data-no-results]');
+    if (emptyState) {
+      emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
+    }
   }
 
   getActiveFilterCount() {

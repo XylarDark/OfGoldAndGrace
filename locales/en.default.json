@@ -102,6 +102,8 @@
       "platinum": "Platinum",
       "rose_gold": "Rose Gold",
       "no_tags": "No tags available",
+      "no_results_title": "No products found",
+      "no_results_message": "Try adjusting your filters to find what you're looking for.",
       "sort_by": "Sort by",
       "clear_filters": "Clear All Filters"
     },

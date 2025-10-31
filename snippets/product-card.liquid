@@ -1,4 +1,9 @@
-<div class="product-card" data-product-id="{{ product.id }}" data-product-handle="{{ product.handle }}">
+<div class="product-card"
+     data-product-id="{{ product.id }}"
+     data-product-handle="{{ product.handle }}"
+     data-product-tags="{{ product.tags | join: ',' }}"
+     data-product-price="{{ product.price | money_without_currency }}"
+     data-product-available="{{ product.available }}">
   <div class="product-card__image-container">
     <a href="{{ product.url }}" class="product-card__link">
       {%- if product.featured_image -%}
