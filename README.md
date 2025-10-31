@@ -497,6 +497,29 @@ git commit -m "docs: update setup instructions"
 - **Performance**: Lighthouse score target: 85+ performance, 90+ accessibility
 - **Testing**: Built-in JavaScript test suite covering all major components
 
+### Lighthouse CI (Performance Monitoring)
+
+Optional Lighthouse CI generates performance, accessibility, and SEO reports without blocking builds.
+
+**Setup:**
+1. Add `LIGHTHOUSE_URL` repository secret with your site URL (e.g., `https://your-store.myshopify.com`)
+2. Reports run automatically on:
+   - Manual trigger (`workflow_dispatch`)
+   - Weekly schedule (Mondays at 02:00 UTC)
+   - Push to `main` (if URL configured)
+
+**Viewing Reports:**
+- Reports uploaded as workflow artifacts (30-day retention)
+- Download HTML/JSON files from GitHub Actions tab
+- Desktop and mobile reports included
+- No build failures on low scores (observability-only)
+
+**Manual Run:**
+1. Go to GitHub Actions tab
+2. Select "Lighthouse CI" workflow
+3. Click "Run workflow"
+4. Check artifacts after completion
+
 ### Testing
 
 Run the test suite to verify JavaScript functionality:
