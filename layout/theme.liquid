@@ -5,6 +5,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="{{ settings.color_primary }}">
+  <meta name="format-detection" content="telephone=no">
+
+  <!-- Performance: Resource hints -->
+  <link rel="preconnect" href="https://www.google-analytics.com">
+  <link rel="preconnect" href="https://www.googletagmanager.com">
 
   <title>{{ page_title }}</title>
 
@@ -13,6 +18,16 @@
   {% endif %}
 
   <link rel="canonical" href="{{ canonical_url }}">
+
+  <!-- Performance: Preconnect to external domains -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+  <link rel="dns-prefetch" href="//www.google-analytics.com">
+
+  <!-- Performance: Preload critical fonts if any -->
+  <!-- <link rel="preload" href="{{ 'font-file.woff2' | asset_url }}" as="font" type="font/woff2" crossorigin> -->
 
   <!-- Accessibility styles -->
   {{ 'a11y.css' | asset_url | stylesheet_tag }}
@@ -66,10 +81,13 @@
     });
   </script>
 
-  <!-- Theme enhancements -->
-  {{ 'focus-trap.js' | asset_url | script_tag }}
-  {{ 'quick-view.js' | asset_url | script_tag }}
-  {{ 'wishlist.js' | asset_url | script_tag }}
-  {{ 'lazyload.js' | asset_url | script_tag }}
+  <!-- Performance utilities - loaded early -->
+  <script defer src="{{ 'performance.js' | asset_url }}"></script>
+
+  <!-- Theme enhancements - loaded after core content for performance -->
+  <script defer src="{{ 'focus-trap.js' | asset_url }}"></script>
+  <script defer src="{{ 'lazyload.js' | asset_url }}"></script>
+  <script defer src="{{ 'quick-view.js' | asset_url }}"></script>
+  <script defer src="{{ 'wishlist.js' | asset_url }}"></script>
 </body>
 </html>
