@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Theme JavaScript Tests</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+
+    .test-container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .test-header {
+      text-align: center;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .test-header h1 {
+      color: #2c3e50;
+      margin: 0 0 10px 0;
+    }
+
+    .test-header p {
+      color: #7f8c8d;
+      margin: 0;
+    }
+
+    .test-results {
+      font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+      background: #2c3e50;
+      color: #ecf0f1;
+      padding: 20px;
+      border-radius: 4px;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      line-height: 1.4;
+    }
+
+    .test-summary {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 4px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .test-summary.success {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    .test-summary.failure {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+
+    .run-tests-btn {
+      display: block;
+      margin: 20px auto;
+      padding: 12px 24px;
+      background: #007cba;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .run-tests-btn:hover {
+      background: #005a87;
+    }
+
+    .run-tests-btn:disabled {
+      background: #cccccc;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+  <div class="test-container">
+    <div class="test-header">
+      <h1>Of Gold And Grace Theme Tests</h1>
+      <p>Testing Quick View and Wishlist functionality</p>
+    </div>
+
+    <button id="run-tests-btn" class="run-tests-btn">Run Tests</button>
+
+    <div class="test-results" id="test-results">
+      Click "Run Tests" to execute the test suite.
+    </div>
+
+    <div id="test-summary" class="test-summary" style="display: none;"></div>
+  </div>
+
+  <!-- Load test dependencies -->
+  <script src="test-runner.js"></script>
+  <script src="../wishlist.js"></script>
+  <script src="../quick-view.js"></script>
+  <script src="../focus-trap.js"></script>
+
+  <!-- Load tests -->
+  <script src="wishlist.test.js"></script>
+  <script src="quick-view.test.js"></script>
+
+  <script>
+    const runBtn = document.getElementById('run-tests-btn');
+    const resultsDiv = document.getElementById('test-results');
+    const summaryDiv = document.getElementById('test-summary');
+
+    // Override console methods to capture output
+    const originalLog = console.log;
+    const originalError = console.error;
+    const originalWarn = console.warn;
+    let capturedOutput = [];
+
+    function captureOutput(type, ...args) {
+      capturedOutput.push(`[${type.toUpperCase()}] ${args.join(' ')}`);
+      if (type === 'log') {
+        originalLog.apply(console, args);
+      } else if (type === 'error') {
+        originalError.apply(console, args);
+      } else if (type === 'warn') {
+        originalWarn.apply(console, args);
+      }
+    }
+
+    console.log = (...args) => captureOutput('log', ...args);
+    console.error = (...args) => captureOutput('error', ...args);
+    console.warn = (...args) => captureOutput('warn', ...args);
+
+    runBtn.addEventListener('click', async () => {
+      runBtn.disabled = true;
+      runBtn.textContent = 'Running Tests...';
+
+      capturedOutput = [];
+      resultsDiv.textContent = 'Initializing tests...';
+
+      // Small delay to ensure DOM is ready
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      try {
+        // Reset test results
+        window.testRunner.results = { passed: 0, failed: 0, total: 0 };
+
+        // Run tests
+        await window.testRunner.run();
+
+        // Display results
+        resultsDiv.textContent = capturedOutput.join('\n');
+
+        // Show summary
+        const { passed, failed, total } = window.testRunner.results;
+        summaryDiv.style.display = 'block';
+        summaryDiv.className = `test-summary ${failed === 0 ? 'success' : 'failure'}`;
+        summaryDiv.textContent = failed === 0
+          ? `✅ All ${total} tests passed!`
+          : `❌ ${failed} of ${total} tests failed`;
+
+      } catch (error) {
+        resultsDiv.textContent = `Error running tests: ${error.message}`;
+        summaryDiv.style.display = 'block';
+        summaryDiv.className = 'test-summary failure';
+        summaryDiv.textContent = '💥 Test execution failed';
+      }
+
+      runBtn.disabled = false;
+      runBtn.textContent = 'Run Tests Again';
+    });
+  </script>
+</body>
+</html>
