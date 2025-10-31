@@ -132,6 +132,8 @@ testing:
   - Feature toggles: Test conditional rendering and auto-hide behaviors.
 
 review:
+  - Scope Gate compliance: Verify PR template Scope Gate checklist is completed for new features/settings/impacts.
+  - Optional Feature Retention: Assess optional features for removal if unused beyond 2 release cycles.
   - Pre-commit checks: Shopify CLI theme check; lint JSON/CSS/JS.
   - Manual testing: Quick View, Wishlist, filters, cart flows, and 404 page functionality.
   - Feature toggle testing: Verify conditional rendering and auto-hide behaviors.
@@ -149,6 +151,7 @@ review:
   - Rules update: Review session work and update .cursorrules with new patterns and best practices.
 
 contribution:
+  - Scope Gate: Complete PR template Scope Gate checklist for any new features/settings/external domains.
   - Branch naming: feat/, fix/, refactor/, perf/, docs/, test/ prefixes.
   - Commit messages: Conventional commits with scope (sections/product-card).
   - PR requirements: Description, testing notes, screenshots for UI changes.
@@ -161,6 +164,10 @@ commits:
   - Scope: theme area (sections/product, snippets/card, assets/quick-view)
   - Breaking changes: Add "BREAKING CHANGE:" footer with migration notes
   - Examples: "feat(sections/product): add variant swatches, fix(snippets/card): resolve lazy loading CLS"
+
+policies:
+  - Scope Gate: Require explicit approval for new features, settings, external domains, or significant impacts.
+  - Optional Feature Retention: Keep optional features only if actively used within 2 release cycles, or when user benefit outweighs maintenance cost.
 
 version_control:
   - Rules versioning: Update version number in header for major changes and phase completions.
