@@ -44,7 +44,7 @@ This project follows comprehensive development standards curated from [cursor.di
 
 ### Prerequisites
 
-- Node.js 18+
+- Node.js 20.x LTS
 - Shopify CLI (`npm install -g @shopify/cli @shopify/theme`)
 - Git
 
@@ -540,10 +540,12 @@ Automated bundle size validation against `.cursorrules` budget (<100KB total JS+
 - Workflow artifacts include detailed size reports (7-day retention)
 
 **Maintenance:**
+- Budget thresholds and governance defined in `.cursorrules` v2.4 CI Performance Budgets policy
+- Request budget exceptions in PR descriptions with mitigation plans
+- Remediate overruns within 2 weeks per Budget Governance policy
 - Shopify minifies assets on upload (local sizes may be larger)
 - Use Lighthouse CI for real-world performance metrics
-- Budget can be adjusted in `scripts/check-performance-budget.js`
-- No CI failures initially (can be changed per team preference)
+- Budget adjustments require rule updates per governance policy
 
 ### Testing
 
@@ -675,7 +677,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 2. **Follow Code Standards**: Adhere to `.cursorrules` for style, patterns, and architecture
 3. **Write Tests**: Add tests for new functionality in `assets/__tests__/`
 4. **Update Documentation**: Keep README and code comments current
-5. **Submit PR**: Use the PR template with complete testing checklist
+5. **Submit PR**: Use the PR template with complete testing and performance budget checklists
 
 ### Code Review Process
 
