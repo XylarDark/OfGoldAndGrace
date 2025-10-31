@@ -620,6 +620,60 @@ After each Plan→Agent cycle, we review work and update standards to prevent dr
 - [Rules Changelog](docs/rules-changelog.md) - Evolution history
 - [Session Review Process](.cursorrules) - Post-cycle closeout checklist
 
+## 🔒 Security
+
+This theme follows security best practices for Shopify development. Security issues are handled according to our [Security Policy](SECURITY.md).
+
+**Automated Security Checks:**
+- **CodeQL Analysis**: Weekly security scans of JavaScript code
+- **Dependency Review**: Automated checks for vulnerable npm packages
+- **SBOM Generation**: Software Bill of Materials for supply chain transparency
+
+**Security Features:**
+- No hardcoded secrets in theme code
+- Safe Liquid templating with proper sanitization
+- Content Security Policy compliance
+- Regular dependency updates and vulnerability monitoring
+
+## 🛡️ Governance & CI/CD
+
+Comprehensive governance ensures consistent code quality, security, and performance across all contributions.
+
+**CI/CD Workflows:**
+- **Code Quality**: ESLint, Prettier, Shopify Theme Check on every PR
+- **Security**: CodeQL, dependency review, and SBOM generation
+- **Performance**: Lighthouse CI and bundle size budgets
+- **Governance**: Rules compliance and conventional commit validation
+
+**Pull Request Process:**
+- Scope Gate checklist prevents feature creep
+- Performance budget validation
+- Code review requirements via CODEOWNERS
+- Session review post-cycle closeout
+
+## 📝 Conventional Commits
+
+This project uses [Conventional Commits](https://conventionalcommits.org/) for clear, structured commit messages that enable automated changelog generation and semantic versioning.
+
+**Format:** `type(scope): description`
+
+**Allowed Types:**
+- `feat`: New features
+- `fix`: Bug fixes
+- `docs`: Documentation
+- `style`: Code style changes
+- `refactor`: Code refactoring
+- `perf`: Performance improvements
+- `test`: Testing
+- `chore`: Maintenance
+
+**Examples:**
+- `feat(auth): add user login validation`
+- `fix(ui): resolve button focus trap`
+- `docs(readme): update installation instructions`
+
+**Enforcement:** PR titles are validated automatically; see the [Conventional Commits workflow](.github/workflows/conventional-commits.yml) for details.
+
 ## 🤖 ChatGPT Shopping Integration
 
 To enable free ChatGPT Shopping:

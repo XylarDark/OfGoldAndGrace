@@ -5,7 +5,7 @@ on:
   schedule:
     - cron: '0 2 * * 1' # Weekly at 02:00 UTC on Mondays
   push:
-    branches: [main]
+    branches: [master]
     paths:
       - 'assets/**'
       - 'layout/**'

@@ -1,0 +1,38 @@
+# Code Ownership and Review Requirements
+# This file defines who owns which parts of the codebase and who must review changes
+# Format: path pattern @owner1 @owner2
+# Use * for wildcards, ** for recursive matching
+
+# Core Shopify theme files - require review from maintainers
+/layout/ @maintainer
+/config/ @maintainer
+/.cursorrules @maintainer
+/docs/rules-changelog.md @maintainer
+
+# CI/CD configurations - require review from DevOps/infrastructure team
+/.github/ @devops
+/scripts/ @devops
+
+# Security-sensitive files
+# Add specific owners for security-critical paths
+# /assets/ containing sensitive logic
+/assets/ @reviewer
+
+# Documentation
+/docs/ @tech-writers
+README.md @tech-writers
+SECURITY.md @tech-writers
+CONTRIBUTING.md @tech-writers
+
+# Default ownership - all changes require at least one reviewer
+* @reviewer
+
+# Note: Replace @maintainer, @devops, @security-team, @tech-writers, @reviewer
+# with actual GitHub usernames, team names, or email addresses as appropriate
+# for your organization.
+
+# Shopify-specific ownership examples:
+# /sections/ @frontend-team
+# /snippets/ @frontend-team
+# /templates/ @frontend-team
+# package.json @devops

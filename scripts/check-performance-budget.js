@@ -228,8 +228,19 @@ ${fileSizes.map(f => `| \`${f.file}\` | ${f.formatted} | - |`).join('\n')}
     require('fs').appendFileSync(process.env.GITHUB_STEP_SUMMARY, summaryTable + '\n\n');
   }
 
-  // Always exit successfully in CI (report-only policy)
-  // The step summary and PR comments provide the feedback
+  // Policy enforcement mode
+  const policyEnforcement = process.env.POLICY_ENFORCEMENT || 'report-only';
+  const budgetExceeded = totalSizeKB >= BUDGET_TOTAL_KB;
+
+  if (policyEnforcement === 'enforced' && budgetExceeded) {
+    console.error('❌ Policy enforcement enabled: Bundle size exceeds budget - blocking');
+    process.exit(1);
+  } else if (budgetExceeded) {
+    console.warn('⚠️ Bundle size exceeds budget (report-only mode)');
+    process.exit(0);
+  } else {
+    process.exit(0);
+  }
 }
 
 // Run if called directly

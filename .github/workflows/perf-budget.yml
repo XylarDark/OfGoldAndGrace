@@ -3,12 +3,12 @@ name: Performance Budget Check
 on:
   workflow_dispatch: # Manual trigger
   push:
-    branches: [main]
+    branches: [master]
     paths:
       - 'assets/**'
       - 'scripts/check-performance-budget.js'
   pull_request:
-    branches: [main]
+    branches: [master]
     paths:
       - 'assets/**'
       - 'scripts/check-performance-budget.js'

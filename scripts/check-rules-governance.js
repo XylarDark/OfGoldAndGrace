@@ -168,8 +168,19 @@ function main() {
     console.log('✅ No governance triggers - no action needed');
   }
 
-  // Always exit successfully (report-only)
-  process.exit(0);
+  // Policy enforcement mode
+  const policyEnforcement = process.env.POLICY_ENFORCEMENT || 'report-only';
+  const shouldFail = policyEnforcement === 'enforced' && report.triggered && !report.allUpdated;
+
+  if (shouldFail) {
+    console.error('❌ Policy enforcement enabled: Governance files not updated - blocking');
+    process.exit(1);
+  } else if (report.triggered && !report.allUpdated) {
+    console.warn('⚠️ Governance issues detected (report-only mode)');
+    process.exit(0);
+  } else {
+    process.exit(0);
+  }
 }
 
 // Run if called directly
