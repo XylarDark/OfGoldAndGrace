@@ -199,7 +199,9 @@
 </section>
 
 <!-- Product Reviews -->
-{% render 'reviews' %}
+{% if settings.enable_product_reviews %}
+  {% render 'reviews' %}
+{% endif %}
 
 {%- render 'size-guide' -%}
 

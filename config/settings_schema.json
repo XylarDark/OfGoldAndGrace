@@ -7,6 +7,13 @@
         "id": "ga4_measurement_id",
         "label": "GA4 Measurement ID",
         "info": "Enter your Google Analytics 4 measurement ID (e.g., G-XXXXXXXXXX)"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_product_reviews",
+        "label": "Enable product reviews",
+        "default": true,
+        "info": "Show product reviews section on product pages. Can be upgraded to use a reviews app later."
       }
     ]
   }

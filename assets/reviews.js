@@ -19,11 +19,18 @@ class ReviewsWidget {
   async init() {
     try {
       await this.loadReviewsData();
+
+      // Check if we have valid review data
+      if (!this.reviewsData || !this.reviewsData.reviews || this.reviewsData.reviews.length === 0) {
+        this.hideReviewsWidget();
+        return;
+      }
+
       this.renderWidget();
       this.bindEvents();
     } catch (error) {
       console.error('Failed to initialize reviews widget:', error);
-      this.showError();
+      this.hideReviewsWidget();
     }
   }
 
@@ -278,6 +285,11 @@ class ReviewsWidget {
         <p>Unable to load reviews at this time. Please try again later.</p>
       </div>
     `;
+  }
+
+  hideReviewsWidget() {
+    // Hide the entire reviews widget when no data is available
+    this.container.style.display = 'none';
   }
 }
 
