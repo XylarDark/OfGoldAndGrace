@@ -1,6 +1,8 @@
 {{ 'section-main-collection.css' | asset_url | stylesheet_tag }}
 
 <div class="page-width">
+  {% render 'breadcrumbs' %}
+
   <div class="collection">
     <div class="collection__header">
       <h1 class="collection__title">{{ collection.title }}</h1>

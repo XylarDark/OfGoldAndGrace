@@ -4,6 +4,8 @@
 {%- assign current_variant = product.selected_or_first_available_variant -%}
 
 <section class="page-width">
+  {% render 'breadcrumbs' %}
+
   <div class="product product--{{ section.settings.gallery_layout }} grid grid--1-col grid--2-col-tablet{% if section.settings.mobile_thumbnails == 'show' %} product--mobile-thumbnails{% endif %}{% if section.settings.enable_sticky_info %} product--sticky{% endif %}">
     <div class="grid__item product__media-wrapper">
       <media-gallery
