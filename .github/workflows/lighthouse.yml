@@ -1,0 +1,86 @@
+name: Lighthouse CI
+
+on:
+  workflow_dispatch: # Manual trigger
+  schedule:
+    - cron: '0 2 * * 1' # Weekly at 02:00 UTC on Mondays
+  push:
+    branches: [main]
+    paths:
+      - 'assets/**'
+      - 'layout/**'
+      - 'sections/**'
+      - 'snippets/**'
+      - 'templates/**'
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    if: env.LIGHTHOUSE_URL != '' || github.event_name == 'workflow_dispatch'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install Lighthouse CI
+        run: npm install -g @lhci/cli@0.13.x
+
+      - name: Run Lighthouse on desktop
+        run: |
+          lhci autorun \
+            --collect.url="${{ secrets.LIGHTHOUSE_URL }}" \
+            --collect.numberOfRuns=1 \
+            --collect.staticDistDir=. \
+            --collect.settings.preset=desktop \
+            --upload.target=temporary-public-storage
+        continue-on-error: true
+
+      - name: Run Lighthouse on mobile
+        run: |
+          lhci autorun \
+            --collect.url="${{ secrets.LIGHTHOUSE_URL }}" \
+            --collect.numberOfRuns=1 \
+            --collect.staticDistDir=. \
+            --collect.settings.preset=mobile \
+            --upload.target=temporary-public-storage
+        continue-on-error: true
+
+      - name: Upload Lighthouse reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-reports-${{ github.run_id }}
+          path: |
+            .lighthouseci/
+            **/lighthouse-results/
+          retention-days: 30
+
+      - name: Comment on PR (if triggered by push)
+        if: github.event_name == 'push'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `🚀 **Lighthouse CI Reports Generated**\n\nPerformance, accessibility, and SEO reports are available as [workflow artifacts](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) for this commit.\n\n- **Desktop & Mobile** reports included\n- Reports retained for 30 days\n- No build failures on low scores (observability only)`
+            })
+
+  skip-notice:
+    runs-on: ubuntu-latest
+    if: env.LIGHTHOUSE_URL == '' && github.event_name != 'workflow_dispatch'
+
+    steps:
+      - name: Skip notice
+        run: |
+          echo "Lighthouse CI skipped - no LIGHTHOUSE_URL configured"
+          echo "To enable Lighthouse CI:"
+          echo "1. Add LIGHTHOUSE_URL repository secret with your site URL"
+          echo "2. Re-run this workflow manually via workflow_dispatch"
+          echo ""
+          echo "Reports will be uploaded as artifacts and never block CI."
