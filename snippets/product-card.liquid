@@ -6,6 +6,13 @@
           class="product-card__image lazy"
           src="{{ product.featured_image | img_url: '200x200' }}"
           data-src="{{ product.featured_image | img_url: '400x400' }}"
+          srcset="
+            {{ product.featured_image | img_url: '200x200' }} 200w,
+            {{ product.featured_image | img_url: '300x300' }} 300w,
+            {{ product.featured_image | img_url: '400x400' }} 400w,
+            {{ product.featured_image | img_url: '500x500' }} 500w
+          "
+          sizes="(max-width: 480px) 200px, (max-width: 768px) 300px, (max-width: 1024px) 400px, 500px"
           alt="{{ product.featured_image.alt | escape }}"
           loading="lazy"
           width="400"

@@ -76,7 +76,8 @@ class QuickView {
     const imageEl = document.getElementById('quick-view-image');
     const featuredImage = product.featured_image || product.images[0];
     if (featuredImage) {
-      imageEl.src = featuredImage;
+      // Set responsive image attributes
+      this.setResponsiveImageAttributes(imageEl, product.handle, featuredImage);
       imageEl.alt = product.title;
     }
 
@@ -268,6 +269,18 @@ class QuickView {
   }
 
   // Escape key handling is now done by the focus trap utility
+
+  setResponsiveImageAttributes(img, productHandle, originalSrc) {
+    // Generate srcset for different sizes
+    const sizes = [400, 600, 800, 1000, 1200];
+    const srcset = sizes.map(size => {
+      return `${originalSrc}?width=${size} ${size}w`;
+    }).join(', ');
+
+    img.srcset = srcset;
+    img.sizes = "(max-width: 480px) 400px, (max-width: 768px) 600px, (max-width: 1024px) 800px, (max-width: 1200px) 1000px, 1200px";
+    img.src = `${originalSrc}?width=600`; // Default src
+  }
 }
 
 // Focus trap is now handled by the shared focus-trap.js utility
