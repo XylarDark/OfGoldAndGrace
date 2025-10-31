@@ -1,0 +1,39 @@
+{
+  "budgets": [
+    {
+      "path": "/*",
+      "resourceSizes": [
+        {
+          "resourceType": "script",
+          "budget": 100
+        },
+        {
+          "resourceType": "stylesheet",
+          "budget": 50
+        },
+        {
+          "resourceType": "total",
+          "budget": 150
+        }
+      ],
+      "timings": [
+        {
+          "metric": "largest-contentful-paint",
+          "budget": 2500
+        },
+        {
+          "metric": "first-contentful-paint",
+          "budget": 1800
+        },
+        {
+          "metric": "cumulative-layout-shift",
+          "budget": 100
+        },
+        {
+          "metric": "first-input",
+          "budget": 100
+        }
+      ]
+    }
+  ]
+}

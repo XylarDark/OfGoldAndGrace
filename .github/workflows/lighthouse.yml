@@ -37,6 +37,7 @@ jobs:
             --collect.numberOfRuns=1 \
             --collect.staticDistDir=. \
             --collect.settings.preset=desktop \
+            --assert.budgetsPath=lighthouse-budgets.json \
             --upload.target=temporary-public-storage
         continue-on-error: true
 
@@ -47,6 +48,7 @@ jobs:
             --collect.numberOfRuns=1 \
             --collect.staticDistDir=. \
             --collect.settings.preset=mobile \
+            --assert.budgetsPath=lighthouse-budgets.json \
             --upload.target=temporary-public-storage
         continue-on-error: true
 
