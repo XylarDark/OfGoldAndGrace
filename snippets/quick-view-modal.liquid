@@ -1,0 +1,326 @@
+<div id="quick-view-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="quick-view-title" aria-hidden="true">
+  <div class="modal__backdrop" data-modal-close></div>
+  <div class="modal__content">
+    <button class="modal__close" data-modal-close aria-label="Close modal">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z" fill="currentColor"/>
+      </svg>
+    </button>
+
+    <div class="quick-view">
+      <div class="quick-view__loading" id="quick-view-loading">
+        <div class="spinner"></div>
+        <p>{{ 'general.loading' | t }}</p>
+      </div>
+
+      <div class="quick-view__content" id="quick-view-content" style="display: none;">
+        <div class="quick-view__media">
+          <div class="quick-view__image-container">
+            <img id="quick-view-image" src="" alt="" loading="lazy">
+          </div>
+        </div>
+
+        <div class="quick-view__details">
+          <h2 id="quick-view-title" class="quick-view__title"></h2>
+
+          <div class="quick-view__price" id="quick-view-price"></div>
+
+          <div class="quick-view__description" id="quick-view-description"></div>
+
+          <form id="quick-view-form" action="/cart/add" method="post" enctype="multipart/form-data">
+            <div id="quick-view-variants" class="quick-view__variants"></div>
+
+            <div class="quick-view__quantity">
+              <label for="quick-view-quantity-input">{{ 'general.quantity' | t }}</label>
+              <div class="quantity-selector">
+                <button type="button" class="quantity-selector__button" data-quantity-change="-1" aria-label="Decrease quantity">-</button>
+                <input
+                  id="quick-view-quantity-input"
+                  type="number"
+                  name="quantity"
+                  value="1"
+                  min="1"
+                  max="99"
+                  aria-label="{{ 'general.quantity' | t }}"
+                >
+                <button type="button" class="quantity-selector__button" data-quantity-change="1" aria-label="Increase quantity">+</button>
+              </div>
+            </div>
+
+            <button type="submit" class="button button--primary quick-view__add-to-cart" id="quick-view-add-to-cart">
+              {{ 'general.add_to_cart' | t }}
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal[aria-hidden="false"] {
+  display: flex;
+}
+
+.modal__backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+}
+
+.modal__content {
+  position: relative;
+  background: var(--color-background);
+  border-radius: 0.5rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  max-width: 90vw;
+  max-height: 90vh;
+  width: 800px;
+  margin: 2rem;
+  overflow: hidden;
+  animation: modal-appear 0.2s ease-out;
+}
+
+@keyframes modal-appear {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.modal__close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 10;
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--color-base-text);
+  transition: all 0.2s ease;
+}
+
+.modal__close:hover {
+  background: var(--color-background-2);
+  transform: scale(1.1);
+}
+
+.modal__close:focus {
+  outline: 2px solid var(--color-base-accent-1);
+  outline-offset: 2px;
+}
+
+.quick-view {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+@media (max-width: 768px) {
+  .quick-view {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 1.5rem;
+  }
+}
+
+.quick-view__loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  text-align: center;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--color-border);
+  border-top: 3px solid var(--color-base-accent-1);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.quick-view__content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+@media (max-width: 768px) {
+  .quick-view__content {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+.quick-view__media {
+  order: 2;
+}
+
+@media (max-width: 768px) {
+  .quick-view__media {
+    order: 1;
+  }
+}
+
+.quick-view__image-container {
+  aspect-ratio: 1;
+  border-radius: 0.25rem;
+  overflow: hidden;
+  background: var(--color-background-2);
+}
+
+.quick-view__image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.quick-view__details {
+  order: 1;
+}
+
+@media (max-width: 768px) {
+  .quick-view__details {
+    order: 2;
+  }
+}
+
+.quick-view__title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--color-base-text);
+}
+
+.quick-view__price {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-base-accent-1);
+  margin-bottom: 1rem;
+}
+
+.quick-view__description {
+  color: var(--color-base-text-muted);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.quick-view__variants {
+  margin-bottom: 1.5rem;
+}
+
+.quick-view__quantity {
+  margin-bottom: 1.5rem;
+}
+
+.quick-view__quantity label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--color-base-text);
+}
+
+.quantity-selector {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--color-border);
+  border-radius: 0.25rem;
+  overflow: hidden;
+}
+
+.quantity-selector__button {
+  background: var(--color-background-2);
+  border: none;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--color-base-text);
+  transition: background-color 0.2s ease;
+}
+
+.quantity-selector__button:hover {
+  background: var(--color-background-3);
+}
+
+.quantity-selector__button:focus {
+  outline: 2px solid var(--color-base-accent-1);
+  outline-offset: -2px;
+}
+
+.quantity-selector input {
+  width: 60px;
+  height: 40px;
+  text-align: center;
+  border: none;
+  border-left: 1px solid var(--color-border);
+  border-right: 1px solid var(--color-border);
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.quick-view__add-to-cart {
+  width: 100%;
+  padding: 1rem;
+  background: var(--color-base-accent-1);
+  color: white;
+  border: none;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.quick-view__add-to-cart:hover {
+  background: var(--color-base-accent-2);
+}
+
+.quick-view__add-to-cart:focus {
+  outline: 2px solid var(--color-base-accent-1);
+  outline-offset: 2px;
+}
+
+.quick-view__add-to-cart:disabled {
+  background: var(--color-base-text-muted);
+  cursor: not-allowed;
+}
+</style>

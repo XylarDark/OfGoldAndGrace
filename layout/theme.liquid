@@ -41,9 +41,15 @@
 
   {% section 'footer' %}
 
+  <!-- Quick View Modal -->
+  {% render 'quick-view-modal' %}
+
   <script>
     // Basic theme JavaScript
     document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
   </script>
+
+  <!-- Theme enhancements -->
+  {{ 'quick-view.js' | asset_url | script_tag }}
 </body>
 </html>
