@@ -123,8 +123,13 @@ class QuickView {
     this.content.style.display = 'grid';
 
     // Focus management
-    this.focusTrap = new FocusTrap(this.modal);
-    this.focusTrap.activate();
+    this.focusTrap = new window.FocusTrap(this.modal);
+    this.focusTrap.activate(this.triggerElement);
+
+    // Listen for escape key from focus trap
+    this.modal.addEventListener('focustrap:escape', () => {
+      this.close();
+    });
   }
 
   formatPrice(price, compareAtPrice) {
@@ -262,67 +267,10 @@ class QuickView {
     }
   }
 
-  handleKeydown(event) {
-    if (this.modal.getAttribute('aria-hidden') === 'true') return;
-
-    if (event.key === 'Escape') {
-      event.preventDefault();
-      this.close();
-    }
-  }
+  // Escape key handling is now done by the focus trap utility
 }
 
-// Focus trap utility for modal accessibility
-class FocusTrap {
-  constructor(element) {
-    this.element = element;
-    this.focusableElements = this.getFocusableElements();
-    this.firstFocusable = this.focusableElements[0];
-    this.lastFocusable = this.focusableElements[this.focusableElements.length - 1];
-  }
-
-  getFocusableElements() {
-    const selectors = [
-      'a[href]',
-      'area[href]',
-      'input:not([disabled]):not([type="hidden"])',
-      'select:not([disabled])',
-      'textarea:not([disabled])',
-      'button:not([disabled])',
-      '[tabindex]:not([tabindex="-1"])'
-    ];
-
-    return Array.from(this.element.querySelectorAll(selectors.join(',')))
-      .filter(el => el.offsetParent !== null); // Visible elements only
-  }
-
-  activate() {
-    document.addEventListener('keydown', this.handleKeydown.bind(this));
-    this.firstFocusable.focus();
-  }
-
-  deactivate() {
-    document.removeEventListener('keydown', this.handleKeydown.bind(this));
-  }
-
-  handleKeydown(event) {
-    if (event.key !== 'Tab') return;
-
-    if (event.shiftKey) {
-      // Shift + Tab
-      if (document.activeElement === this.firstFocusable) {
-        event.preventDefault();
-        this.lastFocusable.focus();
-      }
-    } else {
-      // Tab
-      if (document.activeElement === this.lastFocusable) {
-        event.preventDefault();
-        this.firstFocusable.focus();
-      }
-    }
-  }
-}
+// Focus trap is now handled by the shared focus-trap.js utility
 
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {

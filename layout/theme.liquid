@@ -14,6 +14,9 @@
 
   <link rel="canonical" href="{{ canonical_url }}">
 
+  <!-- Accessibility styles -->
+  {{ 'a11y.css' | asset_url | stylesheet_tag }}
+
   {% if settings.ga4_measurement_id != blank %}
   <!-- Google Analytics 4 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id={{ settings.ga4_measurement_id }}"></script>
@@ -29,9 +32,11 @@
 </head>
 
 <body class="gradient">
-  <a class="skip-to-content-link button visually-hidden" href="#MainContent">
-    {{ 'accessibility.skip_to_content' | t }}
-  </a>
+  <!-- Skip Links -->
+  <a href="#MainContent" class="skip-link">{{ 'accessibility.skip_to_content' | t }}</a>
+  <a href="#site-nav" class="skip-link sr-only" data-skip-target="site-nav">{{ 'accessibility.skip_to_navigation' | t }}</a>
+  <a href="#site-search" class="skip-link sr-only" data-skip-target="site-search">{{ 'accessibility.skip_to_search' | t }}</a>
+  <a href="#site-footer" class="skip-link sr-only" data-skip-target="site-footer">{{ 'accessibility.skip_to_footer' | t }}</a>
 
   {% section 'header' %}
 
@@ -47,9 +52,22 @@
   <script>
     // Basic theme JavaScript
     document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
+
+    // Accessibility: Show skip links only when target elements exist
+    document.addEventListener('DOMContentLoaded', function() {
+      const skipLinks = document.querySelectorAll('[data-skip-target]');
+      skipLinks.forEach(link => {
+        const targetId = link.getAttribute('data-skip-target');
+        const targetElement = document.getElementById(targetId);
+        if (targetElement) {
+          link.classList.remove('sr-only');
+        }
+      });
+    });
   </script>
 
   <!-- Theme enhancements -->
+  {{ 'focus-trap.js' | asset_url | script_tag }}
   {{ 'quick-view.js' | asset_url | script_tag }}
   {{ 'wishlist.js' | asset_url | script_tag }}
   {{ 'lazyload.js' | asset_url | script_tag }}
