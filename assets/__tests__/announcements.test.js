@@ -120,3 +120,100 @@ testRunner.test('Announcements handles missing global instance gracefully', () =
   // Restore
   window.announcements = originalAnnouncements;
 });
+
+testRunner.test('Announcements handles empty and null messages gracefully', () => {
+  const announcements = new Announcements();
+  const element = announcements.announcementElement;
+
+  // Test empty string
+  announcements.announce('');
+  TestRunner.assertEqual(element.textContent, '', 'Empty string should clear announcement');
+
+  // Test null message (should not crash)
+  try {
+    announcements.announce(null);
+    TestRunner.assert(true, 'Null message should not throw error');
+  } catch (error) {
+    TestRunner.assert(false, 'Null message should be handled gracefully');
+  }
+
+  // Test undefined message (should not crash)
+  try {
+    announcements.announce(undefined);
+    TestRunner.assert(true, 'Undefined message should not throw error');
+  } catch (error) {
+    TestRunner.assert(false, 'Undefined message should be handled gracefully');
+  }
+
+  // Test very long message
+  const longMessage = 'A'.repeat(1000);
+  announcements.announce(longMessage);
+  TestRunner.assertEqual(element.textContent, longMessage, 'Long message should be handled');
+});
+
+testRunner.test('Announcements handles rapid successive calls correctly', () => {
+  const announcements = new Announcements();
+  const element = announcements.announcementElement;
+
+  // Rapid calls should update the content
+  announcements.announce('First message');
+  TestRunner.assertEqual(element.textContent, 'First message', 'First message should be set');
+
+  announcements.announce('Second message');
+  TestRunner.assertEqual(element.textContent, 'Second message', 'Second message should replace first');
+
+  announcements.announce('Third message');
+  TestRunner.assertEqual(element.textContent, 'Third message', 'Third message should replace second');
+});
+
+testRunner.test('Announcements error method handles edge cases safely', () => {
+  const announcements = new Announcements();
+  const element = announcements.announcementElement;
+
+  // Test error with empty message
+  announcements.error('');
+  TestRunner.assertEqual(element.textContent, '', 'Empty error should clear text');
+  TestRunner.assertEqual(element.getAttribute('aria-live'), 'assertive', 'Should still set assertive priority');
+
+  // Test error with null message
+  try {
+    announcements.error(null);
+    TestRunner.assert(true, 'Null error message should not throw');
+  } catch (error) {
+    TestRunner.assert(false, 'Null error message should be handled gracefully');
+  }
+
+  // Test error with complex object (should convert to string safely)
+  try {
+    announcements.error({ message: 'test error' });
+    TestRunner.assert(true, 'Object error message should not throw');
+  } catch (error) {
+    TestRunner.assert(false, 'Object error message should be handled gracefully');
+  }
+});
+
+testRunner.test('Announcements handles missing announcement element gracefully', () => {
+  // Create instance and then remove the element
+  const announcements = new Announcements();
+  const element = announcements.announcementElement;
+
+  // Remove the element from DOM
+  if (element.parentNode) {
+    element.parentNode.removeChild(element);
+  }
+
+  // Methods should not throw when element is missing
+  try {
+    announcements.announce('Test message');
+    TestRunner.assert(true, 'Announce should not throw when element is missing');
+  } catch (error) {
+    TestRunner.assert(false, 'Announce should handle missing element gracefully');
+  }
+
+  try {
+    announcements.error('Test error');
+    TestRunner.assert(true, 'Error should not throw when element is missing');
+  } catch (error) {
+    TestRunner.assert(false, 'Error should handle missing element gracefully');
+  }
+});
