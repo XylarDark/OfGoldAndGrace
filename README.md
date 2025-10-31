@@ -11,7 +11,10 @@ A minimal-cost Shopify theme for an online-only jewellery store featuring consig
 - **Product Reviews**: Static review scaffold with star ratings, filtering, and pagination (upgradeable to app)
 - **Consignment locations map**: Interactive Leaflet-powered map showing partner stores
 - **Free ChatGPT Shopping**: Via Shopify Shop channel (requires account setup)
-- **Advanced Collection Filters**: Tag-based multi-select filters with URL synchronization and bookmarkable state
+- **Client-Side Collection Filtering**: Advanced tag-based filters with URL synchronization and real-time results
+- **Enhanced Accessibility**: Comprehensive screen reader announcements for all user actions
+- **Production-Ready SEO**: robots.txt, hardened JSON-LD with safe fallbacks, and conditional structured data
+- **Advanced Theme Settings**: Easy configuration for reviews, social media, and analytics
 - **Responsive Images**: Optimized srcset/sizes for all product images to improve Core Web Vitals
 - **Structured Data (JSON-LD)**: Rich snippets for products, breadcrumbs, organization, and website schema
 - **Breadcrumb Navigation**: Semantic breadcrumbs on all product and collection pages
@@ -313,6 +316,95 @@ Standalone page for viewing saved items.
 **Files:**
 - `templates/page.wishlist.json` - Page template
 - `sections/wishlist.liquid` - Wishlist UI
+
+## 🆕 Phase 4: Advanced Features & Polish
+
+### Client-Side Collection Filtering
+
+Advanced tag-based filtering with URL synchronization and real-time results.
+
+**Features:**
+- Multi-select tag, price, and availability filters
+- URL-based state for bookmarkable filtered views
+- Client-side filtering for instant results
+- Results counter and empty state handling
+- Clear all filters functionality
+
+**Usage:**
+- Filters automatically apply to collection pages
+- URL parameters persist filter state across page reloads
+- Users can share filtered collection URLs
+
+**Files:**
+- `assets/collection-filters.js` - Client-side filtering logic
+- `sections/main-collection.liquid` - Updated with filter UI
+
+### Enhanced Accessibility Announcements
+
+Comprehensive screen reader support for all user actions.
+
+**Announcements Include:**
+- Product additions to cart (with quantities)
+- Wishlist add/remove actions
+- Filter applications and results
+- Form submissions and errors
+- Cart updates and navigation changes
+
+**Implementation:**
+- Global aria-live region for consistent announcements
+- Priority-based messaging (polite vs assertive)
+- Contextual announcements based on user actions
+
+**Files:**
+- `assets/announcements.js` - Announcement utility
+- Integrated across Quick View, Wishlist, and filter components
+
+### Production-Ready robots.txt
+
+SEO-optimized search engine crawling instructions.
+
+**Features:**
+- Safe defaults allowing main content crawling
+- Blocks sensitive areas (admin, checkout, API)
+- Staging environment protection
+- Clear customization instructions
+- Sitemap location placeholder
+
+**Customization:**
+Edit `templates/robots.txt.liquid` for your specific needs before production deployment.
+
+### Theme Settings Enhancement
+
+Additional configuration options for better merchant control.
+
+**New Settings:**
+- **Enable Product Reviews**: Toggle reviews scaffold on/off
+- **Social Media URLs**: Facebook, Instagram, Twitter links
+- **GA4 Measurement ID**: Google Analytics integration
+
+**Benefits:**
+- Easy configuration through Shopify admin
+- No code changes needed for basic setup
+- Social links automatically included in structured data
+
+**Location:**
+- `config/settings_schema.json` - Settings definitions
+
+### Hardened Structured Data
+
+Robust JSON-LD with comprehensive fallbacks and conditional rendering.
+
+**Improvements:**
+- Safe fallbacks for missing brand logos and contact info
+- Conditional social media links (only if configured)
+- Proper product availability mapping (InStock/OutOfStock)
+- Reviews ratings only when enabled
+- Error-resistant JSON generation
+
+**SEO Benefits:**
+- Valid structured data even with incomplete merchant information
+- Enhanced search result snippets
+- Better social media integration
 
 ## 🚀 Deployment
 
