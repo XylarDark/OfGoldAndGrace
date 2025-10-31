@@ -4,6 +4,7 @@ project_goals:
   - Keep costs minimal: Shopify theme only; no headless stack.
   - Prioritize accessibility, performance, and SEO.
   - Do not add paid services without explicit approval.
+  - Focus on enhanced UX: Quick View, Wishlist, Lazy Loading, Testing.
 
 languages:
   - liquid
@@ -16,31 +17,53 @@ guardrails:
   - Do not introduce server-side code or external runtimes.
   - Prefer native Shopify features (Search & Discovery, Metaobjects) over custom APIs.
   - Any app install must have a free tier and be listed in PR notes.
+  - Use localStorage for client-side persistence (wishlist); no cookies without consent.
 
 code_style:
   liquid:
     - Use sections/snippets; avoid inline scripts where possible
     - Keep logic minimal; prefer settings/blocks for configuration
+    - Include proper alt text and accessibility attributes
   js:
     - ES2020+, no frameworks; small, modular scripts in assets/
-    - Defer non-critical JS; no blocking third-party scripts
+    - Defer non-critical JS; use IntersectionObserver for lazy loading
+    - Implement focus traps for modals; ensure keyboard accessibility
+    - Use localStorage carefully; handle quota exceeded errors
   css:
     - Use theme tokens; prefer utility classes; avoid !important
+    - Include focus states for all interactive elements
+    - Support prefers-reduced-motion and prefers-color-scheme
+    - Use aspect-ratio for responsive images to prevent CLS
 
 files:
   - Protect: layout/, config/, locales/
   - Theme settings go in config/settings_schema.json
   - New UI in sections/ with schema; shareables in snippets/
+  - Test files in assets/__tests__/; use lightweight test runner
+  - Lazy load patterns: data-src + class="lazy" + width/height/aspect-ratio
 
 review:
   - Run Shopify CLI preview before committing
   - Lint JSON and CSS; prettier for JSON/JS
   - Check Lighthouse >= 85 performance, 90 accessibility on PDP and home
+  - Test Quick View and Wishlist functionality manually
+  - Verify lazy loading doesn't break image display
 
 testing:
   - Cross-browser test: Chrome, Safari, iOS Safari
   - Cart, checkout, and variant selection flows must pass
+  - Keyboard navigation: Tab through all interactive elements
+  - Screen reader: Test with NVDA/JAWS or VoiceOver
+  - Run assets/__tests__/test-runner.html for JS unit tests
+
+patterns:
+  - Quick View: Use data-quick-view attribute on buttons
+  - Wishlist: Use data-wishlist-toggle attribute on buttons
+  - Lazy Images: Use data-src + class="lazy" + dimensions
+  - Modals: Use data-focus-trap + aria-modal + role="dialog"
+  - Skip Links: Show only when target elements exist
 
 commits:
-  - Conventional commits: feat:, fix:, refactor:, chore:, perf:, docs:
+  - Conventional commits: feat:, fix:, refactor:, chore:, perf:, docs:, test:
   - Describe theme areas touched (e.g., sections/product, snippets/price)
+  - Include "BREAKING CHANGE" footer for API changes

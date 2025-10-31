@@ -6,12 +6,15 @@ A minimal-cost Shopify theme for an online-only jewellery store featuring consig
 
 - **Online-only sales**: No POS or physical store integration
 - **Jewellery-focused PDP**: Metal variant swatches, size guide modal, care instructions, gift wrapping
+- **Interactive Quick View**: Instant product preview without page navigation
+- **Persistent Wishlist**: localStorage-based favorites with heart toggle UI
 - **Consignment locations map**: Interactive Leaflet-powered map showing partner stores
 - **Free ChatGPT Shopping**: Via Shopify Shop channel (requires account setup)
-- **Accessibility-first**: WCAG AA compliant with keyboard navigation and ARIA labels
-- **Performance optimized**: Lazy loading images, deferred JS, modern formats
+- **Accessibility-first**: WCAG AA compliant with keyboard navigation, skip links, and ARIA labels
+- **Performance optimized**: Lazy loading images, deferred JS, Core Web Vitals monitoring
 - **Mobile responsive**: Optimized for all device sizes
 - **SEO ready**: Structured data, meta tags, and semantic HTML
+- **Comprehensive testing**: Built-in JavaScript test suite for development
 
 ## 🚀 Quick Start
 
@@ -103,6 +106,70 @@ Edit `assets/consignment_locations.json`:
 ]
 ```
 
+## 🎨 Theme Features
+
+### Quick View Modal
+Instant product preview without page navigation.
+
+**Usage:**
+- Hover over product cards in collections to see Quick View button
+- Click to open modal with product details, variants, and add-to-cart
+- Fully keyboard accessible with focus trap and escape key support
+
+**Customization:**
+- Modal styling in `sections/quick-view-modal.liquid`
+- JavaScript behavior in `assets/quick-view.js`
+
+### Wishlist Functionality
+Persistent favorites using localStorage.
+
+**Usage:**
+- Click heart icon on product cards or product pages
+- View saved items in dedicated wishlist section
+- Items persist across browser sessions
+
+**Customization:**
+- Button styling in `snippets/wishlist-button.liquid`
+- Wishlist page in `sections/wishlist.liquid`
+- Storage logic in `assets/wishlist.js`
+
+### Lazy Loading
+Automatic image loading optimization.
+
+**Implementation:**
+- Uses IntersectionObserver API for performance
+- Images load when entering viewport
+- Includes loading states and error handling
+
+**Pattern for custom images:**
+```liquid
+<img
+  src="{{ image | img_url: '200x' }}"
+  data-src="{{ image | img_url: '400x' }}"
+  alt="Description"
+  loading="lazy"
+  width="400"
+  height="400"
+  style="aspect-ratio: 1;"
+  class="lazy"
+/>
+```
+
+### Accessibility Features
+Comprehensive accessibility implementation.
+
+**Included:**
+- Skip links for main content, navigation, search, footer
+- Enhanced focus indicators and keyboard navigation
+- ARIA labels and live regions for dynamic content
+- Modal focus management and screen reader support
+- High contrast and reduced motion preferences
+
+**Testing:**
+- Keyboard-only navigation testing required
+- Screen reader compatibility verification
+- Color contrast ratios meet WCAG AA standards
+
 ## 🚀 Deployment
 
 ### Via Shopify CLI (Recommended)
@@ -145,6 +212,25 @@ git commit -m "docs: update setup instructions"
 - **Formatting**: Prettier for consistent code style
 - **Accessibility**: Manual WCAG AA testing required
 - **Performance**: Lighthouse score target: 85+ performance, 90+ accessibility
+- **Testing**: Built-in JavaScript test suite for Quick View and Wishlist
+
+### Testing
+
+Run the test suite to verify JavaScript functionality:
+
+```bash
+# Open test runner in browser
+# Navigate to: assets/__tests__/test-runner.html
+
+# Or run tests programmatically
+# (Tests run automatically when the page loads)
+```
+
+**Test Coverage:**
+- Wishlist functionality (add/remove/toggle/persistence)
+- Quick View modal (initialization, variants, quantity, forms)
+- Focus trap utility for accessibility
+- DOM interactions and event handling
 
 ## 🤖 ChatGPT Shopping Integration
 
@@ -178,6 +264,30 @@ To enable free ChatGPT Shopping:
 - [ ] Image alt text added
 - [ ] Sitemap submitted to Google
 - [ ] Mobile-friendly design verified
+
+### Accessibility Checklist
+- [ ] Skip links work for main content, navigation, search, footer
+- [ ] All interactive elements have visible focus indicators
+- [ ] Keyboard navigation works without mouse (Tab, Enter, Space, Escape)
+- [ ] Color contrast ratios meet WCAG AA (4.5:1 for normal text, 3:1 for large text)
+- [ ] Images have descriptive alt text or are decorative
+- [ ] Form fields have associated labels and error messages
+- [ ] Modal dialogs trap focus and can be closed with Escape
+- [ ] Screen reader announcements work for dynamic content
+- [ ] Reduced motion preferences are respected
+- [ ] High contrast mode is supported
+
+### Performance Checklist
+- [ ] Core Web Vitals: LCP < 2.5s, CLS < 0.1, FID < 100ms
+- [ ] Lazy loading active on all images below the fold
+- [ ] Critical CSS inlined, non-critical CSS deferred
+- [ ] JavaScript bundles loaded with defer attribute
+- [ ] Unused CSS/JS removed or tree-shaken
+- [ ] Images optimized (WebP format, proper sizing)
+- [ ] Preconnect to external domains (fonts, CDN, analytics)
+- [ ] Service worker implemented for caching (if needed)
+- [ ] Database queries optimized (Liquid performance)
+- [ ] CDN utilization maximized
 
 ## 🐛 Troubleshooting
 
