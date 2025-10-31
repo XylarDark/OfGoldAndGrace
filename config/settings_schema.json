@@ -16,6 +16,13 @@
         "info": "Show product reviews section on product pages. Can be upgraded to use a reviews app later."
       },
       {
+        "type": "checkbox",
+        "id": "enable_3d_models",
+        "label": "Enable 3D model viewer",
+        "default": false,
+        "info": "Show 3D model viewer for products that have 3D models uploaded. Disabled by default."
+      },
+      {
         "type": "url",
         "id": "social_facebook",
         "label": "Facebook URL",
