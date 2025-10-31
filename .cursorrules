@@ -1,6 +1,6 @@
 # Cursor Rules: Of Gold And Grace Shopify Theme
 # Curated from cursor.directory best practices
-# Version: 2.2 - Advanced Patterns & Best Practices
+# Version: 2.3 - Phase 5 Optimizations & Quality Assurance
 
 project_goals:
   - Minimal cost: Shopify Online Store 2.0 theme only; no headless stack or paid services.
@@ -59,15 +59,17 @@ patterns:
   - Quick View: data-quick-view="product-handle" on buttons.
   - Wishlist: data-wishlist-toggle with data-product-handle and data-product-title.
   - Collection Filters: data-tag-checkbox, data-price-min/max, data-availability-filter.
+  - Product Media: Comprehensive snippet handling images/videos/3D with responsive srcset/sizes.
   - Responsive Images: srcset with multiple sizes + sizes attribute for performance.
   - Lazy Images: data-src + class="lazy" + width/height/aspect-ratio attributes.
   - Modals: data-focus-trap + aria-modal="true" + role="dialog".
   - Announcements: aria-live regions with priority-based messaging.
-  - Skip Links: .skip-link elements shown conditionally based on target existence.
+  - Skip Links: .skip-link elements with valid target IDs and navigation announcements.
+  - 404 Pages: Friendly error templates with search, popular products, and multiple recovery options.
   - Form validation: Client-side with server confirmation; clear error messages.
   - Feature Toggles: Theme settings for conditional rendering and auto-hide.
   - State management: URL params for shareable states; data-* attributes for component state; localStorage for persistence.
-  - Safe JSON-LD: Conditional fields based on available data; defensive generation.
+  - Safe JSON-LD: Conditional fields based on available data; defensive generation with comprehensive testing.
 
 development_environment:
   - PowerShell compatibility: Avoid bash-style command chaining (&&); run commands separately.
@@ -75,12 +77,21 @@ development_environment:
   - Session reporting: At end of coding sessions, include encountered errors and workarounds in PR descriptions.
   - Platform testing: Test critical commands on target environment before implementation.
   - Command separation: Use individual terminal_cmd calls instead of chained commands in automation.
+  - TODO management: Regularly reconcile and clean up legacy TODOs to maintain project clarity.
+  - Session review: Update .cursorrules with new patterns and best practices after each phase.
 
 advanced_patterns:
   - Client-side filtering: URL synchronization for bookmarkable states; real-time DOM updates.
   - Merchant configuration: Theme settings for feature toggles and customization options.
   - Progressive enhancement: Core functionality works without JS; enhanced with JS features.
   - Defensive programming: Safe fallbacks for missing data in JSON-LD and templates.
+  - Product media rendering: Comprehensive snippets handling multiple media types with responsive optimization.
+  - Legacy TODO management: Regular cleanup of stale tasks to maintain project clarity and focus.
+  - Resource hints optimization: Strategic preconnect hints for external domains used by theme features.
+  - Skip-link validation: Ensure all skip-links have valid targets with proper ID containers.
+  - Navigation announcements: Screen reader feedback for all navigation changes and user actions.
+  - 404 page optimization: User-friendly error experiences with multiple recovery pathways.
+  - JSON-LD testing: Comprehensive validation tests for structured data schema compliance.
   - Accessibility announcements: Comprehensive screen reader support for all user actions.
   - SEO optimization: robots.txt, structured data, and meta tag management.
   - Performance patterns: Responsive images, critical path optimization, and bundle management.
@@ -110,25 +121,32 @@ testing:
   - DOM interaction testing: Mock complex UI behaviors and state changes.
   - URL synchronization: Test bookmarkable states and parameter handling.
   - Error state testing: Network failures, missing data, invalid configurations.
+  - JSON-LD validation: Comprehensive schema testing with parsing, structure, and fallback validation.
+  - Skip-link validation: Ensure all skip-links have valid targets and proper functionality.
+  - Product media testing: Validate responsive images, video embedding, and 3D model rendering.
+  - 404 page testing: Verify error page functionality, search integration, and localization.
   - Cross-browser: Chrome, Safari, Firefox, Edge compatibility.
   - Accessibility: Keyboard navigation, screen reader testing, announcement verification.
   - Performance: Lighthouse audits (85+ performance, 90+ accessibility).
   - Responsive: Mobile, tablet, desktop viewport testing.
   - Feature toggles: Test conditional rendering and auto-hide behaviors.
-  - JSON-LD validation: Ensure structured data generates correctly with fallbacks.
 
 review:
   - Pre-commit checks: Shopify CLI theme check; lint JSON/CSS/JS.
-  - Manual testing: Quick View, Wishlist, filters, and cart flow verification.
+  - Manual testing: Quick View, Wishlist, filters, cart flows, and 404 page functionality.
   - Feature toggle testing: Verify conditional rendering and auto-hide behaviors.
   - URL state testing: Confirm bookmarkable filter states and parameter handling.
-  - Accessibility audit: Keyboard navigation, screen reader compatibility, announcements.
-  - Performance validation: Lighthouse scores meet targets; responsive image loading.
-  - JSON-LD validation: Structured data generates correctly with defensive fallbacks.
+  - Skip-link validation: Ensure all skip-links have valid targets and proper announcements.
+  - Product media testing: Validate responsive images, video controls, and 3D model rendering.
+  - JSON-LD validation: Comprehensive schema testing with parsing, structure, and fallback validation.
+  - Accessibility audit: Keyboard navigation, screen reader compatibility, announcement verification.
+  - Performance validation: Lighthouse scores meet targets; responsive image loading; resource hints.
   - Code review: Follow PR template; test all modified functionality.
   - Documentation: Update README for new features, settings, and merchant instructions.
+  - TODO reconciliation: Clean up legacy and completed TODOs before session completion.
   - Error reporting: Include environment-specific errors encountered and workarounds implemented.
   - Session summary: Document problems faced and solutions found for future reference.
+  - Rules update: Review session work and update .cursorrules with new patterns and best practices.
 
 contribution:
   - Branch naming: feat/, fix/, refactor/, perf/, docs/, test/ prefixes.
@@ -145,11 +163,13 @@ commits:
   - Examples: "feat(sections/product): add variant swatches, fix(snippets/card): resolve lazy loading CLS"
 
 version_control:
-  - Rules versioning: Update version number in header for major changes.
+  - Rules versioning: Update version number in header for major changes and phase completions.
   - Change documentation: Document rule modifications in commit messages.
   - Backwards compatibility: Avoid breaking changes; use deprecation warnings.
   - Migration guide: Update README when rules change significantly.
   - Error integration: Incorporate documented errors into rules for continuous improvement.
   - Environment updates: Add platform-specific workarounds and compatibility notes.
   - Pattern documentation: Update patterns section when new architectural patterns emerge.
+  - Session-driven updates: Review each development session and update rules with new optimizations.
   - Advanced practices: Add advanced_patterns section for complex implementation strategies.
+  - TODO maintenance: Document legacy cleanup patterns and project clarity practices.
