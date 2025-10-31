@@ -611,6 +611,15 @@ When static JSON becomes unwieldy, consider Shopify Metaobjects:
 - Automatic validation
 - Better scalability for large datasets
 
+## 📋 Rules Governance
+
+After each Plan→Agent cycle, we review work and update standards to prevent drift and preserve learnings. See [`.cursorrules` cycle_closeout](.cursorrules) for the process checklist and [`docs/rules-changelog.md`](docs/rules-changelog.md) for version history.
+
+**Quick Links:**
+- [Rules v2.5](.cursorrules) - Current standards and policies
+- [Rules Changelog](docs/rules-changelog.md) - Evolution history
+- [Session Review Process](.cursorrules) - Post-cycle closeout checklist
+
 ## 🤖 ChatGPT Shopping Integration
 
 To enable free ChatGPT Shopping:
