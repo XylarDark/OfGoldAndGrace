@@ -1,6 +1,6 @@
 # Cursor Rules: Of Gold And Grace Shopify Theme
 # Curated from cursor.directory best practices
-# Version: 2.3 - Phase 5 Optimizations & Quality Assurance
+# Version: 2.4 - CI Performance Budgets & Governance
 
 project_goals:
   - Minimal cost: Shopify Online Store 2.0 theme only; no headless stack or paid services.
@@ -20,6 +20,7 @@ guardrails:
   - Secrets management: API keys in theme settings only; never commit credentials.
   - External services: Free tier only; document all app installs in PR descriptions.
   - Performance budget: Bundle size < 100KB JS/CSS; defer non-critical assets.
+  - CI Node version: Standardize on Node 20.x LTS for all GitHub Actions workflows.
   - Browser support: Chrome, Safari, Firefox, Edge (last 2 versions).
   - localStorage usage: Handle quota exceeded errors; no sensitive data storage.
 
@@ -79,6 +80,7 @@ development_environment:
   - Command separation: Use individual terminal_cmd calls instead of chained commands in automation.
   - TODO management: Regularly reconcile and clean up legacy TODOs to maintain project clarity.
   - Session review: Update .cursorrules with new patterns and best practices after each phase.
+  - CI artifact retention: Performance budget reports (7 days); Lighthouse reports (30 days); align with policies.
 
 advanced_patterns:
   - Client-side filtering: URL synchronization for bookmarkable states; real-time DOM updates.
@@ -168,6 +170,8 @@ commits:
 policies:
   - Scope Gate: Require explicit approval for new features, settings, external domains, or significant impacts.
   - Optional Feature Retention: Keep optional features only if actively used within 2 release cycles, or when user benefit outweighs maintenance cost.
+  - CI Performance Budgets: JS+CSS bundles must stay under 100KB total (source sizes); 80KB triggers warnings. Test assets excluded. Report-only CI (no failures). Budgets defined in lighthouse-budgets.json and enforced by scripts/check-performance-budget.js.
+  - Budget Governance: Request exceptions in PR description with mitigation plan; remediate within 2 weeks; document budget increases in PRs; Lighthouse budgets align with Core Web Vitals targets (LCP <2.5s, CLS <0.1, FID <100ms).
 
 version_control:
   - Rules versioning: Update version number in header for major changes and phase completions.
