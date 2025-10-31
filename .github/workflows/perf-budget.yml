@@ -1,0 +1,41 @@
+name: Performance Budget Check
+
+on:
+  workflow_dispatch: # Manual trigger
+  push:
+    branches: [main]
+    paths:
+      - 'assets/**'
+      - 'scripts/check-performance-budget.js'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'assets/**'
+      - 'scripts/check-performance-budget.js'
+
+jobs:
+  budget-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Check Performance Budget
+        run: node scripts/check-performance-budget.js --ci --pr-number=${{ github.event.number }}
+        continue-on-error: true # Report-only for now
+
+      - name: Upload budget summary
+        uses: actions/upload-artifact@v4
+        with:
+          name: perf-budget-report-${{ github.run_id }}
+          path: |
+            **/*.log
+            **/budget-*.json
+          retention-days: 7
+        if: always()
