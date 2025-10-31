@@ -16,6 +16,21 @@ A minimal-cost Shopify theme for an online-only jewellery store featuring consig
 - **SEO ready**: Structured data, meta tags, and semantic HTML
 - **Comprehensive testing**: Built-in JavaScript test suite for development
 
+## 🛠️ Development Guidelines
+
+This project follows comprehensive development standards curated from [cursor.directory](https://cursor.directory/) best practices for Shopify theme development. All rules are documented in `.cursorrules` and enforced through:
+
+- **Automated CI/CD**: Linting, formatting, and Liquid validation on every PR
+- **Code Review Requirements**: PR template with testing and accessibility checklists
+- **Performance Budgets**: Core Web Vitals targets and bundle size limits
+- **Accessibility Standards**: WCAG AA compliance with automated and manual testing
+
+### Key Principles
+- **Minimal Cost**: Shopify Online Store 2.0 theme only - no headless stack or paid services
+- **Accessibility First**: WCAG AA compliance with keyboard navigation and screen reader support
+- **Performance Optimized**: Core Web Vitals targets (LCP < 2.5s, CLS < 0.1, FID < 100ms)
+- **Developer Experience**: Comprehensive testing, documentation, and automated workflows
+
 ## 🚀 Quick Start
 
 ### Prerequisites
@@ -333,11 +348,46 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Discussions**: [GitHub Discussions](https://github.com/your-username/of-gold-and-grace-theme/discussions)
 - **Shopify Community**: Post in the [Shopify Theme Development](https://community.shopify.com/c/shopify-design/themes/bd-p/themes) forum
 
+## 🤝 Contributing
+
+### Development Workflow
+
+1. **Create Feature Branch**: Use conventional naming (`feat/add-quick-view`, `fix/lazy-loading-cls`)
+2. **Follow Code Standards**: Adhere to `.cursorrules` for style, patterns, and architecture
+3. **Write Tests**: Add tests for new functionality in `assets/__tests__/`
+4. **Update Documentation**: Keep README and code comments current
+5. **Submit PR**: Use the PR template with complete testing checklist
+
+### Code Review Process
+
+- **Automated Checks**: CI validates linting, formatting, and Liquid syntax
+- **Manual Testing**: Verify functionality, accessibility, and performance
+- **Code Ownership**: Core files require senior review (see `.github/CODEOWNERS`)
+- **Merge Requirements**: All CI checks pass, tests included, documentation updated
+
+### Rules and Standards
+
+This project maintains versioned development standards in `.cursorrules`:
+
+- **Version 2.0**: Enhanced Shopify theme guidelines with comprehensive accessibility, performance, and testing requirements
+- **Change Control**: Rules modifications require PR review and documentation
+- **Backwards Compatibility**: Breaking changes include migration guides
+- **Source**: Curated from [cursor.directory](https://cursor.directory/) best practices
+
+When rules change significantly, migration guides are provided in the PR description.
+
 ## 🗺️ Roadmap
 
-- [ ] Add multi-language support
+- [x] Quick View modal functionality
+- [x] Wishlist with localStorage persistence
+- [x] Lazy loading image optimization
+- [x] Comprehensive accessibility features
+- [x] Performance monitoring and optimization
+- [x] Automated testing framework
+- [x] Enhanced development tooling
+- [ ] Add multi-language support (additional locales)
 - [ ] Implement product reviews integration
-- [ ] Add wishlist functionality
 - [ ] Create email templates
-- [ ] Add blog/newsletter integration
-- [ ] Implement advanced filtering options
+- [ ] Add advanced blog/newsletter features
+- [ ] Implement AI-powered search suggestions
+- [ ] Add progressive web app capabilities

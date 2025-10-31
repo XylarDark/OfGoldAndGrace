@@ -1,0 +1,29 @@
+# Code Ownership Rules
+# Based on cursor.directory best practices for Shopify theme development
+
+# Core theme architecture - requires senior review
+/layout/               @XylarDark
+/config/               @XylarDark
+/locales/              @XylarDark
+
+# Critical sections - high review priority
+/sections/main-product.liquid  @XylarDark
+/sections/main-collection.liquid  @XylarDark
+
+# JavaScript components - technical review required
+/assets/quick-view.js  @XylarDark
+/assets/wishlist.js    @XylarDark
+/assets/focus-trap.js  @XylarDark
+/assets/lazyload.js    @XylarDark
+
+# Testing infrastructure
+/assets/__tests__/     @XylarDark
+
+# Build and deployment
+/.github/workflows/    @XylarDark
+package.json           @XylarDark
+.cursorrules          @XylarDark
+
+# Documentation
+README.md             @XylarDark
+.github/              @XylarDark

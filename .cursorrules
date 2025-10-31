@@ -1,69 +1,116 @@
-# Cursor repo rules for Shopify theme (Liquid + JS + CSS)
+# Cursor Rules: Of Gold And Grace Shopify Theme
+# Curated from cursor.directory best practices
+# Version: 2.0 - Enhanced Shopify Theme Guidelines
 
 project_goals:
-  - Keep costs minimal: Shopify theme only; no headless stack.
-  - Prioritize accessibility, performance, and SEO.
-  - Do not add paid services without explicit approval.
-  - Focus on enhanced UX: Quick View, Wishlist, Lazy Loading, Testing.
+  - Minimal cost: Shopify Online Store 2.0 theme only; no headless stack or paid services.
+  - WCAG AA accessibility compliance with keyboard navigation and screen reader support.
+  - Core Web Vitals optimization: LCP < 2.5s, CLS < 0.1, FID < 100ms.
+  - SEO-first: Structured data, semantic HTML, performance-optimized assets.
+  - Developer experience: Automated testing, linting, CI/CD, and comprehensive documentation.
 
 languages:
-  - liquid
-  - javascript
-  - css
-  - json
+  - liquid: Shopify templating with Online Store 2.0 sections/snippets
+  - javascript: ES2020+ vanilla JS, modular assets/, no frameworks
+  - css: Theme tokens, utility-first, responsive design
+  - json: Configuration, locales, and structured data
 
 guardrails:
-  - Never commit secrets; Google Maps key lives in theme settings; restrict via referrer.
-  - Do not introduce server-side code or external runtimes.
-  - Prefer native Shopify features (Search & Discovery, Metaobjects) over custom APIs.
-  - Any app install must have a free tier and be listed in PR notes.
-  - Use localStorage for client-side persistence (wishlist); no cookies without consent.
+  - No server-side code: Shopify Liquid only; no Node.js, PHP, or external runtimes.
+  - Secrets management: API keys in theme settings only; never commit credentials.
+  - External services: Free tier only; document all app installs in PR descriptions.
+  - Performance budget: Bundle size < 100KB JS/CSS; defer non-critical assets.
+  - Browser support: Chrome, Safari, Firefox, Edge (last 2 versions).
+  - localStorage usage: Handle quota exceeded errors; no sensitive data storage.
 
 code_style:
   liquid:
-    - Use sections/snippets; avoid inline scripts where possible
-    - Keep logic minimal; prefer settings/blocks for configuration
-    - Include proper alt text and accessibility attributes
-  js:
-    - ES2020+, no frameworks; small, modular scripts in assets/
-    - Defer non-critical JS; use IntersectionObserver for lazy loading
-    - Implement focus traps for modals; ensure keyboard accessibility
-    - Use localStorage carefully; handle quota exceeded errors
+    - Sections/snippets architecture: Reusable, configurable components.
+    - Minimal logic: Prefer settings schema over inline conditionals.
+    - Accessibility first: Alt text, ARIA labels, semantic HTML structure.
+    - Performance: Lazy load images, optimize loops, cache expensive operations.
+  javascript:
+    - ES2020+ features: Async/await, optional chaining, nullish coalescing.
+    - Modular architecture: One responsibility per file in assets/.
+    - Performance: Defer/async scripts, IntersectionObserver for lazy loading.
+    - Accessibility: Focus traps, keyboard navigation, ARIA live regions.
+    - Error handling: Try/catch blocks, graceful degradation, user feedback.
+    - No frameworks: Vanilla JS only; small utility functions.
   css:
-    - Use theme tokens; prefer utility classes; avoid !important
-    - Include focus states for all interactive elements
-    - Support prefers-reduced-motion and prefers-color-scheme
-    - Use aspect-ratio for responsive images to prevent CLS
+    - Theme tokens: CSS custom properties for colors, spacing, typography.
+    - Utility-first: Composible classes over monolithic components.
+    - Responsive: Mobile-first with fluid typography and spacing.
+    - Performance: Minimize specificity, avoid @import, optimize selectors.
+    - Accessibility: Focus indicators, reduced motion, high contrast support.
+    - No !important: Use specificity hierarchy instead.
 
 files:
-  - Protect: layout/, config/, locales/
-  - Theme settings go in config/settings_schema.json
-  - New UI in sections/ with schema; shareables in snippets/
-  - Test files in assets/__tests__/; use lightweight test runner
-  - Lazy load patterns: data-src + class="lazy" + width/height/aspect-ratio
-
-review:
-  - Run Shopify CLI preview before committing
-  - Lint JSON and CSS; prettier for JSON/JS
-  - Check Lighthouse >= 85 performance, 90 accessibility on PDP and home
-  - Test Quick View and Wishlist functionality manually
-  - Verify lazy loading doesn't break image display
-
-testing:
-  - Cross-browser test: Chrome, Safari, iOS Safari
-  - Cart, checkout, and variant selection flows must pass
-  - Keyboard navigation: Tab through all interactive elements
-  - Screen reader: Test with NVDA/JAWS or VoiceOver
-  - Run assets/__tests__/test-runner.html for JS unit tests
+  - Core protection: layout/, config/, locales/ - never modify without review.
+  - Theme configuration: config/settings_schema.json for all settings.
+  - Component architecture: sections/ for pages, snippets/ for reusable parts.
+  - Asset organization: assets/ for JS/CSS/images; __tests__/ for testing.
+  - Documentation: README.md, .cursorrules, .github/ templates and guidelines.
 
 patterns:
-  - Quick View: Use data-quick-view attribute on buttons
-  - Wishlist: Use data-wishlist-toggle attribute on buttons
-  - Lazy Images: Use data-src + class="lazy" + dimensions
-  - Modals: Use data-focus-trap + aria-modal + role="dialog"
-  - Skip Links: Show only when target elements exist
+  - Quick View: data-quick-view="product-handle" on buttons.
+  - Wishlist: data-wishlist-toggle with data-product-handle and data-product-title.
+  - Lazy Images: data-src + class="lazy" + width/height/aspect-ratio attributes.
+  - Modals: data-focus-trap + aria-modal="true" + role="dialog".
+  - Skip Links: .skip-link elements shown conditionally based on target existence.
+  - Form validation: Client-side with server confirmation; clear error messages.
+  - State management: data-* attributes for component state; localStorage for persistence.
+
+accessibility:
+  - WCAG AA compliance: 4.5:1 contrast ratio, 3:1 for large text.
+  - Keyboard navigation: Tab order logical; Enter/Space activate controls.
+  - Screen readers: ARIA labels, live regions, semantic HTML structure.
+  - Focus management: Visible focus indicators, focus traps for modals.
+  - Motion sensitivity: prefers-reduced-motion media query support.
+  - Color independence: No color-only information conveyance.
+  - Error identification: Clear labels, descriptions, and suggestions.
+
+performance:
+  - Core Web Vitals: LCP < 2.5s, CLS < 0.1, FID < 100ms targets.
+  - Resource loading: Preconnect to external domains; preload critical fonts.
+  - Script optimization: Defer non-critical JS; async third-party scripts.
+  - Image optimization: Lazy loading, WebP format, proper dimensions.
+  - Bundle size: < 100KB total JS/CSS; tree-shake unused code.
+  - Critical path: Inline hero CSS; defer non-visible styles.
+  - Caching strategy: Cache headers for static assets; version files.
+
+testing:
+  - Unit tests: assets/__tests__/test-runner.html for JS component testing.
+  - Integration tests: Manual testing of Quick View, Wishlist, cart flows.
+  - Cross-browser: Chrome, Safari, Firefox, Edge compatibility.
+  - Accessibility: Keyboard navigation, screen reader testing, contrast ratios.
+  - Performance: Lighthouse audits (85+ performance, 90+ accessibility).
+  - Responsive: Mobile, tablet, desktop viewport testing.
+  - Error handling: Network failures, JavaScript disabled, degraded experiences.
+
+review:
+  - Pre-commit checks: Shopify CLI theme check; lint JSON/CSS/JS.
+  - Manual testing: Quick View and Wishlist functionality verification.
+  - Accessibility audit: Keyboard navigation, screen reader compatibility.
+  - Performance validation: Lighthouse scores meet targets.
+  - Code review: Follow PR template; test all modified functionality.
+  - Documentation: Update README for new features or changes.
+
+contribution:
+  - Branch naming: feat/, fix/, refactor/, perf/, docs/, test/ prefixes.
+  - Commit messages: Conventional commits with scope (sections/product-card).
+  - PR requirements: Description, testing notes, screenshots for UI changes.
+  - Code ownership: Review required for layout/, config/, core functionality.
+  - Breaking changes: Document in PR description and commit footer.
 
 commits:
-  - Conventional commits: feat:, fix:, refactor:, chore:, perf:, docs:, test:
-  - Describe theme areas touched (e.g., sections/product, snippets/price)
-  - Include "BREAKING CHANGE" footer for API changes
+  - Format: type(scope): description
+  - Types: feat, fix, refactor, perf, docs, test, chore
+  - Scope: theme area (sections/product, snippets/card, assets/quick-view)
+  - Breaking changes: Add "BREAKING CHANGE:" footer with migration notes
+  - Examples: "feat(sections/product): add variant swatches", "fix(snippets/card): resolve lazy loading CLS"
+
+version_control:
+  - Rules versioning: Update version number in header for major changes.
+  - Change documentation: Document rule modifications in commit messages.
+  - Backwards compatibility: Avoid breaking changes; use deprecation warnings.
+  - Migration guide: Update README when rules change significantly.
