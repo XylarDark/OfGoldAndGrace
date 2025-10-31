@@ -38,6 +38,12 @@
 - **Setting ID**: `______`
 - **Rollback Plan**: `______`
 
+## Performance Budget
+<!-- Check performance budget impact and compliance -->
+- [ ] **Assets affected**: JS/CSS files in `assets/` modified
+- [ ] **Budget delta**: Estimated size increase/decrease: `______`
+- [ ] **Over budget justification**: If >100KB total, explain mitigation plan:
+
 ## Testing Completed
 <!-- Mark completed testing items -->
 - [ ] **Unit Tests**: `assets/__tests__/test-runner.html` passes
