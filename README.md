@@ -373,6 +373,28 @@ SEO-optimized search engine crawling instructions.
 **Customization:**
 Edit `templates/robots.txt.liquid` for your specific needs before production deployment.
 
+### Sitemap Support
+
+SEO-optimized sitemap discovery for search engines.
+
+**Features:**
+- Shopify auto-generated sitemap enabled by default
+- Points to `https://[store].myshopify.com/sitemap.xml`
+- Includes products, collections, pages, blogs, and articles
+- Optional supplemental sitemap for custom URLs
+- No theme overrides (Shopify manages the main sitemap)
+
+**Setup:**
+- Main sitemap directive active in `templates/robots.txt.liquid`
+- Uncomment supplemental sitemap line if needed for custom URLs
+- Supplemental sitemap asset: `assets/supplemental-sitemap.xml` (create if gaps discovered)
+
+**Maintenance:**
+- Shopify automatically includes all published content
+- Custom pages appear when created in Shopify Admin
+- Review sitemap coverage after major content additions
+- Remove unused supplemental sitemaps per Optional Feature Retention policy
+
 ### Theme Settings Enhancement
 
 Additional configuration options for better merchant control.
