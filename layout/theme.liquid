@@ -32,6 +32,9 @@
   <!-- Accessibility styles -->
   {{ 'a11y.css' | asset_url | stylesheet_tag }}
 
+  <!-- Structured Data for SEO -->
+  {% render 'structured-data' %}
+
   {% if settings.ga4_measurement_id != blank %}
   <!-- Google Analytics 4 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id={{ settings.ga4_measurement_id }}"></script>
