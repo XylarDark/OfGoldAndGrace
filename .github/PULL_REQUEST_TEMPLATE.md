@@ -21,6 +21,23 @@
 - [ ] **Templates**: `templates/` (e.g., page layouts)
 - [ ] **Documentation**: README, guides, comments
 
+## Scope Gate
+<!-- Review scope impact and approval requirements -->
+- [ ] **New feature or new setting introduced**
+- [ ] **External domains/assets added**
+- [ ] **Significant perf/a11y/SEO impact**
+
+**Impact Summary:**
+- **Perf**: ☐ none ☐ low ☐ medium ☐ high
+- **A11y**: ☐ none ☐ low ☐ medium ☐ high
+- **SEO**: ☐ none ☐ low ☐ medium ☐ high
+- **External**: ☐ none ☐ fonts ☐ video ☐ other: ______
+
+**Feature Toggle:**
+- [ ] **Feature is behind a disabled-by-default setting**
+- **Setting ID**: `______`
+- **Rollback Plan**: `______`
+
 ## Testing Completed
 <!-- Mark completed testing items -->
 - [ ] **Unit Tests**: `assets/__tests__/test-runner.html` passes
