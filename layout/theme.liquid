@@ -83,30 +83,13 @@
   <script>
     // Basic theme JavaScript
     document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
-
-    // Accessibility: Show skip links only when target elements exist and add navigation announcements
-    document.addEventListener('DOMContentLoaded', function() {
-      const skipLinks = document.querySelectorAll('[data-skip-target]');
-      skipLinks.forEach(link => {
-        const targetId = link.getAttribute('data-skip-target');
-        const targetElement = document.getElementById(targetId);
-        if (targetElement) {
-          link.classList.remove('sr-only');
-
-          // Add navigation announcement on click
-          link.addEventListener('click', () => {
-            const linkText = link.textContent.trim();
-            if (window.announcements) {
-              window.announcements.announce(`${linkText} navigation activated`);
-            }
-          });
-        }
-      });
-    });
   </script>
 
   <!-- Performance utilities - loaded early -->
   <script defer src="{{ 'performance.js' | asset_url }}"></script>
+
+  <!-- Accessibility: Skip links functionality -->
+  <script defer src="{{ 'skip-links.js' | asset_url }}"></script>
 
   <!-- Theme enhancements - loaded after core content for performance -->
   <script defer src="{{ 'focus-trap.js' | asset_url }}"></script>
