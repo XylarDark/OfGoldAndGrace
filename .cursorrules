@@ -1,6 +1,6 @@
 # Cursor Rules: Of Gold And Grace Shopify Theme
 # Curated from cursor.directory best practices
-# Version: 2.0 - Enhanced Shopify Theme Guidelines
+# Version: 2.1 - Enhanced with Error Tracking & Environment Guidelines
 
 project_goals:
   - Minimal cost: Shopify Online Store 2.0 theme only; no headless stack or paid services.
@@ -60,6 +60,13 @@ patterns:
   - Form validation: Client-side with server confirmation; clear error messages.
   - State management: data-* attributes for component state; localStorage for persistence.
 
+development_environment:
+  - PowerShell compatibility: Avoid bash-style command chaining (&&); run commands separately.
+  - Error tracking: Document environment-specific errors and add to session reports for rule refinement.
+  - Session reporting: At end of coding sessions, include encountered errors and workarounds in PR descriptions.
+  - Platform testing: Test critical commands on target environment before implementation.
+  - Command separation: Use individual terminal_cmd calls instead of chained commands in automation.
+
 accessibility:
   - WCAG AA compliance: 4.5:1 contrast ratio, 3:1 for large text.
   - Keyboard navigation: Tab order logical; Enter/Space activate controls.
@@ -94,6 +101,8 @@ review:
   - Performance validation: Lighthouse scores meet targets.
   - Code review: Follow PR template; test all modified functionality.
   - Documentation: Update README for new features or changes.
+  - Error reporting: Include environment-specific errors encountered and workarounds implemented.
+  - Session summary: Document problems faced and solutions found for future reference.
 
 contribution:
   - Branch naming: feat/, fix/, refactor/, perf/, docs/, test/ prefixes.
@@ -114,3 +123,5 @@ version_control:
   - Change documentation: Document rule modifications in commit messages.
   - Backwards compatibility: Avoid breaking changes; use deprecation warnings.
   - Migration guide: Update README when rules change significantly.
+  - Error integration: Incorporate documented errors into rules for continuous improvement.
+  - Environment updates: Add platform-specific workarounds and compatibility notes.
