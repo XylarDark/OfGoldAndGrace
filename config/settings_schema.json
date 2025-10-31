@@ -14,6 +14,24 @@
         "label": "Enable product reviews",
         "default": true,
         "info": "Show product reviews section on product pages. Can be upgraded to use a reviews app later."
+      },
+      {
+        "type": "url",
+        "id": "social_facebook",
+        "label": "Facebook URL",
+        "info": "Your Facebook page URL (used in structured data)"
+      },
+      {
+        "type": "url",
+        "id": "social_instagram",
+        "label": "Instagram URL",
+        "info": "Your Instagram profile URL (used in structured data)"
+      },
+      {
+        "type": "url",
+        "id": "social_twitter",
+        "label": "Twitter/X URL",
+        "info": "Your Twitter/X profile URL (used in structured data)"
       }
     ]
   }

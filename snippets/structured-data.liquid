@@ -21,12 +21,12 @@
         "contactType": "customer service"
       }
       {%- endif -%}
-      {%- assign social_links = shop.metafields.custom.social_facebook | append: shop.metafields.custom.social_instagram | append: shop.metafields.custom.social_twitter -%}
+      {%- assign social_links = settings.social_facebook | append: settings.social_instagram | append: settings.social_twitter -%}
       {%- if social_links != '' -%}
       ,"sameAs": [
-        {%- if shop.metafields.custom.social_facebook %}"{{ shop.metafields.custom.social_facebook }}"{% endif %}
-        {%- if shop.metafields.custom.social_instagram %}{{ shop.metafields.custom.social_facebook and shop.metafields.custom.social_instagram ? ',' : '' }}"{{ shop.metafields.custom.social_instagram }}"{% endif %}
-        {%- if shop.metafields.custom.social_twitter %}{{ (shop.metafields.custom.social_facebook or shop.metafields.custom.social_instagram) and shop.metafields.custom.social_twitter ? ',' : '' }}"{{ shop.metafields.custom.social_twitter }}"{% endif %}
+        {%- if settings.social_facebook %}"{{ settings.social_facebook }}"{% endif %}
+        {%- if settings.social_instagram %}{{ settings.social_facebook and settings.social_instagram ? ',' : '' }}"{{ settings.social_instagram }}"{% endif %}
+        {%- if settings.social_twitter %}{{ (settings.social_facebook or settings.social_instagram) and settings.social_twitter ? ',' : '' }}"{{ settings.social_twitter }}"{% endif %}
       ]
       {%- endif -%}
     },
