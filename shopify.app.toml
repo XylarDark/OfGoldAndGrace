@@ -1,0 +1,22 @@
+# Shopify app configuration for theme development
+# This file configures your Shopify CLI setup for theme development
+
+name = "Of Gold And Grace Theme"
+client_id = ""
+application_url = ""
+embedded = false
+
+[build]
+command = "npm run build"
+directory = "dist"
+
+[access_scopes]
+# Add required access scopes for theme development
+scopes = "write_themes,read_themes,write_content,read_content,write_products,read_products"
+
+[webhooks]
+api_version = "2024-10"
+
+  [[webhooks.subscriptions]]
+  topics = ["themes/publish"]
+  uri = "/webhooks/themes/publish"
