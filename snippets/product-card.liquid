@@ -17,18 +17,19 @@
       {%- endif -%}
     </a>
 
-    <div class="product-card__actions">
-      <button
-        class="product-card__quick-view"
-        data-quick-view="{{ product.handle }}"
-        aria-label="Quick view {{ product.title }}"
-        type="button"
-      >
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M15 12c0 1.654-1.346 3-3 3s-3-1.346-3-3 1.346-3 3-3 3 1.346 3 3zm-2 0c0 .551-.449 1-1 1s-1-.449-1-1 .449-1 1-1 1 .449 1 1zm-6.633-1c-.482 0-.867.385-.867.867v6.266c0 .482.385.867.867.867h6.266c.482 0 .867-.385.867-.867V12.867c0-.482-.385-.867-.867-.867H6.367zm0 1h6.266c.07 0 .133.063.133.133v6.266c0 .07-.063.133-.133.133H6.367c-.07 0-.133-.063-.133-.133V12.867c0-.07.063-.133.133-.133z" fill="currentColor"/>
-        </svg>
-      </button>
-    </div>
+  <div class="product-card__actions">
+    {% render 'wishlist-button', product: product %}
+    <button
+      class="product-card__quick-view"
+      data-quick-view="{{ product.handle }}"
+      aria-label="Quick view {{ product.title }}"
+      type="button"
+    >
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15 12c0 1.654-1.346 3-3 3s-3-1.346-3-3 1.346-3 3-3 3 1.346 3 3zm-2 0c0 .551-.449 1-1 1s-1-.449-1-1 .449-1 1-1 1 .449 1 1zm-6.633-1c-.482 0-.867.385-.867.867v6.266c0 .482.385.867.867h6.266c.482 0 .867-.385.867-.867V12.867c0-.482-.385-.867-.867-.867H6.367zm0 1h6.266c.07 0 .133.063.133.133v6.266c0 .07-.063.133-.133.133H6.367c-.07 0-.133-.063-.133-.133V12.867c0-.07.063-.133.133-.133z" fill="currentColor"/>
+      </svg>
+    </button>
+  </div>
   </div>
 
   <div class="product-card__content">

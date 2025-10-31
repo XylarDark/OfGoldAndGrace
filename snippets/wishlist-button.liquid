@@ -1,0 +1,116 @@
+<button
+  class="wishlist-button{% if is_in_wishlist %} wishlist-button--active{% endif %}"
+  data-wishlist-toggle
+  data-product-handle="{{ product.handle }}"
+  data-product-id="{{ product.id }}"
+  data-product-title="{{ product.title | escape }}"
+  aria-label="{% if is_in_wishlist %}Remove {{ product.title }} from wishlist{% else %}Add {{ product.title }} to wishlist{% endif %}"
+  type="button"
+>
+  <svg class="wishlist-button__icon wishlist-button__icon--outline" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+  <svg class="wishlist-button__icon wishlist-button__icon--filled" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="currentColor"/>
+  </svg>
+</button>
+
+<noscript>
+  <style>
+    .wishlist-button {
+      display: none !important;
+    }
+  </style>
+</noscript>
+
+<style>
+.wishlist-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  position: relative;
+  color: var(--color-base-text-muted);
+}
+
+.wishlist-button:hover {
+  background: var(--color-background-2);
+  transform: scale(1.1);
+}
+
+.wishlist-button:focus {
+  outline: 2px solid var(--color-base-accent-1);
+  outline-offset: 2px;
+}
+
+.wishlist-button--active {
+  color: var(--color-base-error, #e74c3c);
+}
+
+.wishlist-button--active:hover {
+  color: var(--color-base-error, #c0392b);
+}
+
+.wishlist-button__icon {
+  width: 24px;
+  height: 24px;
+  transition: all 0.2s ease;
+}
+
+.wishlist-button__icon--outline {
+  display: block;
+}
+
+.wishlist-button--active .wishlist-button__icon--outline {
+  display: none;
+}
+
+.wishlist-button__icon--filled {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.wishlist-button--active .wishlist-button__icon--filled {
+  display: block;
+  animation: heart-pop 0.3s ease;
+}
+
+@keyframes heart-pop {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* Loading state */
+.wishlist-button[data-loading] {
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.wishlist-button[data-loading] .wishlist-button__icon {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+</style>

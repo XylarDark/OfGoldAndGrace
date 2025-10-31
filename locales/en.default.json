@@ -116,6 +116,17 @@
     "phone": "Phone",
     "website": "Visit Website"
   },
+  "wishlist": {
+    "title": "My Wishlist",
+    "items": "items",
+    "add_to_wishlist": "Add {{ product }} to wishlist",
+    "remove_from_wishlist": "Remove {{ product }} from wishlist",
+    "empty": {
+      "title": "Your wishlist is empty",
+      "description": "Browse our collections and add items you love to your wishlist.",
+      "browse_products": "Browse Products"
+    }
+  },
   "errors": {
     "page_not_found": "Page Not Found",
     "page_not_found_message": "The page you're looking for doesn't exist.",
