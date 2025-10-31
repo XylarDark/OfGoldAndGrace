@@ -95,6 +95,13 @@
       "price_range": "Price Range",
       "availability": "Availability",
       "metal_type": "Metal Type",
+      "tags": "Tags",
+      "metal": "Metal",
+      "gold": "Gold",
+      "silver": "Silver",
+      "platinum": "Platinum",
+      "rose_gold": "Rose Gold",
+      "no_tags": "No tags available",
       "sort_by": "Sort by",
       "clear_filters": "Clear All Filters"
     },

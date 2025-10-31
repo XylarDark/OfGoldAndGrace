@@ -74,6 +74,24 @@
                   </label>
                 </div>
               </div>
+
+              <!-- Tags filter for multi-select filtering -->
+              <div class="collection__filter-group">
+                <h3 class="collection__filter-title">{{ 'collections.filters.tags' | t }}</h3>
+                <div class="collection__filter-options" data-tags-filter>
+                  {%- assign collection_tags = collection.all_tags -%}
+                  {%- if collection_tags.size > 0 -%}
+                    {%- for tag in collection_tags limit:12 -%}
+                      <label class="collection__filter-option">
+                        <input type="checkbox" value="{{ tag | handleize }}" data-tag-checkbox>
+                        {{ tag }}
+                      </label>
+                    {%- endfor -%}
+                  {%- else -%}
+                    <p class="collection__filter-empty">{{ 'collections.filters.no_tags' | t }}</p>
+                  {%- endif -%}
+                </div>
+              </div>
             </div>
           </div>
         </div>
