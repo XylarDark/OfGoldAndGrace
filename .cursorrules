@@ -1,6 +1,6 @@
 # Cursor Rules: Of Gold And Grace Shopify Theme
 # Curated from cursor.directory best practices
-# Version: 2.1 - Enhanced with Error Tracking & Environment Guidelines
+# Version: 2.2 - Advanced Patterns & Best Practices
 
 project_goals:
   - Minimal cost: Shopify Online Store 2.0 theme only; no headless stack or paid services.
@@ -26,19 +26,23 @@ guardrails:
 code_style:
   liquid:
     - Sections/snippets architecture: Reusable, configurable components.
-    - Minimal logic: Prefer settings schema over inline conditionals.
+    - Conditional rendering: Use settings for feature toggles; avoid complex inline logic.
+    - Data attributes: Use data-* for JavaScript hooks and state management.
+    - Safe fallbacks: Defensive JSON-LD generation; handle missing metafields/settings.
     - Accessibility first: Alt text, ARIA labels, semantic HTML structure.
     - Performance: Lazy load images, optimize loops, cache expensive operations.
   javascript:
     - ES2020+ features: Async/await, optional chaining, nullish coalescing.
     - Modular architecture: One responsibility per file in assets/.
-    - Performance: Defer/async scripts, IntersectionObserver for lazy loading.
-    - Accessibility: Focus traps, keyboard navigation, ARIA live regions.
+    - Client-side filtering: URL synchronization for bookmarkable states.
+    - Progressive enhancement: Core functionality without JS; enhanced with JS.
+    - State management: URL params for shareable states; localStorage for persistence.
+    - Accessibility: Focus traps, keyboard navigation, ARIA live regions, announcements.
     - Error handling: Try/catch blocks, graceful degradation, user feedback.
     - No frameworks: Vanilla JS only; small utility functions.
   css:
     - Theme tokens: CSS custom properties for colors, spacing, typography.
-    - Utility-first: Composible classes over monolithic components.
+    - Utility-first: Composable classes over monolithic components.
     - Responsive: Mobile-first with fluid typography and spacing.
     - Performance: Minimize specificity, avoid @import, optimize selectors.
     - Accessibility: Focus indicators, reduced motion, high contrast support.
@@ -54,11 +58,16 @@ files:
 patterns:
   - Quick View: data-quick-view="product-handle" on buttons.
   - Wishlist: data-wishlist-toggle with data-product-handle and data-product-title.
+  - Collection Filters: data-tag-checkbox, data-price-min/max, data-availability-filter.
+  - Responsive Images: srcset with multiple sizes + sizes attribute for performance.
   - Lazy Images: data-src + class="lazy" + width/height/aspect-ratio attributes.
   - Modals: data-focus-trap + aria-modal="true" + role="dialog".
+  - Announcements: aria-live regions with priority-based messaging.
   - Skip Links: .skip-link elements shown conditionally based on target existence.
   - Form validation: Client-side with server confirmation; clear error messages.
-  - State management: data-* attributes for component state; localStorage for persistence.
+  - Feature Toggles: Theme settings for conditional rendering and auto-hide.
+  - State management: URL params for shareable states; data-* attributes for component state; localStorage for persistence.
+  - Safe JSON-LD: Conditional fields based on available data; defensive generation.
 
 development_environment:
   - PowerShell compatibility: Avoid bash-style command chaining (&&); run commands separately.
@@ -66,6 +75,16 @@ development_environment:
   - Session reporting: At end of coding sessions, include encountered errors and workarounds in PR descriptions.
   - Platform testing: Test critical commands on target environment before implementation.
   - Command separation: Use individual terminal_cmd calls instead of chained commands in automation.
+
+advanced_patterns:
+  - Client-side filtering: URL synchronization for bookmarkable states; real-time DOM updates.
+  - Merchant configuration: Theme settings for feature toggles and customization options.
+  - Progressive enhancement: Core functionality works without JS; enhanced with JS features.
+  - Defensive programming: Safe fallbacks for missing data in JSON-LD and templates.
+  - Accessibility announcements: Comprehensive screen reader support for all user actions.
+  - SEO optimization: robots.txt, structured data, and meta tag management.
+  - Performance patterns: Responsive images, critical path optimization, and bundle management.
+  - Testing strategies: Mock complex DOM interactions; test error states and edge cases.
 
 accessibility:
   - WCAG AA compliance: 4.5:1 contrast ratio, 3:1 for large text.
@@ -87,20 +106,27 @@ performance:
 
 testing:
   - Unit tests: assets/__tests__/test-runner.html for JS component testing.
-  - Integration tests: Manual testing of Quick View, Wishlist, cart flows.
+  - Integration tests: Manual testing of Quick View, Wishlist, filters, cart flows.
+  - DOM interaction testing: Mock complex UI behaviors and state changes.
+  - URL synchronization: Test bookmarkable states and parameter handling.
+  - Error state testing: Network failures, missing data, invalid configurations.
   - Cross-browser: Chrome, Safari, Firefox, Edge compatibility.
-  - Accessibility: Keyboard navigation, screen reader testing, contrast ratios.
+  - Accessibility: Keyboard navigation, screen reader testing, announcement verification.
   - Performance: Lighthouse audits (85+ performance, 90+ accessibility).
   - Responsive: Mobile, tablet, desktop viewport testing.
-  - Error handling: Network failures, JavaScript disabled, degraded experiences.
+  - Feature toggles: Test conditional rendering and auto-hide behaviors.
+  - JSON-LD validation: Ensure structured data generates correctly with fallbacks.
 
 review:
   - Pre-commit checks: Shopify CLI theme check; lint JSON/CSS/JS.
-  - Manual testing: Quick View and Wishlist functionality verification.
-  - Accessibility audit: Keyboard navigation, screen reader compatibility.
-  - Performance validation: Lighthouse scores meet targets.
+  - Manual testing: Quick View, Wishlist, filters, and cart flow verification.
+  - Feature toggle testing: Verify conditional rendering and auto-hide behaviors.
+  - URL state testing: Confirm bookmarkable filter states and parameter handling.
+  - Accessibility audit: Keyboard navigation, screen reader compatibility, announcements.
+  - Performance validation: Lighthouse scores meet targets; responsive image loading.
+  - JSON-LD validation: Structured data generates correctly with defensive fallbacks.
   - Code review: Follow PR template; test all modified functionality.
-  - Documentation: Update README for new features or changes.
+  - Documentation: Update README for new features, settings, and merchant instructions.
   - Error reporting: Include environment-specific errors encountered and workarounds implemented.
   - Session summary: Document problems faced and solutions found for future reference.
 
@@ -116,7 +142,7 @@ commits:
   - Types: feat, fix, refactor, perf, docs, test, chore
   - Scope: theme area (sections/product, snippets/card, assets/quick-view)
   - Breaking changes: Add "BREAKING CHANGE:" footer with migration notes
-  - Examples: "feat(sections/product): add variant swatches", "fix(snippets/card): resolve lazy loading CLS"
+  - Examples: "feat(sections/product): add variant swatches, fix(snippets/card): resolve lazy loading CLS"
 
 version_control:
   - Rules versioning: Update version number in header for major changes.
@@ -125,3 +151,5 @@ version_control:
   - Migration guide: Update README when rules change significantly.
   - Error integration: Incorporate documented errors into rules for continuous improvement.
   - Environment updates: Add platform-specific workarounds and compatibility notes.
+  - Pattern documentation: Update patterns section when new architectural patterns emerge.
+  - Advanced practices: Add advanced_patterns section for complex implementation strategies.
