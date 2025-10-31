@@ -210,11 +210,26 @@ function main() {
     postPRComment(prMessage, totalSizeKB >= BUDGET_TOTAL_KB);
   }
 
-  // Exit with appropriate code for CI
-  if (isCI && totalSizeKB >= BUDGET_TOTAL_KB) {
-    console.log('Bundle size exceeds budget! Consider optimizing assets.');
-    process.exit(1); // Could be made non-failing later
+  // Write GitHub step summary if in CI
+  if (isCI && process.env.GITHUB_STEP_SUMMARY) {
+    const summaryTable = `### 📊 Performance Budget Report
+
+| Metric | Value | Status |
+|--------|-------|--------|
+| **Total JS+CSS Size** | ${totalSizeKB.toFixed(1)} KB | ${totalSizeKB >= BUDGET_TOTAL_KB ? '❌ Over Budget' : totalSizeKB >= WARNING_THRESHOLD_KB ? '⚠️ Approaching' : '✅ Within Budget'} |
+| **Budget Limit** | ${BUDGET_TOTAL_KB} KB | - |
+| **Warning Threshold** | ${WARNING_THRESHOLD_KB} KB | - |
+
+#### File Breakdown
+${fileSizes.map(f => `| \`${f.file}\` | ${f.formatted} | - |`).join('\n')}
+
+*Note: Shopify minifies assets on upload. These are source file sizes. Use Lighthouse CI for real-world performance metrics.*`;
+
+    require('fs').appendFileSync(process.env.GITHUB_STEP_SUMMARY, summaryTable + '\n\n');
   }
+
+  // Always exit successfully in CI (report-only policy)
+  // The step summary and PR comments provide the feedback
 }
 
 // Run if called directly
