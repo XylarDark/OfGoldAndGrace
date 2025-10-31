@@ -1,0 +1,107 @@
+{
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "reviewCount": "24",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "reviews": [
+    {
+      "id": "review-1",
+      "@type": "Review",
+      "author": {
+        "@type": "Person",
+        "name": "Sarah M."
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "5",
+        "bestRating": "5"
+      },
+      "reviewBody": "Absolutely stunning piece! The craftsmanship is exceptional and it arrived perfectly packaged. Will definitely be purchasing more from Of Gold And Grace.",
+      "datePublished": "2024-01-15",
+      "verified": true
+    },
+    {
+      "id": "review-2",
+      "@type": "Review",
+      "author": {
+        "@type": "Person",
+        "name": "James L."
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "5",
+        "bestRating": "5"
+      },
+      "reviewBody": "Beautiful necklace with excellent attention to detail. The gold quality is outstanding and the sizing was perfect. Highly recommend!",
+      "datePublished": "2024-01-12",
+      "verified": true
+    },
+    {
+      "id": "review-3",
+      "@type": "Review",
+      "author": {
+        "@type": "Person",
+        "name": "Emma R."
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "4",
+        "bestRating": "5"
+      },
+      "reviewBody": "Love the design and quality. Took a bit longer than expected for delivery, but the piece was worth the wait. Customer service was very responsive.",
+      "datePublished": "2024-01-08",
+      "verified": true
+    },
+    {
+      "id": "review-4",
+      "@type": "Review",
+      "author": {
+        "@type": "Person",
+        "name": "Michael T."
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "5",
+        "bestRating": "5"
+      },
+      "reviewBody": "Perfect gift for my wife. She absolutely loves it! The engraving was done beautifully and the packaging was elegant. 5 stars!",
+      "datePublished": "2024-01-05",
+      "verified": true
+    },
+    {
+      "id": "review-5",
+      "@type": "Review",
+      "author": {
+        "@type": "Person",
+        "name": "Lisa K."
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "5",
+        "bestRating": "5"
+      },
+      "reviewBody": "Incredible quality and fast shipping. The bracelet is even more beautiful in person. Will be a regular customer here!",
+      "datePublished": "2024-01-03",
+      "verified": true
+    },
+    {
+      "id": "review-6",
+      "@type": "Review",
+      "author": {
+        "@type": "Person",
+        "name": "David W."
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "4",
+        "bestRating": "5"
+      },
+      "reviewBody": "Great product and service. The only minor issue was that the chain was slightly longer than expected, but easily adjustable. Overall very satisfied.",
+      "datePublished": "2023-12-28",
+      "verified": true
+    }
+  ]
+}

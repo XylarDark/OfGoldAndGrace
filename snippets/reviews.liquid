@@ -1,0 +1,283 @@
+{{ 'section-reviews.css' | asset_url | stylesheet_tag }}
+
+<div class="reviews" data-reviews-widget>
+  <div class="reviews__header">
+    <h2 class="reviews__title">{{ 'product.details.reviews' | t }}</h2>
+    <div class="reviews__summary">
+      <div class="reviews__rating">
+        <div class="reviews__stars" data-rating-stars aria-label="Average rating">
+          <!-- Stars will be rendered by JavaScript -->
+        </div>
+        <span class="reviews__rating-value" data-rating-value></span>
+        <span class="reviews__rating-max">/ 5</span>
+      </div>
+      <div class="reviews__count">
+        <span data-review-count></span> {{ 'reviews.count' | t }}
+      </div>
+    </div>
+  </div>
+
+  <div class="reviews__filters">
+    <div class="reviews__filter-group">
+      <label for="reviews-sort">{{ 'reviews.sort_by' | t }}</label>
+      <select id="reviews-sort" data-reviews-sort>
+        <option value="newest">{{ 'reviews.sort.newest' | t }}</option>
+        <option value="oldest">{{ 'reviews.sort.oldest' | t }}</option>
+        <option value="highest">{{ 'reviews.sort.highest' | t }}</option>
+        <option value="lowest">{{ 'reviews.sort.lowest' | t }}</option>
+      </select>
+    </div>
+
+    <div class="reviews__filter-group">
+      <label for="reviews-filter">{{ 'reviews.filter_by' | t }}</label>
+      <select id="reviews-filter" data-reviews-filter>
+        <option value="all">{{ 'reviews.filter.all' | t }}</option>
+        <option value="5">{{ 'reviews.filter.5_stars' | t }}</option>
+        <option value="4">{{ 'reviews.filter.4_stars' | t }}</option>
+        <option value="3">{{ 'reviews.filter.3_stars' | t }}</option>
+        <option value="2">{{ 'reviews.filter.2_stars' | t }}</option>
+        <option value="1">{{ 'reviews.filter.1_star' | t }}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="reviews__list" data-reviews-list>
+    <!-- Reviews will be rendered here by JavaScript -->
+  </div>
+
+  <div class="reviews__pagination" data-reviews-pagination style="display: none;">
+    <button class="reviews__pagination-btn" data-pagination-prev disabled>
+      {{ 'general.previous' | t }}
+    </button>
+    <span class="reviews__pagination-info" data-pagination-info></span>
+    <button class="reviews__pagination-btn" data-pagination-next>
+      {{ 'general.next' | t }}
+    </button>
+  </div>
+
+  <!-- Extension point for reviews app integration -->
+  <div class="reviews__extension-notice" style="display: none;">
+    <p>{{ 'reviews.extension_notice' | t }}</p>
+    <button class="button button--secondary" data-enable-reviews-app>
+      {{ 'reviews.enable_app' | t }}
+    </button>
+  </div>
+</div>
+
+<style>
+.reviews {
+  margin-top: 3rem;
+  padding-top: 3rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.reviews__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.reviews__title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-base-text);
+  margin: 0;
+}
+
+.reviews__summary {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.reviews__rating {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.reviews__stars {
+  display: flex;
+  gap: 0.125rem;
+}
+
+.reviews__stars svg {
+  width: 20px;
+  height: 20px;
+  fill: #ffc107;
+  stroke: #ffc107;
+}
+
+.reviews__rating-value {
+  font-weight: 600;
+  color: var(--color-base-text);
+}
+
+.reviews__rating-max {
+  color: var(--color-base-text-muted);
+}
+
+.reviews__count {
+  color: var(--color-base-text-muted);
+}
+
+.reviews__filters {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.reviews__filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.reviews__filter-group label {
+  font-weight: 500;
+  color: var(--color-base-text);
+  font-size: 0.9rem;
+}
+
+.reviews__filter-group select {
+  padding: 0.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.25rem;
+  background: var(--color-background);
+  color: var(--color-base-text);
+  font-size: 0.9rem;
+}
+
+.reviews__list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.review-item {
+  padding: 1.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+  background: var(--color-background);
+}
+
+.review-item__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.review-item__author {
+  font-weight: 600;
+  color: var(--color-base-text);
+}
+
+.review-item__meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--color-base-text-muted);
+  font-size: 0.9rem;
+}
+
+.review-item__rating {
+  display: flex;
+  gap: 0.125rem;
+}
+
+.review-item__rating svg {
+  width: 16px;
+  height: 16px;
+  fill: #ffc107;
+  stroke: #ffc107;
+}
+
+.review-item__verified {
+  color: var(--color-base-success, #28a745);
+  font-weight: 500;
+}
+
+.review-item__body {
+  color: var(--color-base-text);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.reviews__pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.reviews__pagination-btn {
+  padding: 0.75rem 1.5rem;
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: 0.25rem;
+  color: var(--color-base-text);
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.reviews__pagination-btn:hover:not(:disabled) {
+  background: var(--color-background-2);
+}
+
+.reviews__pagination-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.reviews__pagination-info {
+  color: var(--color-base-text-muted);
+  font-size: 0.9rem;
+}
+
+.reviews__extension-notice {
+  text-align: center;
+  padding: 2rem;
+  background: var(--color-background-2);
+  border-radius: 0.5rem;
+  margin-top: 2rem;
+}
+
+.reviews__extension-notice p {
+  margin-bottom: 1rem;
+  color: var(--color-base-text-muted);
+}
+
+@media (max-width: 768px) {
+  .reviews__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .reviews__summary {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .reviews__filters {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .reviews__pagination {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+</style>
