@@ -1,6 +1,6 @@
 # Cursor Rules: Of Gold And Grace Shopify Theme
 # Curated from cursor.directory best practices
-# Version: 2.4 - CI Performance Budgets & Governance
+# Version: 2.5 - Post-Cycle Rules Closeout
 
 project_goals:
   - Minimal cost: Shopify Online Store 2.0 theme only; no headless stack or paid services.
@@ -184,3 +184,14 @@ version_control:
   - Session-driven updates: Review each development session and update rules with new optimizations.
   - Advanced practices: Add advanced_patterns section for complex implementation strategies.
   - TODO maintenance: Document legacy cleanup patterns and project clarity practices.
+
+cycle_closeout:
+  - Session Review: After each Plan→Agent cycle, complete this checklist before marking PR ready:
+    - [ ] Summarize changes: features added, tests written, CI/docs updated, bugs fixed
+    - [ ] Log errors/workarounds: Any platform/environment errors encountered and solutions
+    - [ ] Rules deltas: What to add/modify/remove in .cursorrules (policies, guardrails, patterns)
+    - [ ] Version bump: Increment version in header if policies/guardrails changed
+    - [ ] Changelog entry: Add dated entry to docs/rules-changelog.md with highlights/rationale
+    - [ ] PR template: Fill Session Review section with changes, errors, version bump, changelog link
+  - Governance reminders: Report-only CI will remind you if rules/changelog updates are missing
+  - Changelog location: docs/rules-changelog.md (append-only log with date, version, highlights)
