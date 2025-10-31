@@ -177,6 +177,15 @@ document.addEventListener('DOMContentLoaded', function() {
     .then(response => response.json())
     .then(data => {
       if (data.items) {
+        // Find the product title for announcement
+        const productCard = button.closest('.wishlist__product');
+        const productTitle = productCard.querySelector('.wishlist__product-title a')?.textContent || 'Product';
+
+        // Announce to screen readers
+        if (window.announcements) {
+          window.announcements.productAddedToCart(productTitle, 1);
+        }
+
         button.textContent = 'Added!';
         button.style.background = 'var(--color-base-success, #4CAF50)';
         setTimeout(() => {

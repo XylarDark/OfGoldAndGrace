@@ -259,6 +259,14 @@ class CollectionFilters {
     // Handle empty state
     this.updateEmptyState(visibleCount);
 
+    // Announce filter changes to screen readers
+    if (window.announcements) {
+      const filterCount = this.getActiveFilterCount();
+      if (filterCount > 0) {
+        window.announcements.filterApplied(`${filterCount} filter${filterCount > 1 ? 's' : ''}`, filterCount);
+      }
+    }
+
     // Emit event for other components
     const filterEvent = new CustomEvent('collection:filters-changed', {
       detail: {

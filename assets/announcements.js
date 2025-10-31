@@ -81,6 +81,13 @@ class Announcements {
     this.announce(message);
   }
 
+  filterApplied(filterDescription, count) {
+    const message = count === 1
+      ? `{{ 'announcements.filter_applied_singular' | t: filter: filterDescription }}`
+      : `{{ 'announcements.filters_applied' | t: count: count }}`;
+    this.announce(message);
+  }
+
   error(message) {
     this.announce(message, 'assertive');
   }
