@@ -1,0 +1,140 @@
+{
+  "general": {
+    "loading": "Loading...",
+    "error": "Error",
+    "close": "Close",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "view": "View",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort",
+    "add_to_cart": "Add to Cart",
+    "buy_now": "Buy Now",
+    "out_of_stock": "Out of Stock",
+    "in_stock": "In Stock",
+    "quantity": "Quantity",
+    "price": "Price",
+    "total": "Total"
+  },
+  "header": {
+    "navigation": {
+      "home": "Home",
+      "shop": "Shop",
+      "collections": "Collections",
+      "about": "About",
+      "contact": "Contact",
+      "blog": "Blog",
+      "locations": "Locations"
+    },
+    "search": {
+      "placeholder": "Search products...",
+      "no_results": "No products found"
+    },
+    "cart": {
+      "title": "Shopping Cart",
+      "empty": "Your cart is empty",
+      "checkout": "Checkout",
+      "continue_shopping": "Continue Shopping"
+    }
+  },
+  "footer": {
+    "newsletter": {
+      "title": "Stay Updated",
+      "description": "Subscribe to our newsletter for the latest updates and exclusive offers",
+      "placeholder": "Enter your email",
+      "subscribe": "Subscribe",
+      "success": "Thank you for subscribing!",
+      "error": "Please enter a valid email address"
+    },
+    "links": {
+      "customer_service": "Customer Service",
+      "shipping_returns": "Shipping & Returns",
+      "size_guide": "Size Guide",
+      "care_instructions": "Care Instructions",
+      "privacy_policy": "Privacy Policy",
+      "terms_conditions": "Terms & Conditions"
+    },
+    "social": {
+      "follow_us": "Follow Us",
+      "facebook": "Facebook",
+      "instagram": "Instagram",
+      "twitter": "Twitter",
+      "pinterest": "Pinterest"
+    }
+  },
+  "product": {
+    "details": {
+      "description": "Description",
+      "specifications": "Specifications",
+      "reviews": "Reviews",
+      "related_products": "You might also like",
+      "share": "Share this product"
+    },
+    "variant": {
+      "size": "Size",
+      "color": "Color",
+      "metal": "Metal",
+      "select_option": "Select {{ option }}",
+      "unavailable": "Unavailable"
+    },
+    "care": {
+      "title": "Care Instructions",
+      "storage": "Store in a cool, dry place away from direct sunlight",
+      "cleaning": "Clean with a soft cloth and mild soap when needed",
+      "warranty": "Lifetime warranty on craftsmanship"
+    }
+  },
+  "collection": {
+    "filters": {
+      "price_range": "Price Range",
+      "availability": "Availability",
+      "metal_type": "Metal Type",
+      "sort_by": "Sort by",
+      "clear_filters": "Clear All Filters"
+    },
+    "sort": {
+      "featured": "Featured",
+      "price_ascending": "Price: Low to High",
+      "price_descending": "Price: High to Low",
+      "newest": "Newest",
+      "best_selling": "Best Selling",
+      "alphabetical": "A-Z"
+    }
+  },
+  "locations": {
+    "consignment_stores": "Consignment Partners",
+    "find_store": "Find a Store",
+    "store_details": "Store Details",
+    "directions": "Get Directions",
+    "hours": "Hours",
+    "phone": "Phone",
+    "website": "Visit Website"
+  },
+  "errors": {
+    "page_not_found": "Page Not Found",
+    "page_not_found_message": "The page you're looking for doesn't exist.",
+    "go_home": "Go Home",
+    "server_error": "Server Error",
+    "server_error_message": "Something went wrong. Please try again later."
+  },
+  "accessibility": {
+    "skip_to_content": "Skip to main content",
+    "skip_to_navigation": "Skip to navigation",
+    "skip_to_search": "Skip to search",
+    "skip_to_footer": "Skip to footer",
+    "menu_toggle": "Toggle navigation menu",
+    "cart_toggle": "Toggle shopping cart",
+    "search_toggle": "Toggle search",
+    "close_modal": "Close modal",
+    "open_modal": "Open modal",
+    "loading": "Loading content",
+    "current_page": "Current page",
+    "page_of": "Page {{ current }} of {{ total }}"
+  }
+}

@@ -1,0 +1,111 @@
+{
+  "general": {
+    "loading": "Cargando...",
+    "error": "Error",
+    "close": "Cerrar",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "view": "Ver",
+    "back": "Atrás",
+    "next": "Siguiente",
+    "previous": "Anterior",
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "sort": "Ordenar",
+    "add_to_cart": "Agregar al carrito",
+    "buy_now": "Comprar ahora",
+    "out_of_stock": "Agotado",
+    "in_stock": "En stock",
+    "quantity": "Cantidad",
+    "price": "Precio",
+    "total": "Total"
+  },
+  "header": {
+    "navigation": {
+      "home": "Inicio",
+      "shop": "Tienda",
+      "collections": "Colecciones",
+      "about": "Acerca de",
+      "contact": "Contacto",
+      "blog": "Blog",
+      "locations": "Ubicaciones"
+    },
+    "search": {
+      "placeholder": "Buscar productos...",
+      "no_results": "No se encontraron productos"
+    },
+    "cart": {
+      "title": "Carrito de compras",
+      "empty": "Tu carrito está vacío",
+      "checkout": "Finalizar compra",
+      "continue_shopping": "Continuar comprando"
+    }
+  },
+  "footer": {
+    "newsletter": {
+      "title": "Mantente actualizado",
+      "description": "Suscríbete a nuestro boletín para las últimas actualizaciones y ofertas exclusivas",
+      "placeholder": "Ingresa tu correo electrónico",
+      "subscribe": "Suscribirse",
+      "success": "¡Gracias por suscribirte!",
+      "error": "Por favor ingresa una dirección de correo válida"
+    },
+    "links": {
+      "customer_service": "Servicio al cliente",
+      "shipping_returns": "Envío y devoluciones",
+      "size_guide": "Guía de tallas",
+      "care_instructions": "Instrucciones de cuidado",
+      "privacy_policy": "Política de privacidad",
+      "terms_conditions": "Términos y condiciones"
+    }
+  },
+  "product": {
+    "details": {
+      "description": "Descripción",
+      "specifications": "Especificaciones",
+      "reviews": "Reseñas",
+      "related_products": "También te puede interesar",
+      "share": "Compartir este producto"
+    },
+    "variant": {
+      "size": "Talla",
+      "color": "Color",
+      "metal": "Metal",
+      "select_option": "Seleccionar {{ option }}",
+      "unavailable": "No disponible"
+    },
+    "care": {
+      "title": "Instrucciones de cuidado",
+      "storage": "Guardar en un lugar fresco y seco, alejado de la luz solar directa",
+      "cleaning": "Limpiar con un paño suave y jabón suave cuando sea necesario",
+      "warranty": "Garantía de por vida en la artesanía"
+    }
+  },
+  "collection": {
+    "filters": {
+      "price_range": "Rango de precio",
+      "availability": "Disponibilidad",
+      "metal_type": "Tipo de metal",
+      "sort_by": "Ordenar por",
+      "clear_filters": "Limpiar filtros"
+    }
+  },
+  "locations": {
+    "consignment_stores": "Socios de consignación",
+    "find_store": "Encontrar tienda",
+    "store_details": "Detalles de la tienda",
+    "directions": "Obtener direcciones",
+    "hours": "Horarios",
+    "phone": "Teléfono",
+    "website": "Visitar sitio web"
+  },
+  "errors": {
+    "page_not_found": "Página no encontrada",
+    "page_not_found_message": "La página que buscas no existe.",
+    "go_home": "Ir al inicio",
+    "server_error": "Error del servidor",
+    "server_error_message": "Algo salió mal. Por favor intenta de nuevo más tarde."
+  }
+}
