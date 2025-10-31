@@ -59,7 +59,7 @@ patterns:
   - Quick View: data-quick-view="product-handle" on buttons.
   - Wishlist: data-wishlist-toggle with data-product-handle and data-product-title.
   - Collection Filters: data-tag-checkbox, data-price-min/max, data-availability-filter.
-  - Product Media: Comprehensive snippet handling images/videos/3D with responsive srcset/sizes.
+  - Product Media: Comprehensive snippet handling images/videos with responsive srcset/sizes (3D optional).
   - Responsive Images: srcset with multiple sizes + sizes attribute for performance.
   - Lazy Images: data-src + class="lazy" + width/height/aspect-ratio attributes.
   - Modals: data-focus-trap + aria-modal="true" + role="dialog".
@@ -123,7 +123,7 @@ testing:
   - Error state testing: Network failures, missing data, invalid configurations.
   - JSON-LD validation: Comprehensive schema testing with parsing, structure, and fallback validation.
   - Skip-link validation: Ensure all skip-links have valid targets and proper functionality.
-  - Product media testing: Validate responsive images, video embedding, and 3D model rendering.
+  - Product media testing: Validate responsive images and video embedding (3D model rendering if enabled).
   - 404 page testing: Verify error page functionality, search integration, and localization.
   - Cross-browser: Chrome, Safari, Firefox, Edge compatibility.
   - Accessibility: Keyboard navigation, screen reader testing, announcement verification.
@@ -137,7 +137,7 @@ review:
   - Feature toggle testing: Verify conditional rendering and auto-hide behaviors.
   - URL state testing: Confirm bookmarkable filter states and parameter handling.
   - Skip-link validation: Ensure all skip-links have valid targets and proper announcements.
-  - Product media testing: Validate responsive images, video controls, and 3D model rendering.
+  - Product media testing: Validate responsive images and video controls (3D model rendering if enabled).
   - JSON-LD validation: Comprehensive schema testing with parsing, structure, and fallback validation.
   - Accessibility audit: Keyboard navigation, screen reader compatibility, announcement verification.
   - Performance validation: Lighthouse scores meet targets; responsive image loading; resource hints.
