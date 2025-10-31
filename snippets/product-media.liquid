@@ -1,0 +1,200 @@
+{{ 'section-product-media.css' | asset_url | stylesheet_tag }}
+
+{%- assign media = media -%}
+{%- assign variant_id = variant_id | default: nil -%}
+{%- assign section_id = section_id | default: nil -%}
+{%- assign zoomable = zoomable | default: false -%}
+
+<div class="product-media" data-media-id="{{ section_id }}-{{ media.id }}">
+  {%- if media.media_type == 'image' -%}
+    <div class="product-media__image-container">
+      {%- assign image = media -%}
+      <img
+        src="{{ image | img_url: '800x800' }}"
+        srcset="
+          {{ image | img_url: '600x600' }} 600w,
+          {{ image | img_url: '800x800' }} 800w,
+          {{ image | img_url: '1000x1000' }} 1000w,
+          {{ image | img_url: '1200x1200' }} 1200w,
+          {{ image | img_url: '1600x1600' }} 1600w
+        "
+        sizes="(max-width: 480px) 600px, (max-width: 768px) 800px, (max-width: 1024px) 1000px, (max-width: 1200px) 1200px, 1600px"
+        alt="{{ image.alt | escape }}"
+        loading="lazy"
+        class="product-media__image"
+        {%- if zoomable -%}
+        data-zoom="{{ image | img_url: '2000x2000' }}"
+        {%- endif -%}
+      >
+
+      {%- if zoomable -%}
+        <button
+          type="button"
+          class="product-media__zoom-button"
+          aria-label="{{ 'products.product.media.zoom' | t }}"
+          data-zoom-trigger
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M15 3l2.3 2.3-2.89 2.87 1.42 1.42L18.7 6.7 21 9V3h-6zM3 9l2.3-2.3 2.87 2.89 1.42-1.42L6.7 5.3 9 3H3v6zm6 12l-2.3-2.3 2.89-2.87-1.42-1.42L5.3 17.3 3 15v6h6zm12-6l-2.3 2.3-2.87-2.89-1.42 1.42 2.89 2.87L15 21h6v-6z" fill="currentColor"/>
+          </svg>
+        </button>
+      {%- endif -%}
+    </div>
+
+  {%- elsif media.media_type == 'video' -%}
+    <div class="product-media__video-container">
+      <video
+        controls
+        preload="metadata"
+        class="product-media__video"
+        poster="{{ media | img_url: '800x800' }}"
+        aria-label="{{ media.alt | escape }}"
+      >
+        <source src="{{ media.sources[0].url }}" type="{{ media.sources[0].mime_type }}">
+        {%- for source in media.sources -%}
+          {%- if forloop.first == false -%}
+            <source src="{{ source.url }}" type="{{ source.mime_type }}">
+          {%- endif -%}
+        {%- endfor -%}
+        {{ 'products.product.media.video_fallback' | t }}
+      </video>
+    </div>
+
+  {%- elsif media.media_type == 'external_video' -%}
+    <div class="product-media__external-video-container">
+      <div class="product-media__external-video-wrapper">
+        <iframe
+          src="{{ media.embed_url }}"
+          class="product-media__external-video"
+          allowfullscreen
+          loading="lazy"
+          title="{{ media.alt | escape }}"
+        ></iframe>
+      </div>
+    </div>
+
+  {%- elsif media.media_type == 'model' -%}
+    <div class="product-media__model-container">
+      <div class="product-media__model">
+        <model-viewer
+          src="{{ media.sources[0].url }}"
+          poster="{{ media | img_url: '800x800' }}"
+          alt="{{ media.alt | escape }}"
+          camera-controls
+          auto-rotate
+          shadow-intensity="1"
+          exposure="1"
+          interaction-prompt-threshold="0"
+          ar
+          loading="lazy"
+          class="product-media__model-viewer"
+        >
+          <button slot="ar-button" class="product-media__ar-button">
+            {{ 'products.product.media.view_in_ar' | t }}
+          </button>
+        </model-viewer>
+      </div>
+    </div>
+  {%- endif -%}
+</div>
+
+<style>
+.product-media {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.product-media__image-container,
+.product-media__video-container,
+.product-media__external-video-container,
+.product-media__model-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.product-media__image,
+.product-media__video,
+.product-media__external-video,
+.product-media__model-viewer {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.product-media__zoom-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  z-index: 2;
+}
+
+.product-media:hover .product-media__zoom-button {
+  opacity: 1;
+}
+
+.product-media__zoom-button:hover {
+  background: rgba(255, 255, 255, 1);
+  transform: scale(1.05);
+}
+
+.product-media__zoom-button svg {
+  display: block;
+}
+
+.product-media__external-video-wrapper {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  height: 0;
+  overflow: hidden;
+}
+
+.product-media__external-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.product-media__ar-button {
+  background: var(--color-base-accent-1, #007cba);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+.product-media__ar-button:hover {
+  background: var(--color-base-accent-1-hover, #005a87);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .product-media__zoom-button {
+    opacity: 1; /* Always visible on mobile */
+    top: 0.5rem;
+    right: 0.5rem;
+    padding: 0.375rem;
+  }
+
+  .product-media__zoom-button svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+</style>
