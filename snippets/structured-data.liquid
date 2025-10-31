@@ -7,21 +7,28 @@
       "@type": "Organization",
       "@id": "{{ shop.url }}/#organization",
       "name": "{{ shop.name }}",
-      "url": "{{ shop.url }}",
-      "logo": {
+      "url": "{{ shop.url }}"
+      {%- if shop.brand.logo -%}
+      ,"logo": {
         "@type": "ImageObject",
         "url": "{{ shop.brand.logo | img_url: '400x400' }}"
-      },
-      "contactPoint": {
+      }
+      {%- endif -%}
+      {%- if shop.phone -%}
+      ,"contactPoint": {
         "@type": "ContactPoint",
         "telephone": "{{ shop.phone }}",
         "contactType": "customer service"
-      },
-      "sameAs": [
-        "{{ shop.metafields.custom.social_facebook }}",
-        "{{ shop.metafields.custom.social_instagram }}",
-        "{{ shop.metafields.custom.social_twitter }}"
+      }
+      {%- endif -%}
+      {%- assign social_links = shop.metafields.custom.social_facebook | append: shop.metafields.custom.social_instagram | append: shop.metafields.custom.social_twitter -%}
+      {%- if social_links != '' -%}
+      ,"sameAs": [
+        {%- if shop.metafields.custom.social_facebook %}"{{ shop.metafields.custom.social_facebook }}"{% endif %}
+        {%- if shop.metafields.custom.social_instagram %}{{ shop.metafields.custom.social_facebook and shop.metafields.custom.social_instagram ? ',' : '' }}"{{ shop.metafields.custom.social_instagram }}"{% endif %}
+        {%- if shop.metafields.custom.social_twitter %}{{ (shop.metafields.custom.social_facebook or shop.metafields.custom.social_instagram) and shop.metafields.custom.social_twitter ? ',' : '' }}"{{ shop.metafields.custom.social_twitter }}"{% endif %}
       ]
+      {%- endif -%}
     },
     {
       "@type": "WebSite",
@@ -58,7 +65,7 @@
         "url": "{{ product.url }}",
         "priceCurrency": "{{ shop.currency }}",
         "price": "{{ product.selected_or_first_available_variant.price | money_without_currency | remove: ',' }}",
-        "availability": "https://schema.org/{{ product.selected_or_first_available_variant.available | default: false | json }}",
+        "availability": "https://schema.org/{{ product.selected_or_first_available_variant.available | default: false | json | replace: 'true', 'InStock' | replace: 'false', 'OutOfStock' }}",
         "seller": {
           "@id": "{{ shop.url }}/#organization"
         }
@@ -66,9 +73,9 @@
         ,"priceValidUntil": "{{ 'now' | date: '%Y-%m-%d' | date_modify: '+30 days' }}"
         {%- endif -%}
       }
-      {%- if product.metafields.custom.aggregate_rating -%}
+      {%- if settings.enable_product_reviews and product.metafields.custom.aggregate_rating -%}
       ,"aggregateRating": {{ product.metafields.custom.aggregate_rating }}
-      {%- else -%}
+      {%- elsif settings.enable_product_reviews -%}
       ,"aggregateRating": {
         "@type": "AggregateRating",
         "ratingValue": "4.8",
