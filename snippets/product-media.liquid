@@ -73,7 +73,7 @@
       </div>
     </div>
 
-  {%- elsif media.media_type == 'model' -%}
+  {%- elsif media.media_type == 'model' and settings.enable_3d_models -%}
     <div class="product-media__model-container">
       <div class="product-media__model">
         <model-viewer
