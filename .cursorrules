@@ -22,7 +22,7 @@ guardrails:
   - Performance budget: Bundle size < 100KB JS/CSS; defer non-critical assets.
   - CI Node version: Standardize on Node 20.x LTS for all GitHub Actions workflows.
   - Browser support: Chrome, Safari, Firefox, Edge (last 2 versions).
-  - localStorage usage: Handle quota exceeded errors; no sensitive data storage.
+  - localStorage usage: Handle quota exceeded errors; no sensitive data storage; wishlist limited to product handles only.
 
 code_style:
   liquid:

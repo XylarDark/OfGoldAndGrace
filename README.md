@@ -567,6 +567,49 @@ Run the test suite to verify JavaScript functionality:
 - **Collection Filters**: URL synchronization, multi-select logic, UI state management
 - **Focus Management**: Modal focus traps, keyboard navigation
 - **Error Handling**: Network failures, invalid data, edge cases
+- **JSON Schema Validation**: Static data integrity for consignment locations and reviews
+
+### Data Management
+
+The theme uses a minimal data strategy with Shopify as the primary data source and static JSON for supplementary content.
+
+#### Static JSON Assets
+
+**Consignment Locations** (`assets/consignment_locations.json`):
+- Partner locations for map display
+- Validated against `assets/consignment_locations.schema.json`
+- Required: `partner`, `store`, `address`, `latitude`, `longitude`
+- Optional: `phone`, `hours`, `website`
+
+**Product Reviews** (`assets/reviews.json`):
+- Static review data for product pages
+- Validated against `assets/reviews.schema.json`
+- Includes aggregate rating and individual reviews
+- JSON-LD compatible structure
+
+#### Data Update Workflow
+
+1. **Modify JSON Files**: Edit `assets/consignment_locations.json` or `assets/reviews.json`
+2. **Validate Schema**: Run `assets/__tests__/test-runner.html` and verify schema tests pass
+3. **Test Integration**: Ensure map/reviews render correctly with new data
+4. **Commit Changes**: Include schema validation in PR checklist
+5. **Deploy**: Changes deploy with theme updates
+
+#### Client-Side Data
+
+**Wishlist Storage**:
+- Uses `localStorage` for product handles only
+- No PII or sensitive data stored
+- Handles quota exceeded errors gracefully
+- Limited to reasonable item counts (no hard limit enforced)
+
+#### Future Migration Path
+
+When static JSON becomes unwieldy, consider Shopify Metaobjects:
+- Admin-editable content
+- Version-controlled schema
+- Automatic validation
+- Better scalability for large datasets
 
 ## 🤖 ChatGPT Shopping Integration
 
