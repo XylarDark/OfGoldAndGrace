@@ -520,6 +520,31 @@ Optional Lighthouse CI generates performance, accessibility, and SEO reports wit
 3. Click "Run workflow"
 4. Check artifacts after completion
 
+### Performance Budget Checks
+
+Automated bundle size validation against `.cursorrules` budget (<100KB total JS+CSS) with observability-only reporting.
+
+**Budget Thresholds:**
+- **Total JS+CSS**: <100KB (source sizes before Shopify minification)
+- **Warning Level**: 80KB (approaching budget)
+- **Over Budget**: >100KB (highlighted in reports)
+
+**Setup:**
+- Runs automatically on `push` to `main`, PRs, and manual trigger
+- Checks `assets/**/*.js` and `assets/**/*.css` files (excludes `__tests__`)
+- Reports job succeeds even if over budget (observability-only)
+
+**Viewing Reports:**
+- CI summary shows bundle size breakdown and budget status
+- PR comments posted when ≥80KB or significant improvements detected
+- Workflow artifacts include detailed size reports (7-day retention)
+
+**Maintenance:**
+- Shopify minifies assets on upload (local sizes may be larger)
+- Use Lighthouse CI for real-world performance metrics
+- Budget can be adjusted in `scripts/check-performance-budget.js`
+- No CI failures initially (can be changed per team preference)
+
 ### Testing
 
 Run the test suite to verify JavaScript functionality:
