@@ -413,6 +413,7 @@ Robust JSON-LD with comprehensive fallbacks and conditional rendering.
 - **Product Media Snippet**: Comprehensive media rendering with responsive images, zoom functionality, and support for images, videos, external videos, and 3D models
   - Usage: `{% render 'product-media', media: media, variant_id: current_variant.id, section_id: section.id, zoomable: true %}`
   - Features: Automatic responsive images, video controls, external video embedding, 3D model viewer integration
+  - **3D Models**: Optional and disabled by default. Enable via Theme Settings → "Enable 3D model viewer" to show 3D models for products that have them uploaded
 - **Error Pages**: Friendly 404 template with search functionality and localized content
 
 ### Accessibility Improvements
