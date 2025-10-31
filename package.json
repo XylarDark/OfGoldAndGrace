@@ -1,0 +1,25 @@
+{
+  "name": "of-gold-and-grace-theme",
+  "version": "1.0.0",
+  "description": "Shopify theme for Of Gold And Grace jewellery store",
+  "scripts": {
+    "lint": "npm run lint:js && npm run lint:css && npm run lint:json",
+    "lint:js": "eslint assets/ --ext .js",
+    "lint:css": "stylelint assets/ --fix",
+    "lint:json": "prettier --check config/ locales/ templates/ sections/ snippets/",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "prettier": "^3.3.0",
+    "stylelint": "^16.6.0",
+    "stylelint-config-prettier": "^11.0.0",
+    "stylelint-config-standard": "^36.0.0",
+    "stylelint-order": "^6.0.4"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

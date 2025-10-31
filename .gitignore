@@ -1,0 +1,77 @@
+# Dependencies
+node_modules/
+package-lock.json
+yarn.lock
+.pnpm-debug.log*
+
+# Build outputs
+dist/
+build/
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+*.lcov
+
+# Temporary folders
+tmp/
+temp/
+
+# Cache directories
+.cache/
+.parcel-cache/
+
+# Shopify specific
+# Theme deployment files
+.shopify/
+# Local development
+*.shopify
+# Backup files
+*.bak
+*.backup
+
+# Cursor specific
+.cursor/
+
+# Local development files
+dev/
+local/
+
+# Secrets and config files that may contain sensitive data
+config/settings_data.json
+config/settings_schema.json.backup

@@ -1,0 +1,188 @@
+/* Consignment locations map styles */
+
+.locations-page {
+  padding: 2rem 0;
+}
+
+.locations-page__header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.locations-page__title {
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin: 0 0 1rem 0;
+}
+
+.locations-page__description {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #666;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.locations-map {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.locations-map__container {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.locations-map__list {
+  background: #f9f9f9;
+  padding: 1.5rem;
+  border-radius: 8px;
+}
+
+.locations-map__list-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0 0 1.5rem 0;
+}
+
+.locations-map__locations {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.location-item {
+  padding: 1rem;
+  background: white;
+  border-radius: 6px;
+  border: 1px solid #e5e5e5;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.location-item:hover {
+  border-color: #333;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.location-item--active {
+  border-color: #333;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.location-item__title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+  color: #333;
+}
+
+.location-item__address,
+.location-item__phone,
+.location-item__hours {
+  margin: 0.25rem 0;
+  font-size: 14px;
+  color: #666;
+  line-height: 1.4;
+}
+
+.location-item__link {
+  display: inline-block;
+  margin-top: 0.5rem;
+  color: #0066cc;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.location-item__link:hover {
+  text-decoration: underline;
+}
+
+.location-popup {
+  min-width: 200px;
+}
+
+.location-popup__title {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+}
+
+.location-popup__address,
+.location-popup__phone,
+.location-popup__hours {
+  margin: 0.25rem 0;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.location-popup__link {
+  display: inline-block;
+  margin-top: 0.5rem;
+  color: #0066cc;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.location-popup__link:hover {
+  text-decoration: underline;
+}
+
+.locations-map__empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+  color: #666;
+}
+
+.locations-map__empty p {
+  font-size: 1.1rem;
+}
+
+/* Leaflet overrides */
+.leaflet-popup-content-wrapper {
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.leaflet-popup-content {
+  margin: 0;
+  line-height: 1.4;
+}
+
+.leaflet-popup-tip {
+  background: white;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .locations-map {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .locations-map__list {
+    order: -1;
+  }
+}
+
+@media (max-width: 768px) {
+  .locations-page__title {
+    font-size: 2rem;
+  }
+
+  .location-item {
+    padding: 0.75rem;
+  }
+
+  .locations-map__container {
+    height: 400px;
+  }
+}

@@ -1,0 +1,232 @@
+{{ 'section-main-collection.css' | asset_url | stylesheet_tag }}
+
+<div class="page-width">
+  <div class="collection">
+    <div class="collection__header">
+      <h1 class="collection__title">{{ collection.title }}</h1>
+      {%- if collection.description != blank -%}
+        <div class="collection__description">{{ collection.description }}</div>
+      {%- endif -%}
+    </div>
+
+    <div class="collection__content">
+      {%- if section.settings.enable_filters -%}
+        <div class="collection__filters" data-collection-filters>
+          <div class="collection__filters-header">
+            <button type="button" class="collection__filters-toggle" data-filters-toggle>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+              {{ 'collections.filters.filters' | t }}
+              <span class="collection__filters-count" data-filters-count></span>
+            </button>
+            <button type="button" class="collection__clear-filters" data-clear-filters style="display: none;">
+              {{ 'collections.filters.clear_all' | t }}
+            </button>
+          </div>
+
+          <div class="collection__filters-content" data-filters-content style="display: none;">
+            <div class="collection__filters-groups">
+              <!-- Price filter placeholder -->
+              <div class="collection__filter-group">
+                <h3 class="collection__filter-title">{{ 'collections.filters.price' | t }}</h3>
+                <div class="collection__filter-options" data-price-filter>
+                  <div class="collection__price-range">
+                    <input type="number" placeholder="{{ 'collections.filters.price_min' | t }}" data-price-min>
+                    <span>to</span>
+                    <input type="number" placeholder="{{ 'collections.filters.price_max' | t }}" data-price-max>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Availability filter placeholder -->
+              <div class="collection__filter-group">
+                <h3 class="collection__filter-title">{{ 'collections.filters.availability' | t }}</h3>
+                <div class="collection__filter-options">
+                  <label class="collection__filter-option">
+                    <input type="checkbox" data-availability-filter value="in-stock">
+                    {{ 'collections.filters.in_stock' | t }}
+                  </label>
+                </div>
+              </div>
+
+              <!-- Metal type filter placeholder (common for jewellery) -->
+              <div class="collection__filter-group">
+                <h3 class="collection__filter-title">{{ 'collections.filters.metal' | t }}</h3>
+                <div class="collection__filter-options" data-metal-filter>
+                  <label class="collection__filter-option">
+                    <input type="checkbox" value="gold">
+                    {{ 'collections.filters.gold' | t }}
+                  </label>
+                  <label class="collection__filter-option">
+                    <input type="checkbox" value="silver">
+                    {{ 'collections.filters.silver' | t }}
+                  </label>
+                  <label class="collection__filter-option">
+                    <input type="checkbox" value="platinum">
+                    {{ 'collections.filters.platinum' | t }}
+                  </label>
+                  <label class="collection__filter-option">
+                    <input type="checkbox" value="rose-gold">
+                    {{ 'collections.filters.rose_gold' | t }}
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      {%- endif -%}
+
+      <div class="collection__sort" data-collection-sort>
+        <label for="sort-by">{{ 'collections.sorting.sort_by' | t }}</label>
+        <select id="sort-by" data-sort-select>
+          <option value="manual">{{ 'collections.sorting.manual' | t }}</option>
+          <option value="best-selling">{{ 'collections.sorting.best_selling' | t }}</option>
+          <option value="title-ascending">{{ 'collections.sorting.title_ascending' | t }}</option>
+          <option value="title-descending">{{ 'collections.sorting.title_descending' | t }}</option>
+          <option value="price-ascending">{{ 'collections.sorting.price_ascending' | t }}</option>
+          <option value="price-descending">{{ 'collections.sorting.price_descending' | t }}</option>
+          <option value="created-ascending">{{ 'collections.sorting.created_ascending' | t }}</option>
+          <option value="created-descending">{{ 'collections.sorting.created_descending' | t }}</option>
+        </select>
+      </div>
+
+      <div class="collection__products" data-collection-products>
+        {%- if collection.products.size == 0 -%}
+          <div class="collection__empty">
+            <p>{{ 'collections.general.no_products' | t }}</p>
+          </div>
+        {%- else -%}
+          <div class="collection__grid">
+            {%- for product in collection.products -%}
+              <div class="collection__product">
+                {%- render 'product-card',
+                  product: product,
+                  show_vendor: section.settings.show_vendor,
+                  show_rating: section.settings.show_rating
+                -%}
+              </div>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+      {%- if paginate.pages > 1 -%}
+        <div class="collection__pagination">
+          {{ paginate | default_pagination }}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Filter toggle functionality
+    const filtersToggle = document.querySelector('[data-filters-toggle]');
+    const filtersContent = document.querySelector('[data-filters-content]');
+    const clearFilters = document.querySelector('[data-clear-filters]');
+
+    if (filtersToggle && filtersContent) {
+      filtersToggle.addEventListener('click', function() {
+        const isVisible = filtersContent.style.display !== 'none';
+        filtersContent.style.display = isVisible ? 'none' : 'block';
+        filtersToggle.setAttribute('aria-expanded', !isVisible);
+      });
+    }
+
+    // Clear filters functionality (placeholder)
+    if (clearFilters) {
+      clearFilters.addEventListener('click', function() {
+        // Reset all filter inputs
+        const inputs = document.querySelectorAll('[data-filters-content] input');
+        inputs.forEach(input => {
+          if (input.type === 'checkbox') {
+            input.checked = false;
+          } else {
+            input.value = '';
+          }
+        });
+        clearFilters.style.display = 'none';
+        // Trigger filter update
+      });
+    }
+
+    // Sort functionality (placeholder)
+    const sortSelect = document.querySelector('[data-sort-select]');
+    if (sortSelect) {
+      sortSelect.addEventListener('change', function() {
+        // Handle sort change - would typically submit form or update URL
+        console.log('Sort changed to:', this.value);
+      });
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Collection",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_filters",
+      "label": "Enable filters",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "Show vendor",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "label": "Show rating",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "products_per_page",
+      "options": [
+        {
+          "value": "12",
+          "label": "12"
+        },
+        {
+          "value": "24",
+          "label": "24"
+        },
+        {
+          "value": "36",
+          "label": "36"
+        }
+      ],
+      "default": "24",
+      "label": "Products per page"
+    },
+    {
+      "type": "select",
+      "id": "grid_columns",
+      "options": [
+        {
+          "value": "2",
+          "label": "2 columns"
+        },
+        {
+          "value": "3",
+          "label": "3 columns"
+        },
+        {
+          "value": "4",
+          "label": "4 columns"
+        }
+      ],
+      "default": "4",
+      "label": "Grid columns (desktop)"
+    }
+  ]
+}
+{% endschema %}

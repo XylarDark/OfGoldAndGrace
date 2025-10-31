@@ -1,0 +1,52 @@
+[
+  {
+    "partner": "Elegant Gems Boutique",
+    "store": "Elegant Gems Boutique - Downtown",
+    "address": "123 Main Street, Downtown District, New York, NY 10001, USA",
+    "latitude": 40.7505,
+    "longitude": -73.9934,
+    "phone": "+1 (212) 555-0123",
+    "hours": "Mon-Fri 10am-7pm, Sat 10am-6pm, Sun 12pm-5pm",
+    "website": "https://elegantgemsboutique.example"
+  },
+  {
+    "partner": "Luxury Jewels Co.",
+    "store": "Luxury Jewels Co. - Upper East Side",
+    "address": "456 Park Avenue, Upper East Side, New York, NY 10021, USA",
+    "latitude": 40.7829,
+    "longitude": -73.9654,
+    "phone": "+1 (212) 555-0456",
+    "hours": "Tue-Sat 11am-8pm, Sun-Mon Closed",
+    "website": "https://luxuryjewels.example"
+  },
+  {
+    "partner": "Fine Jewelry Emporium",
+    "store": "Fine Jewelry Emporium - SoHo",
+    "address": "789 Broadway, SoHo, New York, NY 10003, USA",
+    "latitude": 40.7282,
+    "longitude": -73.7949,
+    "phone": "+1 (212) 555-0789",
+    "hours": "Mon-Sat 10am-8pm, Sun 11am-6pm",
+    "website": "https://finejewelryemporium.example"
+  },
+  {
+    "partner": "Precious Stones Gallery",
+    "store": "Precious Stones Gallery - Chelsea",
+    "address": "321 8th Avenue, Chelsea, New York, NY 10018, USA",
+    "latitude": 40.7470,
+    "longitude": -73.9972,
+    "phone": "+1 (212) 555-0321",
+    "hours": "Wed-Sun 11am-7pm, Mon-Tue Closed",
+    "website": "https://preciousstonesgallery.example"
+  },
+  {
+    "partner": "Diamond Dreams",
+    "store": "Diamond Dreams - Williamsburg",
+    "address": "654 Bedford Avenue, Williamsburg, Brooklyn, NY 11211, USA",
+    "latitude": 40.7142,
+    "longitude": -73.9612,
+    "phone": "+1 (718) 555-0654",
+    "hours": "Thu-Mon 12pm-8pm, Tue-Wed Closed",
+    "website": "https://diamonddreams.example"
+  }
+]

@@ -1,0 +1,42 @@
+name: Deploy to Shopify
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deployment environment'
+        required: true
+        default: 'development'
+        type: choice
+        options:
+        - development
+        - staging
+        - production
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Shopify CLI
+      run: npm install -g @shopify/cli @shopify/theme
+
+    - name: Authenticate with Shopify
+      run: shopify auth login
+      env:
+        SHOPIFY_CLI_PARTNERS_TOKEN: ${{ secrets.SHOPIFY_CLI_PARTNERS_TOKEN }}
+
+    - name: Deploy theme
+      run: |
+        if [ "${{ github.event.inputs.environment }}" = "production" ]; then
+          shopify theme push --store ${{ secrets.SHOPIFY_STORE_DOMAIN }} --password ${{ secrets.SHOPIFY_ACCESS_TOKEN }}
+        else
+          shopify theme push --store ${{ secrets.SHOPIFY_STORE_DOMAIN }} --password ${{ secrets.SHOPIFY_ACCESS_TOKEN }} --theme ${{ secrets.SHOPIFY_THEME_ID_DEV }}
+        fi
+      env:
+        SHOPIFY_STORE_DOMAIN: ${{ secrets.SHOPIFY_STORE_DOMAIN }}
+        SHOPIFY_ACCESS_TOKEN: ${{ secrets.SHOPIFY_ACCESS_TOKEN }}
+        SHOPIFY_THEME_ID_DEV: ${{ secrets.SHOPIFY_THEME_ID_DEV }}

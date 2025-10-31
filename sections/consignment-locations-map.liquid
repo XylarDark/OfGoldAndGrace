@@ -1,0 +1,202 @@
+{{ 'section-consignment-locations-map.css' | asset_url | stylesheet_tag }}
+
+<div class="page-width">
+  <div class="locations-page">
+    <div class="locations-page__header">
+      <h1 class="locations-page__title">{{ page.title }}</h1>
+      {%- if page.content != blank -%}
+        <div class="locations-page__description">{{ page.content }}</div>
+      {%- endif -%}
+    </div>
+
+    <div class="locations-map">
+      <div id="consignment-map" class="locations-map__container" style="height: 520px;"></div>
+
+      <div class="locations-map__list">
+        <h2 class="locations-map__list-title">{{ 'locations.consignment_stores' | t }}</h2>
+        <div id="locations-list" class="locations-map__locations">
+          <!-- Locations will be populated by JavaScript -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin="" defer></script>
+
+<script>
+(function init() {
+  let map;
+  let markers = [];
+  let locations = [];
+
+  async function loadLocations() {
+    try {
+      const response = await fetch('{{ "consignment_locations.json" | asset_url }}');
+      locations = await response.json();
+
+      if (!Array.isArray(locations) || !locations.length) {
+        showNoLocationsMessage();
+        return;
+      }
+
+      initializeMap();
+      createLocationsList();
+    } catch (error) {
+      console.error('Failed to load consignment locations:', error);
+      showNoLocationsMessage();
+    }
+  }
+
+  function initializeMap() {
+    if (map) return;
+
+    map = L.map('consignment-map').setView([39.5, -98.35], 4);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    addMarkers();
+  }
+
+  function addMarkers() {
+    const bounds = [];
+
+    locations.forEach((location, index) => {
+      const lat = Number(location.latitude);
+      const lng = Number(location.longitude);
+
+      if (!isFinite(lat) || !isFinite(lng)) return;
+
+      const marker = L.marker([lat, lng])
+        .addTo(map)
+        .bindPopup(createPopupContent(location));
+
+      marker.on('click', () => {
+        highlightLocation(index);
+      });
+
+      markers.push(marker);
+      bounds.push([lat, lng]);
+    });
+
+    if (bounds.length > 1) {
+      map.fitBounds(bounds, { padding: [24, 24] });
+    } else if (bounds.length === 1) {
+      map.setView(bounds[0], 12);
+    }
+  }
+
+  function createPopupContent(location) {
+    const content = document.createElement('div');
+    content.className = 'location-popup';
+
+    content.innerHTML = `
+      <h3 class="location-popup__title">${location.store || location.partner}</h3>
+      ${location.address ? `<p class="location-popup__address">${location.address}</p>` : ''}
+      ${location.phone ? `<p class="location-popup__phone">${location.phone}</p>` : ''}
+      ${location.hours ? `<p class="location-popup__hours">${location.hours}</p>` : ''}
+      ${location.website ? `<a href="${location.website}" target="_blank" class="location-popup__link">Visit Website</a>` : ''}
+    `;
+
+    return content;
+  }
+
+  function createLocationsList() {
+    const listContainer = document.getElementById('locations-list');
+
+    locations.forEach((location, index) => {
+      const item = document.createElement('div');
+      item.className = 'location-item';
+      item.setAttribute('data-location-index', index);
+
+      item.innerHTML = `
+        <h3 class="location-item__title">${location.store || location.partner}</h3>
+        ${location.address ? `<p class="location-item__address">${location.address}</p>` : ''}
+        ${location.phone ? `<p class="location-item__phone">${location.phone}</p>` : ''}
+        ${location.hours ? `<p class="location-item__hours">${location.hours}</p>` : ''}
+        ${location.website ? `<a href="${location.website}" target="_blank" class="location-item__link">Visit Website</a>` : ''}
+      `;
+
+      item.addEventListener('click', () => {
+        focusOnMarker(index);
+        highlightLocation(index);
+      });
+
+      listContainer.appendChild(item);
+    });
+  }
+
+  function focusOnMarker(index) {
+    if (markers[index]) {
+      const marker = markers[index];
+      map.setView(marker.getLatLng(), 14);
+      marker.openPopup();
+    }
+  }
+
+  function highlightLocation(index) {
+    // Remove previous highlights
+    document.querySelectorAll('.location-item--active').forEach(item => {
+      item.classList.remove('location-item--active');
+    });
+
+    // Highlight current location
+    const locationItem = document.querySelector(`[data-location-index="${index}"]`);
+    if (locationItem) {
+      locationItem.classList.add('location-item--active');
+    }
+  }
+
+  function showNoLocationsMessage() {
+    const mapContainer = document.getElementById('consignment-map');
+    const listContainer = document.getElementById('locations-list');
+
+    mapContainer.innerHTML = `
+      <div class="locations-map__empty">
+        <p>{{ 'locations.no_locations' | t }}</p>
+      </div>
+    `;
+
+    listContainer.innerHTML = `
+      <p>{{ 'locations.no_locations' | t }}</p>
+    `;
+  }
+
+  // Initialize when DOM is ready or Leaflet is loaded
+  function ready() {
+    if (window.L) {
+      loadLocations();
+    } else {
+      // Wait for Leaflet to load
+      window.addEventListener('load', loadLocations);
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', ready);
+  } else {
+    ready();
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Consignment Locations Map",
+  "tag": "section",
+  "class": "section",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Consignment Locations Map"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,382 @@
+{{ 'section-main-product.css' | asset_url | stylesheet_tag }}
+
+{%- assign product = product -%}
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+
+<section class="page-width">
+  <div class="product product--{{ section.settings.gallery_layout }} grid grid--1-col grid--2-col-tablet{% if section.settings.mobile_thumbnails == 'show' %} product--mobile-thumbnails{% endif %}{% if section.settings.enable_sticky_info %} product--sticky{% endif %}">
+    <div class="grid__item product__media-wrapper">
+      <media-gallery
+        id="MediaGallery-{{ section.id }}"
+        role="region"
+        aria-label="{{ 'products.product.media.gallery_viewer' | t }}"
+        data-desktop-layout="{{ section.settings.gallery_layout }}"
+      >
+        <div class="product__media-list">
+          {%- for media in product.media -%}
+            <div class="product__media-item" data-media-id="{{ section.id }}-{{ media.id }}">
+              {% render 'product-media',
+                media: media,
+                variant_id: current_variant.id,
+                section_id: section.id,
+                zoomable: true
+              %}
+            </div>
+          {%- endfor -%}
+        </div>
+        {%- if product.media.size > 1 -%}
+          <div class="product__media-nav">
+            <button type="button" class="product__media-nav-button product__media-nav-button--prev" disabled>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <div class="product__media-nav-dots">
+              {%- for media in product.media -%}
+                <button
+                  type="button"
+                  class="product__media-nav-dot{% if forloop.first %} is-active{% endif %}"
+                  aria-label="{{ 'products.product.media.navigate_to' | t: position: forloop.index }}"
+                  data-media-id="{{ section.id }}-{{ media.id }}"
+                ></button>
+              {%- endfor -%}
+            </div>
+            <button type="button" class="product__media-nav-button product__media-nav-button--next">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M6 12l4-4-4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+        {%- endif -%}
+      </media-gallery>
+    </div>
+
+    <div class="product__info-wrapper grid__item">
+      <div class="product__info-container">
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'title' -%}
+              <h1 class="product__title">{{ product.title }}</h1>
+            {%- when 'price' -%}
+              <div class="product__price">
+                {%- render 'price', product: product, use_variant: true -%}
+              </div>
+            {%- when 'variant_selector' -%}
+              {%- if product.has_only_default_variant != true or product.variants.size > 1 -%}
+                <variant-selector
+                  data-section="{{ section.id }}"
+                  data-url="{{ product.url }}"
+                  data-update-url="false"
+                >
+                  {%- for option in product.options_with_values -%}
+                    <div class="product__option">
+                      <label for="Option-{{ section.id }}-{{ forloop.index0 }}">{{ option.name }}</label>
+                      <div class="product__option-values">
+                        {%- for value in option.values -%}
+                          <input
+                            type="radio"
+                            id="Option{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+                            name="option{{ option.position }}"
+                            value="{{ value | escape }}"
+                            {% if option.selected_value == value %}checked{% endif %}
+                            data-option-position="{{ option.position }}"
+                          >
+                          <label
+                            for="Option{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+                            class="product__option-value{% if block.settings.show_swatches %} product__option-swatch{% endif %}"
+                            {% if block.settings.show_swatches %}style="background-color: {{ value | downcase | replace: ' ', '' | replace: 'gold', '#FFD700' | replace: 'silver', '#C0C0C0' | replace: 'rose', '#FFB6C1' | replace: 'platinum', '#E5E4E2' }}"{% endif %}
+                          >
+                            {{ value }}
+                          </label>
+                        {%- endfor -%}
+                      </div>
+                    </div>
+                  {%- endfor -%}
+                </variant-selector>
+              {%- endif -%}
+            {%- when 'size_guide' -%}
+              <button type="button" class="product__size-guide-button" data-size-guide>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1"/>
+                  <text x="8" y="11" text-anchor="middle" font-size="10" fill="currentColor">?</text>
+                </svg>
+                {{ 'products.product.view_size_guide' | t }}
+              </button>
+            {%- when 'quantity_selector' -%}
+              <div class="product__quantity">
+                <label for="Quantity-{{ section.id }}">{{ 'products.product.quantity.label' | t }}</label>
+                <quantity-input class="quantity">
+                  <button class="quantity__button" name="minus" type="button">
+                    <span class="visually-hidden">{{ 'products.product.quantity.decrease' | t: product: product.title | escape }}</span>
+                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                      <path d="M2 5h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                  </button>
+                  <input
+                    class="quantity__input"
+                    type="number"
+                    name="quantity"
+                    id="Quantity-{{ section.id }}"
+                    min="1"
+                    value="1"
+                    maxlength="3"
+                    pattern="[0-9]*"
+                  >
+                  <button class="quantity__button" name="plus" type="button">
+                    <span class="visually-hidden">{{ 'products.product.quantity.increase' | t: product: product.title | escape }}</span>
+                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                      <path d="M5 2v6M2 5h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                  </button>
+                </quantity-input>
+              </div>
+            {%- when 'buy_buttons' -%}
+              <div class="product__buy-buttons">
+                <product-form class="product-form">
+                  <div class="product-form__buttons">
+                    {%- if product.available -%}
+                      <button
+                        type="submit"
+                        name="add"
+                        class="product-form__submit button button--full-width{% if block.settings.show_gift_wrap %} button--secondary{% endif %}"
+                        {% if product.selected_or_first_available_variant.available == false %}disabled{% endif %}
+                      >
+                        <span>
+                          {%- if product.selected_or_first_available_variant.available -%}
+                            {{ 'products.product.add_to_cart' | t }}
+                          {%- else -%}
+                            {{ 'products.product.sold_out' | t }}
+                          {%- endif -%}
+                        </span>
+                        <div class="loading-overlay__spinner hidden">
+                          <svg aria-hidden="true" focusable="false" role="presentation" class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                            <circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
+                          </svg>
+                        </div>
+                      </button>
+                    {%- else -%}
+                      <button type="submit" class="product-form__submit button button--full-width button--sold-out" disabled>
+                        {{ 'products.product.sold_out' | t }}
+                      </button>
+                    {%- endif -%}
+
+                    {%- if block.settings.show_gift_wrap -%}
+                      <div class="product__gift-wrap">
+                        <input type="checkbox" id="gift-wrap-{{ section.id }}" name="properties[Gift wrap]">
+                        <label for="gift-wrap-{{ section.id }}">{{ 'products.product.gift_wrap' | t }}</label>
+                      </div>
+                    {%- endif -%}
+                  </div>
+                </product-form>
+              </div>
+            {%- when 'delivery_estimate' -%}
+              {%- render 'delivery-estimate', product: product -%}
+            {%- when 'care_warranty' -%}
+              {%- render 'care-warranty' -%}
+            {%- when 'description' -%}
+              <div class="product__description">
+                {{ product.description }}
+              </div>
+            {%- when 'collapsible_tabs' -%}
+              <div class="product__collapsible-tabs">
+                <details class="product__tab">
+                  <summary class="product__tab-summary">
+                    <span>{{ 'products.product.shipping_returns' | t }}</span>
+                  </summary>
+                  <div class="product__tab-content">
+                    <p>{{ 'products.product.shipping_info' | t }}</p>
+                    <p>{{ 'products.product.returns_info' | t }}</p>
+                  </div>
+                </details>
+              </div>
+          {%- endcase -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{%- render 'size-guide' -%}
+
+<script>
+  // Basic product form handling
+  document.addEventListener('DOMContentLoaded', function() {
+    const productForm = document.querySelector('.product-form');
+    if (!productForm) return;
+
+    // Handle variant changes
+    const variantInputs = productForm.querySelectorAll('input[type="radio"]');
+    variantInputs.forEach(input => {
+      input.addEventListener('change', function() {
+        // Update selected variant logic would go here
+        // This is a placeholder for the actual variant selection logic
+      });
+    });
+
+    // Handle quantity changes
+    const quantityButtons = productForm.querySelectorAll('.quantity__button');
+    quantityButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        const input = button.parentElement.querySelector('.quantity__input');
+        const currentValue = parseInt(input.value) || 1;
+        if (button.name === 'plus') {
+          input.value = currentValue + 1;
+        } else if (button.name === 'minus' && currentValue > 1) {
+          input.value = currentValue - 1;
+        }
+      });
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Product",
+  "tag": "section",
+  "class": "section",
+  "blocks": [
+    {
+      "type": "title",
+      "name": "Product title",
+      "limit": 1
+    },
+    {
+      "type": "price",
+      "name": "Product price",
+      "limit": 1
+    },
+    {
+      "type": "variant_selector",
+      "name": "Variant selector",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_swatches",
+          "label": "Show color swatches for metal options",
+          "default": true
+        }
+      ]
+    },
+    {
+      "type": "size_guide",
+      "name": "Size guide",
+      "limit": 1
+    },
+    {
+      "type": "quantity_selector",
+      "name": "Quantity selector",
+      "limit": 1
+    },
+    {
+      "type": "buy_buttons",
+      "name": "Buy buttons",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_gift_wrap",
+          "label": "Show gift wrap option",
+          "default": true
+        }
+      ]
+    },
+    {
+      "type": "delivery_estimate",
+      "name": "Delivery estimate",
+      "limit": 1
+    },
+    {
+      "type": "care_warranty",
+      "name": "Care & warranty",
+      "limit": 1
+    },
+    {
+      "type": "description",
+      "name": "Product description",
+      "limit": 1
+    },
+    {
+      "type": "collapsible_tabs",
+      "name": "Collapsible tabs",
+      "limit": 1
+    }
+  ],
+  "settings": [
+    {
+      "type": "select",
+      "id": "gallery_layout",
+      "options": [
+        {
+          "value": "stacked",
+          "label": "Stacked"
+        },
+        {
+          "value": "thumbnail",
+          "label": "Thumbnail"
+        },
+        {
+          "value": "carousel",
+          "label": "Carousel"
+        }
+      ],
+      "default": "stacked",
+      "label": "Gallery layout"
+    },
+    {
+      "type": "select",
+      "id": "media_size",
+      "options": [
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        }
+      ],
+      "default": "large",
+      "label": "Media size"
+    },
+    {
+      "type": "select",
+      "id": "mobile_thumbnails",
+      "options": [
+        {
+          "value": "show",
+          "label": "Show"
+        },
+        {
+          "value": "hide",
+          "label": "Hide"
+        }
+      ],
+      "default": "show",
+      "label": "Mobile thumbnails"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_variants",
+      "label": "Hide variants without available inventory",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_video_looping",
+      "label": "Enable video looping",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sticky_info",
+      "label": "Enable sticky info",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

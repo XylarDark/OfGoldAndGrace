@@ -1,0 +1,69 @@
+<div class="product-care-warranty">
+  <div class="care-warranty__section">
+    <h3 class="care-warranty__title">{{ 'products.product.care_instructions' | t }}</h3>
+    <ul class="care-warranty__list">
+      <li>{{ 'products.product.care_clean' | t }}</li>
+      <li>{{ 'products.product.care_store' | t }}</li>
+      <li>{{ 'products.product.care_avoid' | t }}</li>
+      <li>{{ 'products.product.care_professional' | t }}</li>
+    </ul>
+  </div>
+
+  <div class="care-warranty__section">
+    <h3 class="care-warranty__title">{{ 'products.product.warranty' | t }}</h3>
+    <p class="care-warranty__text">{{ 'products.product.warranty_text' | t }}</p>
+  </div>
+
+  <div class="care-warranty__section">
+    <h3 class="care-warranty__title">{{ 'products.product.authenticity' | t }}</h3>
+    <p class="care-warranty__text">{{ 'products.product.authenticity_text' | t }}</p>
+  </div>
+</div>
+
+<style>
+.product-care-warranty {
+  margin-top: 32px;
+  padding: 24px;
+  background: #f9f9f9;
+  border-radius: 8px;
+}
+
+.care-warranty__section {
+  margin-bottom: 24px;
+}
+
+.care-warranty__section:last-child {
+  margin-bottom: 0;
+}
+
+.care-warranty__title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #333;
+}
+
+.care-warranty__list {
+  list-style: disc;
+  padding-left: 20px;
+  margin: 0;
+}
+
+.care-warranty__list li {
+  margin-bottom: 8px;
+  line-height: 1.5;
+  color: #666;
+}
+
+.care-warranty__text {
+  margin: 0;
+  line-height: 1.6;
+  color: #666;
+}
+
+@media (max-width: 768px) {
+  .product-care-warranty {
+    padding: 16px;
+  }
+}
+</style>

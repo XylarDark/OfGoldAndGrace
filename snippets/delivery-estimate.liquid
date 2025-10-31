@@ -1,0 +1,66 @@
+<div class="delivery-estimate">
+  <div class="delivery-estimate__icon">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+      <path d="M10 1.5c-4.7 0-8.5 3.8-8.5 8.5s3.8 8.5 8.5 8.5 8.5-3.8 8.5-8.5-3.8-8.5-8.5-8.5zM10 17c-3.9 0-7-3.1-7-7s3.1-7 7-7 7 3.1 7 7-3.1 7-7 7z" fill="currentColor"/>
+      <path d="M13.5 9.5l-3.5 2-3.5-2V7l3.5 2 3.5-2v2.5z" fill="currentColor"/>
+    </svg>
+  </div>
+  <div class="delivery-estimate__content">
+    <p class="delivery-estimate__text">
+      <strong>{{ 'products.product.delivery_estimate' | t }}</strong>
+      {% if product.available %}
+        {{ 'products.product.delivery_standard' | t }}
+      {% else %}
+        {{ 'products.product.delivery_backorder' | t }}
+      {% endif %}
+    </p>
+    <p class="delivery-estimate__note">{{ 'products.product.delivery_note' | t }}</p>
+  </div>
+</div>
+
+<style>
+.delivery-estimate {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px;
+  background: #f0f8ff;
+  border: 1px solid #e0f0ff;
+  border-radius: 6px;
+  margin: 16px 0;
+}
+
+.delivery-estimate__icon {
+  flex-shrink: 0;
+  color: #0066cc;
+  margin-top: 2px;
+}
+
+.delivery-estimate__text {
+  margin: 0 0 4px 0;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #333;
+}
+
+.delivery-estimate__note {
+  margin: 0;
+  font-size: 13px;
+  color: #666;
+  line-height: 1.4;
+}
+
+@media (max-width: 768px) {
+  .delivery-estimate {
+    padding: 12px;
+  }
+
+  .delivery-estimate__text {
+    font-size: 13px;
+  }
+
+  .delivery-estimate__note {
+    font-size: 12px;
+  }
+}
+</style>

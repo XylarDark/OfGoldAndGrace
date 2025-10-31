@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "main": {
+      "type": "consignment-locations-map",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

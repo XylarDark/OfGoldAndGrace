@@ -1,0 +1,46 @@
+# Cursor repo rules for Shopify theme (Liquid + JS + CSS)
+
+project_goals:
+  - Keep costs minimal: Shopify theme only; no headless stack.
+  - Prioritize accessibility, performance, and SEO.
+  - Do not add paid services without explicit approval.
+
+languages:
+  - liquid
+  - javascript
+  - css
+  - json
+
+guardrails:
+  - Never commit secrets; Google Maps key lives in theme settings; restrict via referrer.
+  - Do not introduce server-side code or external runtimes.
+  - Prefer native Shopify features (Search & Discovery, Metaobjects) over custom APIs.
+  - Any app install must have a free tier and be listed in PR notes.
+
+code_style:
+  liquid:
+    - Use sections/snippets; avoid inline scripts where possible
+    - Keep logic minimal; prefer settings/blocks for configuration
+  js:
+    - ES2020+, no frameworks; small, modular scripts in assets/
+    - Defer non-critical JS; no blocking third-party scripts
+  css:
+    - Use theme tokens; prefer utility classes; avoid !important
+
+files:
+  - Protect: layout/, config/, locales/
+  - Theme settings go in config/settings_schema.json
+  - New UI in sections/ with schema; shareables in snippets/
+
+review:
+  - Run Shopify CLI preview before committing
+  - Lint JSON and CSS; prettier for JSON/JS
+  - Check Lighthouse >= 85 performance, 90 accessibility on PDP and home
+
+testing:
+  - Cross-browser test: Chrome, Safari, iOS Safari
+  - Cart, checkout, and variant selection flows must pass
+
+commits:
+  - Conventional commits: feat:, fix:, refactor:, chore:, perf:, docs:
+  - Describe theme areas touched (e.g., sections/product, snippets/price)
