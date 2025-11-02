@@ -48,6 +48,36 @@ This project follows comprehensive development standards curated from [cursor.di
 - Shopify CLI (`npm install -g @shopify/cli @shopify/theme`)
 - Git
 
+### Worktrees Setup
+
+When creating a new Git worktree, this theme automatically runs setup commands to ensure your development environment is ready.
+
+**Automatic Setup (runs on `git worktree add`):**
+- Installs Node.js dependencies using `npm ci`
+- Verifies Shopify CLI installation and runs theme checks
+
+**Manual Re-run:**
+```bash
+npm run setup:worktree
+```
+
+**Shopify CLI Installation:**
+
+**Windows:**
+```bash
+winget install Shopify.cli
+```
+
+**macOS:**
+```bash
+brew install shopify-cli
+```
+
+**Linux/other:**
+Visit: https://shopify.dev/docs/themes/tools/cli/install
+
+After installing, run: `shopify auth login`
+
 ### Local Development
 
 ```bash
@@ -818,3 +848,5 @@ When rules change significantly, migration guides are provided in the PR descrip
 - [ ] Add advanced blog/newsletter features
 - [ ] Implement AI-powered search suggestions
 - [ ] Add progressive web app capabilities
+#   T e s t   c o m m i t   t o   v e r i f y   n o   G i t H u b   a u t o m a t i o n   r u n s  
+ 
