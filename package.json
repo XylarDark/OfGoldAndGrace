@@ -10,6 +10,8 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "setup": "node scripts/setup.js",
+    "setup:worktree": "npm ci --no-audit --no-fund && npm run tools:verify",
+    "tools:verify": "node scripts/verify-tools.js",
     "dev": "shopify theme dev",
     "dev:live": "shopify theme dev --live-reload",
     "deploy": "shopify theme push",
